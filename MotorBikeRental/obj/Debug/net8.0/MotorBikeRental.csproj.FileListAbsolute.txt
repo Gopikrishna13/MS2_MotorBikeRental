@@ -136,3 +136,4 @@ C:\Users\acer\Desktop\MS2_MotorBikeRental\MotorBikeRental\obj\Debug\net8.0\refin
 C:\Users\acer\Desktop\MS2_MotorBikeRental\MotorBikeRental\obj\Debug\net8.0\MotorBikeRental.pdb
 C:\Users\acer\Desktop\MS2_MotorBikeRental\MotorBikeRental\obj\Debug\net8.0\MotorBikeRental.genruntimeconfig.cache
 C:\Users\acer\Desktop\MS2_MotorBikeRental\MotorBikeRental\obj\Debug\net8.0\ref\MotorBikeRental.dll
+C:\Users\acer\Desktop\MS2_MotorBikeRental\MotorBikeRental\obj\Debug\net8.0\MotorBikeRental.sourcelink.json
