@@ -17,12 +17,4 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.7.3" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="DTOs\" />
-    <Folder Include="IRepository\" />
-    <Folder Include="Iservice\" />
-    <Folder Include="Repository\" />
-    <Folder Include="Service\" />
-  </ItemGroup>
-
 </Project>

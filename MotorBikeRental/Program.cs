@@ -1,8 +1,12 @@
 
-using Microsoft.Extensions.DependencyInjection;
+
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Data.SqlClient;
+using MotorBikeRental.IRepository;
+using MotorBikeRental.Iservice;
+using MotorBikeRental.Service;
+using MotorBikeRental.Repository;
 
 namespace MotorBikeRental
 {
@@ -21,6 +25,10 @@ var connectionString = builder.Configuration.GetConnectionString("DbConnection")
 
 
 builder.Services.AddSingleton(new MotorBikeRental.Database.DbContext(connectionString));
+
+
+builder.Services.AddScoped<IUserRepository>(provider => new UserRepository(connectionString));
+builder.Services.AddScoped<IUserService, UserService>();
 
 var app = builder.Build();
 
