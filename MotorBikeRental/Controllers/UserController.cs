@@ -44,5 +44,47 @@ namespace MotorBikeRental.Controllers
                 return BadRequest(ex.Message);
             } 
         }
+
+        [HttpGet("GetById")]
+        public async Task<IActionResult> GetUserById(int Id)
+        {
+            try{
+
+                var getById=await _userService.GetUserById(Id);
+                return Ok(getById);
+
+            }catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            } 
+        }
+
+        [HttpPut("UpdateUser")]
+        public async Task<IActionResult> UpdateUser(int Id,UserRequestDTO userRequestDTO)
+        {
+             try{
+
+                var updateuser=await _userService.UpdateUser(Id,userRequestDTO);
+                return Ok(updateuser);
+
+            }catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            } 
+
+        }
+
+        [HttpDelete("DeletUser")]
+        public async Task<IActionResult> DeleteUser(int Id)
+        {
+            try{
+                var deleteData=await _userService.DeleteUser(Id);
+                return Ok("User Deleted Successfully");
+                
+            }catch(Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
     } 
 }

@@ -8,6 +8,9 @@ public interface IUserService
 {
     Task <UserResponseDTO> AddUser(UserRequestDTO userRequestDTO);
     Task <List<UserResponseDTO>> GetAllUsers();
+    Task<UserResponseDTO> GetUserById(int Id);
+    Task<UserResponseDTO> UpdateUser(int Id,UserRequestDTO userRequestDTO);
+    Task<bool> DeleteUser(int Id);
 }
 
 }

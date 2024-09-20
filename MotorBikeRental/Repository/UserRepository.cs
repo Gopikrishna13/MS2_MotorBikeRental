@@ -63,9 +63,80 @@ namespace MotorBikeRental.Repository
 
              using(var connection=new SqlConnection(_connectionString))
              {
-                var users = await connection.QueryAsync<User>(query); 
+                var users = await connection.QueryAsync<User>(query); //Dapper
                 return users.ToList();
              }
         }
+
+      public async  Task<User> GetUserById(int Id)
+      {
+        var query=@"select * from Users where UserId=@Id";
+        using(var connection=new SqlConnection(_connectionString))
+        {
+            var users=await connection.QueryFirstOrDefaultAsync<User>(query, new { Id });
+            return users;
+        }
+      }
+
+
+    public async Task<User> UpdateUser(int Id, User user)
+{
+    var query = @"
+        UPDATE Users 
+        SET 
+            FirstName = @FirstName,
+            LastName = @LastName,
+            UserName = @UserName,
+            Password = @Password,
+            NIC = @NIC,
+            Email = @Email,
+            LicenseNumber = @LicenseNumber
+        WHERE UserId = @Id";
+
+    using (var connection = new SqlConnection(_connectionString))
+    {
+       
+        var affectedRows = await connection.ExecuteAsync(query, new
+        {
+            Id,
+            user.FirstName,
+            user.LastName,
+            user.UserName,
+            user.Password,
+            user.NIC,
+            user.Email,
+            user.LicenseNumber
+        });
+
+   
+        if (affectedRows == 0)
+        {
+            return null; 
+        }
+
+      
+   
+
+        return user;
+    }
+}
+
+
+
+public async Task<bool> DeleteUser(int Id)
+{
+    var query=@"delete  from Users where UserId=@Id";
+
+    using(var connection=new SqlConnection(_connectionString))
+    {
+        var user=await connection.ExecuteAsync(query,new {Id});
+        return true;
+
+    }
+
+    
+      
+}
+
     }
 }

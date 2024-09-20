@@ -81,6 +81,79 @@ public async Task<List<UserResponseDTO>> GetAllUsers()
     return responseDTO;
 }
 
+public async Task<UserResponseDTO> GetUserById(int Id)
+{
+    var getById=await _userRepository.GetUserById(Id);
+    if(getById==null)
+    {
+        return null;
+    }
+
+    var response=new UserResponseDTO{
+            FirstName = getById.FirstName,
+            LastName = getById.LastName,
+            UserName = getById.UserName,
+            Password=getById.Password,
+            NIC=getById.NIC,
+            Email = getById.Email,
+            LicenseNumber=getById.LicenseNumber
+
+    };
+    return response;
+}
+
+
+   public async Task<UserResponseDTO> UpdateUser(int Id,UserRequestDTO userRequestDTO)
+   {
+var isUnique=await _userRepository.CheckUnique(userRequestDTO.UserName,userRequestDTO.Email,userRequestDTO.LicenseNumber
+);
+
+if(!isUnique)
+{
+    throw new Exception("Data already Exists");
+}
+    var user=new User{
+        FirstName =userRequestDTO.FirstName,
+        LastName  =userRequestDTO.LastName,
+        UserName  =userRequestDTO.UserName,
+        Password  =userRequestDTO.Password,
+        NIC  =userRequestDTO.NIC,
+        Email  =userRequestDTO.Email,
+        LicenseNumber=userRequestDTO.LicenseNumber
+    };
+     var update=await _userRepository.UpdateUser(Id,user);
+     if(update==null)
+     {
+        return null;
+     }
+
+
+     var response=new UserResponseDTO{
+           FirstName = update.FirstName,
+            LastName = update.LastName,
+            UserName = update.UserName,
+            Password=update.Password,
+            NIC=update.NIC,
+            Email = update.Email,
+            LicenseNumber=update.LicenseNumber
+
+     };
+     return response;
+   }
+
+
+  public async Task<bool> DeleteUser(int Id)
+  {
+    var data=await _userRepository.DeleteUser(Id);
+    if(!data)
+    {
+        return false;
+    }
+
+    return true;
+  }
+
+
 }
 
 }
