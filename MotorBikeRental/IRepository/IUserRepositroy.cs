@@ -9,6 +9,7 @@ public interface IUserRepository
 {
    Task<User > AddUser(User user);
    Task <bool> CheckUnique(string UserName,string Email,string LicenseNumber);
+   Task <List<User>> GetAllUsers();
 
 }
 }

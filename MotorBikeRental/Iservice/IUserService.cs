@@ -7,7 +7,9 @@ namespace MotorBikeRental.Iservice
 public interface IUserService
 {
     Task <UserResponseDTO> AddUser(UserRequestDTO userRequestDTO);
+    Task <List<UserResponseDTO>> GetAllUsers();
 }
+
 }
 
 

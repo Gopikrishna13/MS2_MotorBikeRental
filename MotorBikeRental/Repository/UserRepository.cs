@@ -2,6 +2,7 @@ using System;
 using Microsoft.Data.SqlClient;
 using MotorBikeRental.Database.Entities;
 using MotorBikeRental.IRepository;
+using Dapper;
 
 namespace MotorBikeRental.Repository
 {
@@ -54,6 +55,17 @@ namespace MotorBikeRental.Repository
                 var result = (int)await command.ExecuteScalarAsync();//An asynchronous version of ExecuteScalar(), which executes the command and returns the first column of the first row in the first returned result set.
                 return result == 0;//if result=0 true else false
             }
+        }
+
+       public async  Task <List<User>> GetAllUsers()
+        {
+             var query=@"select * from Users";
+
+             using(var connection=new SqlConnection(_connectionString))
+             {
+                var users = await connection.QueryAsync<User>(query); 
+                return users.ToList();
+             }
         }
     }
 }

@@ -58,6 +58,28 @@ if(!isUnique)
 
 }
 
+public async Task<List<UserResponseDTO>> GetAllUsers()
+{
+    var getAll = await _userRepository.GetAllUsers(); 
+    
+    if (getAll == null ) 
+    {
+        return new List<UserResponseDTO>(); 
+    }
+
+    var responseDTO = getAll.Select(X => new UserResponseDTO
+    {
+        FirstName = X.FirstName,
+        LastName = X.LastName,
+        UserName = X.UserName,
+        Password = X.Password,
+        NIC = X.NIC,
+        Email = X.Email,
+        LicenseNumber = X.LicenseNumber
+    }).ToList();
+
+    return responseDTO;
+}
 
 }
 

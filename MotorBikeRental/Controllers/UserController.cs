@@ -29,5 +29,20 @@ namespace MotorBikeRental.Controllers
                 return BadRequest(ex.Message);
             } 
         } 
+
+
+        [HttpGet("AllUsers")]
+        public async Task <IActionResult> GetAllUsers()
+        {
+            try{
+
+                var getUser=await _userService.GetAllUsers();
+                return Ok(getUser);
+
+            }catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            } 
+        }
     } 
 }
