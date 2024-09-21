@@ -44,7 +44,7 @@ if(!isUnique)
     var data=await _userRepository.AddUser(user);
 
     var userResponse=new UserResponseDTO{
-            
+            UserId=data.UserId,
             FirstName = data.FirstName,
             LastName = data.LastName,
             UserName = data.UserName,
@@ -90,6 +90,7 @@ public async Task<UserResponseDTO> GetUserById(int Id)
     }
 
     var response=new UserResponseDTO{
+        
             FirstName = getById.FirstName,
             LastName = getById.LastName,
             UserName = getById.UserName,
@@ -129,7 +130,8 @@ if(!isUnique)
 
 
      var response=new UserResponseDTO{
-           FirstName = update.FirstName,
+            UserId=update.UserId,
+            FirstName = update.FirstName,
             LastName = update.LastName,
             UserName = update.UserName,
             Password=update.Password,

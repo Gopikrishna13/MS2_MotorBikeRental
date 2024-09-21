@@ -15,44 +15,48 @@ namespace MotorBikeRental.Repository
             _connectionString = connectionString;
         }
 
-        public async Task<User> AddUser(User user)
+     public async Task<User> AddUser(User user)
+{
+    using (var connection = new SqlConnection(_connectionString))
+    {
+       
+        var query = @"
+            INSERT INTO Users (FirstName, LastName, UserName, Password, NIC, Email, LicenseNumber) 
+            OUTPUT INSERTED.UserId  
+            VALUES (@FirstName, @LastName, @UserName, @Password, @NIC, @Email, @LicenseNumber);";
+      
+        var userId = await connection.ExecuteScalarAsync<int>(query, new
         {
-            using (var connection = new SqlConnection(_connectionString))
-            {
-                var query = @"Insert into Users (FirstName, LastName, UserName, Password, NIC, Email, LicenseNumber) 
-                              Values (@FirstName, @LastName, @UserName, @Password, @NIC, @Email, @LicenseNumber)";
+            user.FirstName,
+            user.LastName,
+            user.UserName,
+            user.Password,
+            user.NIC,
+            user.Email,
+            user.LicenseNumber
+        });
 
-                using (var command = new SqlCommand(query, connection))
-                {
-                    command.Parameters.AddWithValue("@FirstName", user.FirstName);
-                    command.Parameters.AddWithValue("@LastName", user.LastName);
-                    command.Parameters.AddWithValue("@UserName", user.UserName);
-                    command.Parameters.AddWithValue("@Password", user.Password);
-                    command.Parameters.AddWithValue("@NIC", user.NIC);
-                    command.Parameters.AddWithValue("@Email", user.Email);
-                    command.Parameters.AddWithValue("@LicenseNumber", user.LicenseNumber);
+       
+        user.UserId = userId;
+    }
 
-                    await connection.OpenAsync();
-                    await command.ExecuteNonQueryAsync();//Does not return output
-                }
-            }
-
-            return user;
-        }
-
+    return user;
+}
         public async Task<bool> CheckUnique(string UserName, string Email, string LicenseNumber)
         {
             var query = "SELECT COUNT(1) FROM Users WHERE Email = @Email OR LicenseNumber = @LicenseNumber OR UserName = @UserName";
-//Count will return 0 if no record match 1 or 2 if record match
+//COUNT(1) returns the number of rows that match the condition. 
+//If no rows match, COUNT(1) returns 0. If one or more rows match, it returns a number greater than 1
             using (var connection = new SqlConnection(_connectionString))
             {
-                var command = new SqlCommand(query, connection);
-                command.Parameters.AddWithValue("@Email", Email);
-                command.Parameters.AddWithValue("@LicenseNumber", LicenseNumber);
-                command.Parameters.AddWithValue("@UserName", UserName);
+               
 
-                await connection.OpenAsync();
-                var result = (int)await command.ExecuteScalarAsync();//An asynchronous version of ExecuteScalar(), which executes the command and returns the first column of the first row in the first returned result set.
+              
+                var result = (int)await connection.ExecuteScalarAsync(query,new{
+                    UserName,
+                    Email,
+                    LicenseNumber
+                });//asynchronous method that executes the query and returns a single value from the database.
                 return result == 0;//if result=0 true else false
             }
         }
@@ -125,12 +129,33 @@ namespace MotorBikeRental.Repository
 
 public async Task<bool> DeleteUser(int Id)
 {
+
+    var checkUser="Select Count(1) from RentalRequest where RentalRequest.UserId=@Id";
+
+
     var query=@"delete  from Users where UserId=@Id";
 
     using(var connection=new SqlConnection(_connectionString))
     {
-        var user=await connection.ExecuteAsync(query,new {Id});
-        return true;
+
+       try
+{
+    var count_user = (int)await connection.ExecuteScalarAsync(checkUser, new { Id });
+    if (count_user > 0)
+    {
+        return false; 
+    }
+
+    await connection.ExecuteAsync(query, new { Id });
+    return true; 
+}
+catch (Exception ex)
+{
+    Console.WriteLine($"Error occurred: {ex.Message}");
+    return false; // Indicate failure
+}
+
+ 
 
     }
 
