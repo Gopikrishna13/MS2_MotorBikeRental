@@ -30,6 +30,11 @@ builder.Services.AddSingleton(new MotorBikeRental.Database.DbContext(connectionS
 builder.Services.AddScoped<IUserRepository>(provider => new UserRepository(connectionString));
 builder.Services.AddScoped<IUserService, UserService>();
 
+
+builder.Services.AddScoped<IAdminRepository>(provider => new AdminRepository(connectionString));
+builder.Services.AddScoped<IAdminService, AdminService>();
+
+
 var app = builder.Build();
 
 
