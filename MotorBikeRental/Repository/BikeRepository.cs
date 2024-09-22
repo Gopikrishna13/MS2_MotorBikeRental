@@ -72,6 +72,30 @@ namespace MotorBikeRental.Repository
     }
   }
 
+  public async Task<bool> DeleteBike(int id)
+{
+    var chkBikeQuery = @"SELECT COUNT(1) FROM RentalRequest WHERE BikeId = @Id";
+    var deleteQuery = @"DELETE FROM Bikes WHERE BikeId = @Id";
+
+    using (var connection = new SqlConnection(_connectionString))
+    {
+       
+        var rentalCount = await connection.ExecuteScalarAsync<int>(chkBikeQuery, new { Id = id });
+        
+        if (rentalCount > 0)
+        {
+         
+            return false;
+        }
+
+      
+        var deletedRows = await connection.ExecuteAsync(deleteQuery, new { Id = id });
+        
+      
+        return deletedRows > 0;
+    }
+}
+
 }
 
 }

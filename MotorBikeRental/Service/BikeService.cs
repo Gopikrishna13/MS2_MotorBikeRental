@@ -79,6 +79,18 @@ public async Task <List<BikeResponseDTO>> GetAllBikes()
 
 }
 
+public async Task <bool> DeleteBike(int Id)
+{
+    var data=await _bikeRepository.DeleteBike(Id);
+
+    if(data==null)
+    {
+        return false;
+    }
+
+    return true;
+}
+
 }
 
 }

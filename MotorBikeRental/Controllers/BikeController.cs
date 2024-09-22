@@ -44,5 +44,19 @@ namespace MotorBikeRental.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        [HttpDelete("DeleteBike")]
+        public async Task <IActionResult> DeleteBike(int Id)
+        {
+            try{
+
+                var data=await _bikeService.DeleteBike(Id);
+                return Ok("Bike Deleted Successfully");
+
+            }catch(Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
     }
 }

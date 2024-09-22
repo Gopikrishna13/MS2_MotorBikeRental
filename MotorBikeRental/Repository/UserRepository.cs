@@ -140,7 +140,7 @@ public async Task<bool> DeleteUser(int Id)
 
        try
 {
-    var count_user = (int)await connection.ExecuteScalarAsync(checkUser, new { Id });
+    var count_user = await connection.ExecuteScalarAsync<int>(checkUser, new { Id });
     if (count_user > 0)
     {
         return false; 
@@ -152,7 +152,7 @@ public async Task<bool> DeleteUser(int Id)
 catch (Exception ex)
 {
     Console.WriteLine($"Error occurred: {ex.Message}");
-    return false; // Indicate failure
+    return false;
 }
 
  
