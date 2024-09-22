@@ -61,6 +61,17 @@ namespace MotorBikeRental.Repository
 
     }
 
+  public async  Task <List<AllBikes>> GetAllBikes()
+  {
+    var query=@"select * from Bikes";
+
+    using(var connection=new SqlConnection(_connectionString))
+    {
+        var result=await connection.QueryAsync<AllBikes>(query);
+        return result.ToList();
+    }
+  }
+
 }
 
 }

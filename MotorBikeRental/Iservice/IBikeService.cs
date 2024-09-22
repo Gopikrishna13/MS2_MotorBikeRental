@@ -8,6 +8,7 @@ namespace MotorBikeRental.Iservice
     public interface IBikeService
 {
     Task<List<BikeResponseDTO>> AddBike(BikeRequestDTO bikeRequestDTO);
+    Task <List<BikeResponseDTO>> GetAllBikes();
 
 }
 

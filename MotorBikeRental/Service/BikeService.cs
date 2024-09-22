@@ -56,6 +56,29 @@ namespace MotorBikeRental.Service
     return responseList;
 }
 
+
+public async Task <List<BikeResponseDTO>> GetAllBikes()
+{
+
+    var data=await _bikeRepository.GetAllBikes();
+
+    if(data==null)
+    {
+        throw new Exception("No Bikes found");
+    }
+
+   var response=data.Select(x=>new BikeResponseDTO{
+            BikeId = x.BikeId,
+            BikeName = x.BikeName,
+            Rent = x.Rent,
+            RegNo = x.RegNo,  
+            Status = x.Status
+   }).ToList();
+
+   return response;
+
+}
+
 }
 
 }

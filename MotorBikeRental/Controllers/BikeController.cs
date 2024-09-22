@@ -29,5 +29,20 @@ namespace MotorBikeRental.Controllers
             }
 
         }
+
+        [HttpGet("AllBikes")]
+
+        public async Task <IActionResult> GetAllBikes()
+        {
+            try{
+
+                var getbike=await _bikeService.GetAllBikes();
+                return Ok(getbike);
+
+            }catch(Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
     }
 }
