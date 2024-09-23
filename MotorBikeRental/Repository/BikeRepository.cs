@@ -170,6 +170,19 @@ public async   Task <bool> UpdateImages(int ImageId,BikeImages imageRequest)
     return true;
 }
 
+
+public async Task <bool> DeleteImage(int ImageId)
+{
+    var query=@"delete from BikeImages where ImageId=@ImageId";
+
+    using(var connection=new SqlConnection(_connectionString))
+    {
+        var result=await connection.ExecuteAsync(query,new{ImageId});
+
+    }
+    return true;
+}
+
 }
 
 }

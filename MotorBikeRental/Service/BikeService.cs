@@ -158,6 +158,20 @@ public async Task <bool> UpdateImages(int ImageId,BikeImageRequestDTO imageReque
     return true;
 }
 
+
+public async Task <bool> DeleteImage(int ImageId)
+{
+    var checkImgId=await _bikeRepository.checkImgId(ImageId);
+
+    if(!checkImgId)
+    {
+        throw new Exception("No such Image");
+    }
+
+    var data=await _bikeRepository.DeleteImage(ImageId);
+    return true;
+}
+
 }
 
 }

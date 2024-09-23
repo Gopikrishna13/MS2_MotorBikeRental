@@ -87,5 +87,20 @@ namespace MotorBikeRental.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+
+        [HttpDelete("DeleteImage")]
+        public async Task <IActionResult> DeleteImage(int ImageId)
+        {
+            try{
+
+                var data=await _bikeService.DeleteImage(ImageId);
+                return Ok(data);
+
+            }catch(Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
     }
 }

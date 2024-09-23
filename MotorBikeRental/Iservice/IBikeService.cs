@@ -12,6 +12,7 @@ namespace MotorBikeRental.Iservice
     Task <bool> DeleteBike(int Id);
     Task <List<BikeImageResponseDTO>> AddImages(BikeImageRequestDTO imageRequestDTO);
     Task <bool> UpdateImages(int ImageId,BikeImageRequestDTO imageRequestDTO);
+    Task <bool> DeleteImage(int ImageId);
     
 
 }
