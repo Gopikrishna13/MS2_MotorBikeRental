@@ -15,6 +15,9 @@ namespace MotorBikeRental.IRepository
     Task <List<AllBikes>> GetAllBikes();
     Task <bool> DeleteBike(int Id);
     Task <BikeImages> AddImages(BikeImages imageRequest);
+    Task <bool> checkBike(int BikeId);
+    Task <bool> UpdateImages(int ImageId,BikeImages imageRequest);
+    Task <bool> checkImgId(int ImageId);
 
 
 }

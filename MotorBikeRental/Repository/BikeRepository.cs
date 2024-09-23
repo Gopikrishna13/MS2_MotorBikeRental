@@ -120,6 +120,56 @@ public async Task <BikeImages> AddImages(BikeImages imageRequest)
 
 }
 
+
+public async Task <bool> checkBike(int BikeId)
+{
+    var query=@"select count(1) from Bikes where BikeId=@BikeId";
+
+    using(var connection=new SqlConnection(_connectionString))
+    {
+        var result=await connection.ExecuteScalarAsync<int>(query,new{BikeId});
+        if(result == 0)
+        {
+            return false;
+        }else{
+            return true;
+        }
+    }
+}
+
+public async Task <bool> checkImgId(int ImageId)
+{
+    var query=@"select count(1) from BikeImages where ImageId=@ImageId";
+
+    using(var connection=new SqlConnection(_connectionString))
+    {
+        var result=await connection.ExecuteScalarAsync<int>(query,new{ImageId});
+
+        if(result ==0)
+        {
+            return false;
+        }else{
+            return true;
+        }
+    }
+}
+
+public async   Task <bool> UpdateImages(int ImageId,BikeImages imageRequest)
+{
+    var query=@"update BikeImages set ImagePath=@ImagePath where ImageId=@ImageId AND BikeId=@BikeId";
+
+    using(var connection = new SqlConnection(_connectionString))
+    {
+        var result=await connection.ExecuteAsync(query,new{
+            ImagePath=imageRequest.ImagePath,
+            ImageId=ImageId,
+            BikeId=imageRequest.BikeId
+
+        });
+    }
+    return true;
+}
+
 }
 
 }

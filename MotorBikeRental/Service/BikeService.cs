@@ -96,6 +96,14 @@ public async Task <List<BikeImageResponseDTO>> AddImages(BikeImageRequestDTO ima
 {
     var responseList = new List<BikeImageResponseDTO>();
 
+    var chkBike=await _bikeRepository.checkBike(imageRequestDTO.BikeId);
+
+    if(!chkBike)
+    {
+       throw new Exception("No such Bike!");
+
+    }
+
 foreach(var img in imageRequestDTO.ImagePath)
 {
     var bike_data=new BikeImages{
@@ -120,6 +128,34 @@ foreach(var img in imageRequestDTO.ImagePath)
 return responseList;
 
    
+}
+
+
+public async Task <bool> UpdateImages(int ImageId,BikeImageRequestDTO imageRequestDTO)
+{
+    var chkBike=await _bikeRepository.checkBike(imageRequestDTO.BikeId);
+    var chkImgId=await _bikeRepository.checkImgId(ImageId);
+
+    if(!chkBike || ! chkImgId)
+    {
+        throw new Exception("Invalid input");
+    }
+
+    if(!chkBike)
+    {
+        throw new Exception("No such Bike!");
+    }
+
+
+    var bike=new BikeImages
+    {
+        BikeId=imageRequestDTO.BikeId,
+        ImagePath=imageRequestDTO.ImagePath
+
+    };
+
+    var data=await _bikeRepository.UpdateImages(ImageId,bike);
+    return true;
 }
 
 }

@@ -74,5 +74,18 @@ namespace MotorBikeRental.Controllers
             }
 
         }
+
+        [HttpPut("UpdateImages")]
+        public async Task <IActionResult> UpdateImages(int ImageId,BikeImageRequestDTO imageRequestDTO)
+        {
+            try{
+                var data=await _bikeService.UpdateImages(ImageId,imageRequestDTO);
+                return Ok(data);
+
+            }catch(Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
     }
 }
