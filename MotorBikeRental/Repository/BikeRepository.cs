@@ -80,7 +80,7 @@ namespace MotorBikeRental.Repository
     using (var connection = new SqlConnection(_connectionString))
     {
        
-        var rentalCount = await connection.ExecuteScalarAsync<int>(chkBikeQuery, new { Id = id });
+        var rentalCount = await connection.ExecuteScalarAsync<int>(chkBikeQuery, new { Id=id });
         
         if (rentalCount > 0)
         {
@@ -89,15 +89,37 @@ namespace MotorBikeRental.Repository
         }
 
       
-        var deletedRows = await connection.ExecuteAsync(deleteQuery, new { Id = id });
+        var deletedRows = await connection.ExecuteAsync(deleteQuery, new { Id=id  });
         
       
         return deletedRows > 0;
     }
 }
 
-}
+
+public async Task <BikeImages> AddImages(BikeImages imageRequest)
+{
+
+    var query=@"insert into BikeImages (BikeId,ImagePath) 
+    output inserted.ImageId
+    values(@BikeId,@ImagePath)";
+
+    using(var connection=new SqlConnection(_connectionString))
+    {
+        var result=await connection.ExecuteScalarAsync<int>(query,new{
+           BikeId= imageRequest.BikeId,
+           ImagePath=imageRequest.ImagePath
+
+        });
+
+        imageRequest.ImageId=result;
+        Console.WriteLine("Image Path in Response: " + imageRequest.ImagePath);
+
+    }
+    return imageRequest;
 
 }
 
+}
 
+}

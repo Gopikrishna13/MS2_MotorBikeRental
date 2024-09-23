@@ -91,6 +91,37 @@ public async Task <bool> DeleteBike(int Id)
     return true;
 }
 
+
+public async Task <List<BikeImageResponseDTO>> AddImages(BikeImageRequestDTO imageRequestDTO)
+{
+    var responseList = new List<BikeImageResponseDTO>();
+
+foreach(var img in imageRequestDTO.ImagePath)
+{
+    var bike_data=new BikeImages{
+        BikeId=imageRequestDTO.BikeId,
+        ImagePath=new List <string> {img}
+
+    };
+
+    var data=await _bikeRepository.AddImages(bike_data);
+
+    var response=new BikeImageResponseDTO{
+        ImageId=data.ImageId,
+        BikeId=data.BikeId,
+        ImagePath=img
+
+    };
+
+    responseList.Add(response);
+
+
+}
+return responseList;
+
+   
+}
+
 }
 
 }

@@ -10,6 +10,7 @@ namespace MotorBikeRental.Iservice
     Task<List<BikeResponseDTO>> AddBike(BikeRequestDTO bikeRequestDTO);
     Task <List<BikeResponseDTO>> GetAllBikes();
     Task <bool> DeleteBike(int Id);
+    Task <List<BikeImageResponseDTO>> AddImages(BikeImageRequestDTO imageRequestDTO);
 
 }
 

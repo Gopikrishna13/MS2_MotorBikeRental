@@ -58,5 +58,21 @@ namespace MotorBikeRental.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        [HttpPost("AddImages")]
+        public async Task <IActionResult> AddImages(BikeImageRequestDTO imageRequestDTO)
+        {
+
+            try{
+
+                var data=await _bikeService.AddImages(imageRequestDTO);
+                return Ok(data);
+
+            }catch(Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+
+        }
     }
 }

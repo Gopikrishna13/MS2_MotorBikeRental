@@ -145,7 +145,7 @@ public async Task<bool> DeleteAdmin(int Id)
 catch (Exception ex)
 {
     Console.WriteLine($"Error occurred: {ex.Message}");
-    return false; // Indicate failure
+    return false; 
 }
 
  

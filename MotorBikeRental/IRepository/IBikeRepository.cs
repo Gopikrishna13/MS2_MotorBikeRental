@@ -13,10 +13,10 @@ namespace MotorBikeRental.IRepository
     Task <Bike> AddBike (Bike bike);
     Task <bool> CheckUnique(string RegNo);
     Task <List<AllBikes>> GetAllBikes();
-     Task <bool> DeleteBike(int Id);
+    Task <bool> DeleteBike(int Id);
+    Task <BikeImages> AddImages(BikeImages imageRequest);
+
 
 }
 
-
 }
-
