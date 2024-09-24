@@ -102,5 +102,19 @@ namespace MotorBikeRental.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        [HttpGet("AllBikeImages")]
+        public async Task <IActionResult> AllBikeImages()
+        {
+            try{
+
+                var data=await _bikeService.AllBikeImages();
+                return Ok(data);
+
+            }catch(Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
     }
 }

@@ -183,6 +183,18 @@ public async Task <bool> DeleteImage(int ImageId)
     return true;
 }
 
+public async Task <List<AllBikeImages>> AllBikeImages()
+{
+    var query=@"select Bikes.BikeId,Bikes.BikeName , Bikes.Rent ,BikeImages.ImagePath,Bikes.RegNo
+    From Bikes join BikeImages on Bikes.BikeId=BikeImages.BikeId";
+
+    using(var connection=new SqlConnection(_connectionString))
+    {
+        var result=await connection.QueryAsync<AllBikeImages>(query);
+        return result.ToList();
+    }
+               
 }
 
+}
 }

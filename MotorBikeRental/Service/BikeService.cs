@@ -172,6 +172,27 @@ public async Task <bool> DeleteImage(int ImageId)
     return true;
 }
 
+public async Task <List<AllBikeImages>> AllBikeImages()
+{
+    var data=await _bikeRepository.AllBikeImages();
+
+    if(data == null)
+    {
+        throw new Exception("No data found");
+
+    }
+
+    var response=data.Select(x=>new AllBikeImages{
+            BikeId = x.BikeId,
+            BikeName = x.BikeName,
+            Rent = x.Rent,
+            RegNo = x.RegNo,  
+            ImagePath=x.ImagePath
+   }).ToList();
+
+   return response;
+}
+
 }
 
 }

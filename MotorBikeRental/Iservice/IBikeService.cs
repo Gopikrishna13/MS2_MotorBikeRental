@@ -1,6 +1,7 @@
 using System;
 using MotorBikeRental.DTOs.RequestDTO;
 using MotorBikeRental.DTOs.ResponseDTO;
+using MotorBikeRental.Database.Entities;
 
 namespace MotorBikeRental.Iservice
 {
@@ -13,6 +14,7 @@ namespace MotorBikeRental.Iservice
     Task <List<BikeImageResponseDTO>> AddImages(BikeImageRequestDTO imageRequestDTO);
     Task <bool> UpdateImages(int ImageId,BikeImageRequestDTO imageRequestDTO);
     Task <bool> DeleteImage(int ImageId);
+    Task <List<AllBikeImages>> AllBikeImages();
     
 
 }
