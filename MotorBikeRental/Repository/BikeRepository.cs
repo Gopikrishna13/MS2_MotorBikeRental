@@ -196,5 +196,20 @@ public async Task <List<AllBikeImages>> AllBikeImages()
                
 }
 
+
+
+public async Task <List<AllBikeImages>> SearchBikes(string BikeName,int Rent)
+{
+    var query=@"select Bikes.BikeId,Bikes.BikeName,Bikes.Rent,Bikes.RegNo,BikeImages.ImagePath
+    from Bikes
+    join BikeImages on Bikes.BikeId=BikeImages.BikeId where Bikes.BikeName=BikeName OR Bikes.Rent<=Rent";
+
+    using(var connection=new SqlConnection(_connectionString))
+    {
+        var result=await connection.QueryAsync<AllBikeImages>(query);
+        return result.ToList();
+    }
+}
+
 }
 }

@@ -193,6 +193,29 @@ public async Task <List<AllBikeImages>> AllBikeImages()
    return response;
 }
 
+public async  Task <List<AllBikeImages>> SearchBikes(string BikeName,int Rent)
+{
+    var data=await _bikeRepository.SearchBikes(BikeName,Rent);
+
+    if(data == null)
+    {
+        throw new Exception ("Data could not be Found!");
+    }
+
+    var response=data.Select(x=>new AllBikeImages{
+
+        BikeId=x.BikeId,
+        BikeName=x.BikeName,
+        Rent=x.Rent,
+        RegNo=x.RegNo,
+        ImagePath=x.ImagePath
+
+    }).ToList();
+
+    return response;
+
+}
+
 }
 
 }
