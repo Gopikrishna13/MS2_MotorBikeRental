@@ -103,6 +103,7 @@ public async Task<List<UserResponseDTO>> GetAllUsers()
 
     var responseDTO = getAll.Select(X => new UserResponseDTO
     {
+        UserId=X.UserId,
         FirstName = X.FirstName,
         LastName = X.LastName,
         UserName = X.UserName,
@@ -164,7 +165,7 @@ public async Task<UserResponseDTO> GetUserById(int Id)
 
 
      var response=new UserResponseDTO{
-            UserId=update.UserId,
+            UserId=Id,
             FirstName = update.FirstName,
             LastName = update.LastName,
             UserName = update.UserName,

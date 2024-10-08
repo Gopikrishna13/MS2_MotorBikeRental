@@ -75,6 +75,7 @@ public async Task<List<AdminResponseDTO>> GetAllAdmins()
 
     var responseDTO = getAll.Select(X => new AdminResponseDTO
     {
+        AdminId=X.AdminId,
         FirstName = X.FirstName,
         LastName = X.LastName,
         UserName = X.UserName,
