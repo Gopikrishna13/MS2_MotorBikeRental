@@ -86,22 +86,22 @@ public async Task<List<AdminResponseDTO>> GetAllAdmins()
     return responseDTO;
 }
 
-public async Task<AdminResponseDTO> GetAdminById(int Id)
+public async Task<AdminResponseDTO> GetAdminByusername(string username)
 {
-    var getById=await _adminRepository.GetAdminById(Id);
-    if(getById==null)
+    var getByusername=await _adminRepository.GetAdminByusername(username);
+    if(getByusername==null)
     {
         return null;
     }
 
     var response=new AdminResponseDTO{
-        
-            FirstName = getById.FirstName,
-            LastName = getById.LastName,
-            UserName = getById.UserName,
-            Password=getById.Password,
-            NIC=getById.NIC,
-            Email = getById.Email
+            AdminId=getByusername.AdminId,
+            FirstName = getByusername.FirstName,
+            LastName = getByusername.LastName,
+            UserName = getByusername.UserName,
+            Password=getByusername.Password,
+            NIC=getByusername.NIC,
+            Email = getByusername.Email
 
     };
     return response;
@@ -110,12 +110,12 @@ public async Task<AdminResponseDTO> GetAdminById(int Id)
 
    public async Task<AdminResponseDTO> UpdateAdmin(int Id,AdminRequestDTO adminRequestDTO)
 {
-var isUnique=await _adminRepository.CheckUnique(adminRequestDTO.UserName,adminRequestDTO.Email,adminRequestDTO.NIC);
+// var isUnique=await _adminRepository.checkUpdate(Id,adminRequestDTO.UserName,adminRequestDTO.Email,adminRequestDTO.NIC);
 
-if(!isUnique)
-{
-    throw new Exception("Data already Exists");
-}
+// if(!isUnique)
+// {
+//     throw new Exception("Data already Exists");
+// }
     var user=new Admin{
         FirstName =adminRequestDTO.FirstName,
         LastName  =adminRequestDTO.LastName,
@@ -132,7 +132,7 @@ if(!isUnique)
 
 
      var response=new AdminResponseDTO{
-            AdminId=update.AdminId,
+            AdminId=Id,
             FirstName = update.FirstName,
             LastName = update.LastName,
             UserName = update.UserName,

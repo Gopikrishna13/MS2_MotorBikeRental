@@ -10,6 +10,7 @@ async function login_validate(event) {
         if (m_login) {
            
             window.location.href = "Manager_Dashboard.html"; 
+            sessionStorage.setItem("Manager",username);
         } else {
             document.getElementById("response").innerHTML = "Login Failed";
         }

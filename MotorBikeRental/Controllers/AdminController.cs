@@ -57,13 +57,13 @@ namespace MotorBikeRental.Controllers
             } 
         }
 
-        [HttpGet("GetById")]
-        public async Task<IActionResult> GetAdminById(int Id)
+        [HttpGet("GetByUserName")]
+        public async Task<IActionResult> GetAdminByusername(string username)
         {
             try{
 
-                var getById=await _adminService.GetAdminById(Id);
-                return Ok(getById);
+                var getByusername=await _adminService.GetAdminByusername(username);
+                return Ok(getByusername);
 
             }catch (Exception ex)
             {

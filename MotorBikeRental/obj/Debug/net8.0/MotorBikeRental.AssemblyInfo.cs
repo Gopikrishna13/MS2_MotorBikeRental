@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("MotorBikeRental")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+c761effcaf1dc83d9b5295c8ee4efa0769693b42")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+9187eb28b0fa796aa2707f0eeb3fa37595f404ba")]
 [assembly: System.Reflection.AssemblyProductAttribute("MotorBikeRental")]
 [assembly: System.Reflection.AssemblyTitleAttribute("MotorBikeRental")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

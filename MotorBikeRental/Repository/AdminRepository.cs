@@ -73,7 +73,7 @@ namespace MotorBikeRental.Repository
 
         public async Task<bool> CheckUnique(string UserName, string Email, string NIC)
         {
-            var query = "SELECT COUNT(1) FROM Admin WHERE Email = @Email OR UserName = @UserName OR NIC = @NIC";
+            var query = @"SELECT COUNT(1) FROM Admin WHERE Email = @Email OR UserName = @UserName OR NIC = @NIC";
 
             using (var connection = new SqlConnection(_connectionString))
             {
@@ -89,6 +89,32 @@ namespace MotorBikeRental.Repository
                 }
             }
         }
+
+
+//         public async Task <bool> checkUpdate(int Id,string UserName,string Email,string NIC)
+//         {
+//  var query = @"SELECT COUNT(1) 
+// FROM Admin 
+// WHERE (Email = @Email OR UserName = @UserName OR NIC = @NIC)
+// AND AdminId != @Id
+// ";
+
+//             using (var connection = new SqlConnection(_connectionString))
+//             {
+//                 using (var command = new SqlCommand(query, connection))
+//                 {
+                   
+//             command.Parameters.AddWithValue("@Email", Email);
+//             command.Parameters.AddWithValue("@UserName", UserName);
+//             command.Parameters.AddWithValue("@NIC", NIC);
+//             command.Parameters.AddWithValue("@Id", Id);
+
+//             await connection.OpenAsync();
+//             var count = (int)await command.ExecuteScalarAsync();
+//             return count == 0; // Return true if unique
+//                 }
+//             }
+//         }
 
         public async Task<List<Admin>> GetAllAdmins()
         {
@@ -123,15 +149,15 @@ namespace MotorBikeRental.Repository
             return admins;
         }
 
-        public async Task<Admin> GetAdminById(int Id)
+        public async Task<Admin> GetAdminByusername(string username)
         {
-            var query = "SELECT * FROM Admin WHERE AdminId = @Id";
+            var query = "SELECT * FROM Admin WHERE UserName = @username";
 
             using (var connection = new SqlConnection(_connectionString))
             {
                 using (var command = new SqlCommand(query, connection))
                 {
-                    command.Parameters.AddWithValue("@Id", Id);
+                    command.Parameters.AddWithValue("@username", username);
 
                     await connection.OpenAsync();
                     using (var reader = await command.ExecuteReaderAsync())
@@ -155,7 +181,7 @@ namespace MotorBikeRental.Repository
             }
         }
 
-        public async Task<Admin> UpdateAdmin(int Id, Admin admin)
+        public async Task <Admin> UpdateAdmin (int Id, Admin admin)
         {
             var query = @"
                 UPDATE Admin 
