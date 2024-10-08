@@ -21,7 +21,7 @@ public AdminService(IAdminRepository adminRepository)
 public async Task <AdminResponseDTO> AddAdmin(AdminRequestDTO adminRequestDTO)
 {
 
-    var isUnique=await _adminRepository.CheckUnique(adminRequestDTO.UserName,adminRequestDTO.Email);
+    var isUnique=await _adminRepository.CheckUnique(adminRequestDTO.UserName,adminRequestDTO.Email,adminRequestDTO.NIC);
 
 if(!isUnique)
 {
@@ -100,7 +100,7 @@ public async Task<AdminResponseDTO> GetAdminById(int Id)
 
    public async Task<AdminResponseDTO> UpdateAdmin(int Id,AdminRequestDTO adminRequestDTO)
 {
-var isUnique=await _adminRepository.CheckUnique(adminRequestDTO.UserName,adminRequestDTO.Email);
+var isUnique=await _adminRepository.CheckUnique(adminRequestDTO.UserName,adminRequestDTO.Email,adminRequestDTO.NIC);
 
 if(!isUnique)
 {

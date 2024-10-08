@@ -1,8 +1,8 @@
 using System;
+using System.Data;
 using Microsoft.Data.SqlClient;
 using MotorBikeRental.Database.Entities;
 using MotorBikeRental.IRepository;
-using Dapper;
 
 namespace MotorBikeRental.Repository
 {
@@ -15,146 +15,172 @@ namespace MotorBikeRental.Repository
             _connectionString = connectionString;
         }
 
-     public async Task<Admin> AddAdmin(Admin admin)
-{
-    using (var connection = new SqlConnection(_connectionString))
-    {
-       
-        var query = @"
-            INSERT INTO Admin (FirstName, LastName, UserName, Password, NIC, Email) 
-            OUTPUT INSERTED.AdminId  
-            VALUES (@FirstName, @LastName, @UserName, @Password, @NIC, @Email);";
-      
-        var userId = await connection.ExecuteScalarAsync<int>(query, new
+        public async Task<Admin> AddAdmin(Admin admin)
         {
-            admin.FirstName,
-            admin.LastName,
-            admin.UserName,
-            admin.Password,
-            admin.NIC,
-            admin.Email,
-           
-        });
-
-       
-        admin.AdminId = userId;
-    }
-
-    return admin;
-}
-        public async Task<bool> CheckUnique(string UserName, string Email)
-        {
-            var query = "SELECT COUNT(1) FROM Admin WHERE Email = @Email  OR UserName = @UserName";
-//COUNT(1) returns the number of rows that match the condition. 
-//If no rows match, COUNT(1) returns 0. If one or more rows match, it returns a number greater than 1
             using (var connection = new SqlConnection(_connectionString))
             {
-               
+                var query = @"
+                    INSERT INTO Admin (FirstName, LastName, UserName, Password, NIC, Email) 
+                    OUTPUT INSERTED.AdminId  
+                    VALUES (@FirstName, @LastName, @UserName, @Password, @NIC, @Email);";
 
-              
-                var result = (int)await connection.ExecuteScalarAsync(query,new{
-                    UserName,
-                    Email
-                });//asynchronous method that executes the query and returns a single value from the database.
-                return result == 0;//if result=0 true else false
+                using (var command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@FirstName", admin.FirstName);
+                    command.Parameters.AddWithValue("@LastName", admin.LastName);
+                    command.Parameters.AddWithValue("@UserName", admin.UserName);
+                    command.Parameters.AddWithValue("@Password", admin.Password);
+                    command.Parameters.AddWithValue("@NIC", admin.NIC);
+                    command.Parameters.AddWithValue("@Email", admin.Email);
+
+                    await connection.OpenAsync();
+                    admin.AdminId = (int)await command.ExecuteScalarAsync(); // ExecuteScalar returns the inserted AdminId
+                }
+            }
+
+            return admin;
+        }
+
+        public async Task<bool> CheckUnique(string UserName, string Email, string NIC)
+        {
+            var query = "SELECT COUNT(1) FROM Admin WHERE Email = @Email OR UserName = @UserName OR NIC = @NIC";
+
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                using (var command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@Email", Email);
+                    command.Parameters.AddWithValue("@UserName", UserName);
+                    command.Parameters.AddWithValue("@NIC", NIC);
+
+                    await connection.OpenAsync();
+                    var result = (int)await command.ExecuteScalarAsync();
+                    return result == 0; // return true if no record is found, meaning it's unique
+                }
             }
         }
 
-       public async  Task <List<Admin>> GetAllAdmins()
+        public async Task<List<Admin>> GetAllAdmins()
         {
-             var query=@"select * from Admin";
+            var query = "SELECT * FROM Admin";
+            var admins = new List<Admin>();
 
-             using(var connection=new SqlConnection(_connectionString))
-             {
-                var users = await connection.QueryAsync<Admin>(query); //Dapper
-                return users.ToList();
-             }
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                using (var command = new SqlCommand(query, connection))
+                {
+                    await connection.OpenAsync();
+                    using (var reader = await command.ExecuteReaderAsync())
+                    {
+                        while (await reader.ReadAsync())
+                        {
+                            var admin = new Admin
+                            {
+                                AdminId = reader.GetInt32(0),
+                                FirstName = reader.GetString(1),
+                                LastName = reader.GetString(2),
+                                UserName = reader.GetString(3),
+                                Password = reader.GetString(4),
+                                NIC = reader.GetString(5),
+                                Email = reader.GetString(6)
+                            };
+                            admins.Add(admin);
+                        }
+                    }
+                }
+            }
+
+            return admins;
         }
 
-      public async  Task<Admin> GetAdminById(int Id)
-      {
-        var query=@"select * from Admin where AdminId=@Id";
-        using(var connection=new SqlConnection(_connectionString))
+        public async Task<Admin> GetAdminById(int Id)
         {
-            var users=await connection.QueryFirstOrDefaultAsync<Admin>(query, new { Id });
-            return users;
-        }
-      }
+            var query = "SELECT * FROM Admin WHERE AdminId = @Id";
 
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                using (var command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@Id", Id);
 
-    public async Task<Admin> UpdateAdmin(int Id,Admin admin)
-{
-    var query = @"
-        UPDATE Admin 
-        SET 
-            FirstName = @FirstName,
-            LastName = @LastName,
-            UserName = @UserName,
-            Password = @Password,
-            NIC = @NIC,
-            Email = @Email
-           
-        WHERE AdminId = @Id";
-
-    using (var connection = new SqlConnection(_connectionString))
-    {
-       
-        var affectedRows = await connection.ExecuteAsync(query, new
-        {
-            Id,
-            admin.FirstName,
-            admin.LastName,
-            admin.UserName,
-            admin.Password,
-            admin.NIC,
-            admin.Email
-        });
-
-   
-        if (affectedRows == 0)
-        {
-            return null; 
+                    await connection.OpenAsync();
+                    using (var reader = await command.ExecuteReaderAsync())
+                    {
+                        if (await reader.ReadAsync())
+                        {
+                            return new Admin
+                            {
+                                AdminId = reader.GetInt32(0),
+                                FirstName = reader.GetString(1),
+                                LastName = reader.GetString(2),
+                                UserName = reader.GetString(3),
+                                Password = reader.GetString(4),
+                                NIC = reader.GetString(5),
+                                Email = reader.GetString(6)
+                            };
+                        }
+                        return null;
+                    }
+                }
+            }
         }
 
-      
-   
+        public async Task<Admin> UpdateAdmin(int Id, Admin admin)
+        {
+            var query = @"
+                UPDATE Admin 
+                SET 
+                    FirstName = @FirstName,
+                    LastName = @LastName,
+                    UserName = @UserName,
+                    Password = @Password,
+                    NIC = @NIC,
+                    Email = @Email
+                WHERE AdminId = @Id";
 
-        return admin;
-    }
-}
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                using (var command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@FirstName", admin.FirstName);
+                    command.Parameters.AddWithValue("@LastName", admin.LastName);
+                    command.Parameters.AddWithValue("@UserName", admin.UserName);
+                    command.Parameters.AddWithValue("@Password", admin.Password);
+                    command.Parameters.AddWithValue("@NIC", admin.NIC);
+                    command.Parameters.AddWithValue("@Email", admin.Email);
+                    command.Parameters.AddWithValue("@Id", Id);
 
+                    await connection.OpenAsync();
+                    var affectedRows = await command.ExecuteNonQueryAsync();
 
+                    return affectedRows > 0 ? admin : null;
+                }
+            }
+        }
 
-public async Task<bool> DeleteAdmin(int Id)
-{
+        public async Task<bool> DeleteAdmin(int Id)
+        {
+            var query = "DELETE FROM Admin WHERE AdminId = @Id";
 
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                using (var command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@Id", Id);
 
-
-
-    var query=@"delete  from Admin where AdminId=@Id";
-
-    using(var connection=new SqlConnection(_connectionString))
-    {
-
-       try
-{
-   
-    await connection.ExecuteAsync(query, new { Id });
-    return true; 
-}
-catch (Exception ex)
-{
-    Console.WriteLine($"Error occurred: {ex.Message}");
-    return false; 
-}
-
- 
-
-    }
-
-    
-      
-}
-
+                    try
+                    {
+                        await connection.OpenAsync();
+                        await command.ExecuteNonQueryAsync();
+                        return true;
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine($"Error occurred: {ex.Message}");
+                        return false;
+                    }
+                }
+            }
+        }
     }
 }

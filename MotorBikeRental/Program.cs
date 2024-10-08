@@ -1,5 +1,3 @@
-
-
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Data.SqlClient;
@@ -16,45 +14,57 @@ namespace MotorBikeRental
         {
             var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-builder.Services.AddControllers();
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+            // Add services to the container.
+            builder.Services.AddControllers();
+            builder.Services.AddEndpointsApiExplorer();
+            builder.Services.AddSwaggerGen();
 
-var connectionString = builder.Configuration.GetConnectionString("DbConnection");
+            // Enable CORS
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy("AllowAllOrigins", builder =>
+                {
+                    builder.AllowAnyOrigin()  // Allow any origin
+                           .AllowAnyMethod()  // Allow any HTTP method
+                           .AllowAnyHeader(); // Allow any header
+                });
+            });
 
+            // Database connection
+            var connectionString = builder.Configuration.GetConnectionString("DbConnection");
+            builder.Services.AddSingleton(new MotorBikeRental.Database.DbContext(connectionString));
 
-builder.Services.AddSingleton(new MotorBikeRental.Database.DbContext(connectionString));
+            // Repository and Service registrations
+            builder.Services.AddScoped<IUserRepository>(provider => new UserRepository(connectionString));
+            builder.Services.AddScoped<IUserService, UserService>();
 
+            builder.Services.AddScoped<IAdminRepository>(provider => new AdminRepository(connectionString));
+            builder.Services.AddScoped<IAdminService, AdminService>();
 
-builder.Services.AddScoped<IUserRepository>(provider => new UserRepository(connectionString));
-builder.Services.AddScoped<IUserService, UserService>();
+            builder.Services.AddScoped<IBikeRepository>(provider => new BikeRepository(connectionString));
+            builder.Services.AddScoped<IBikeService, BikeService>();
 
+            var app = builder.Build();
 
-builder.Services.AddScoped<IAdminRepository>(provider => new AdminRepository(connectionString));
-builder.Services.AddScoped<IAdminService, AdminService>();
+            // Apply the CORS policy
+            app.UseCors("AllowAllOrigins");
 
-builder.Services.AddScoped<IBikeRepository>(provider => new BikeRepository(connectionString));
-builder.Services.AddScoped<IBikeService,BikeService>();
+            // Ensure tables are created in the database
+            var database = app.Services.GetService<MotorBikeRental.Database.DbContext>();
+            database.CreateTables();
 
+            // Configure the HTTP request pipeline
+            if (app.Environment.IsDevelopment())
+            {
+                app.UseSwagger();
+                app.UseSwaggerUI();
+            }
 
-var app = builder.Build();
-
-
-var database = app.Services.GetService<MotorBikeRental.Database.DbContext>();
-database.CreateTables();
-
-// Configure the HTTP request pipeline
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
-
-//app.UseHttpsRedirection();
-app.UseAuthorization();
-app.MapControllers();
-app.Run();
+            // Uncomment to enable HTTPS redirection in production
+            // app.UseHttpsRedirection();
+            app.UseAuthorization();
+            app.MapControllers();
+            app.Run();
         }
     }
 }
