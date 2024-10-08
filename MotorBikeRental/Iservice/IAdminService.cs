@@ -11,6 +11,8 @@ public interface IAdminService
     Task<AdminResponseDTO> GetAdminById(int Id);
     Task<AdminResponseDTO> UpdateAdmin(int Id,AdminRequestDTO adminRequestDTO);
     Task<bool> DeleteAdmin(int Id);
+    Task <bool> Login(AdminLoginRequestDTO adminloginRequestDTO);
+
 }
 
 }

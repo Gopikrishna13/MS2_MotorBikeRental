@@ -3,6 +3,10 @@ using MotorBikeRental.DTOs.ResponseDTO;
 using MotorBikeRental.IRepository;
 using MotorBikeRental.Iservice;
 using MotorBikeRental.Database.Entities;
+using MotorBikeRental.DTOs.RequestDTO;
+
+
+
 namespace MotorBikeRental.IRepository
 {
 public interface IAdminRepository
@@ -13,6 +17,7 @@ public interface IAdminRepository
    Task<Admin> GetAdminById(int Id);
    Task<Admin> UpdateAdmin(int Id,Admin admin);
    Task<bool> DeleteAdmin(int Id);
+   Task <bool> Login(AdminLoginRequestDTO adminloginRequestDTO);
 
 }
 }

@@ -54,6 +54,16 @@ if(!isUnique)
 
 }
 
+public async Task <bool> Login(AdminLoginRequestDTO adminloginRequestDTO)
+{
+    var checkLogin=await _adminRepository.Login(adminloginRequestDTO);
+    if(checkLogin)
+    {
+        return true;
+    }else{
+        return false;
+    }
+}
 public async Task<List<AdminResponseDTO>> GetAllAdmins()
 {
     var getAll = await _adminRepository.GetAllAdmins(); 

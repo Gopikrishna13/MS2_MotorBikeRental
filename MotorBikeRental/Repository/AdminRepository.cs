@@ -3,6 +3,7 @@ using System.Data;
 using Microsoft.Data.SqlClient;
 using MotorBikeRental.Database.Entities;
 using MotorBikeRental.IRepository;
+using MotorBikeRental.DTOs.RequestDTO;
 
 namespace MotorBikeRental.Repository
 {
@@ -40,6 +41,35 @@ namespace MotorBikeRental.Repository
 
             return admin;
         }
+      public async Task<bool> Login(AdminLoginRequestDTO adminloginRequestDTO)
+{
+    using (var connection = new SqlConnection(_connectionString))
+    {
+        var username = adminloginRequestDTO.UserName;
+        var query = @"SELECT Password FROM Admin WHERE UserName = @username";
+
+        using (var command = new SqlCommand(query, connection))
+        {
+            command.Parameters.AddWithValue("@username", username);
+            await connection.OpenAsync();
+
+            var password = await command.ExecuteScalarAsync();
+            if (password != null)
+            {
+              //  var enc_password = encrypt_password(adminloginRequestDTO.Password); 
+                return adminloginRequestDTO.Password == password.ToString(); 
+              
+        }
+         return false; 
+    }
+}
+}
+
+    //    public string encrypt_password(string password)
+    //    {
+    //     var plainTextBytes = System.Text.Encoding.UTF8.GetBytes(password);
+    //     return Convert.ToBase64String(plainTextBytes);
+    //    }
 
         public async Task<bool> CheckUnique(string UserName, string Email, string NIC)
         {

@@ -29,7 +29,19 @@ namespace MotorBikeRental.Controllers
                 return BadRequest(ex.Message);
             } 
         } 
+ [HttpPost("Login")]
+ public async Task <IActionResult>Login(AdminLoginRequestDTO adminloginRequestDTO)
+ {
+    try{
+        var data=await _adminService.Login(adminloginRequestDTO);
+        return Ok(data);
 
+    }catch(Exception ex)
+    {
+        return BadRequest(ex.Message);
+    }
+
+ }
 
         [HttpGet("AllAdmin")]
         public async Task <IActionResult> GetAllAdmins()
