@@ -2,6 +2,8 @@ using System;
 using Microsoft.Data.SqlClient;
 using MotorBikeRental.Database.Entities;
 using MotorBikeRental.IRepository;
+using MotorBikeRental.DTOs.RequestDTO;
+
 using Dapper;
 
 namespace MotorBikeRental.Repository
@@ -42,6 +44,41 @@ namespace MotorBikeRental.Repository
 
     return user;
 }
+
+
+public async   Task<User> GetByusername(string username)
+{
+     var query = "SELECT * FROM Users WHERE UserName = @username";
+
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                using (var command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@username", username);
+
+                    await connection.OpenAsync();
+                    using (var reader = await command.ExecuteReaderAsync())
+                    {
+                        if (await reader.ReadAsync())
+                        {
+                            return new User
+                            {
+                                UserId = reader.GetInt32(0),
+                                FirstName = reader.GetString(1),
+                                LastName = reader.GetString(2),
+                                UserName = reader.GetString(3),
+                                Password = reader.GetString(4),
+                                NIC = reader.GetString(5),
+                                Email = reader.GetString(6),
+                                LicenseNumber=reader.GetString(7)
+                            };
+                        }
+                        return null;
+                    }
+                }
+            }
+
+}
         public async Task<bool> CheckUnique(string UserName, string Email, string LicenseNumber)
         {
             var query = "SELECT COUNT(1) FROM Users WHERE Email = @Email OR LicenseNumber = @LicenseNumber OR UserName = @UserName";
@@ -60,7 +97,30 @@ namespace MotorBikeRental.Repository
                 return result == 0;//if result=0 true else false
             }
         }
+public async Task <bool> Login(UserLoginRequestDTO userloginRequestDTO)
+{
+    using (var connection = new SqlConnection(_connectionString))
+    {
+        var username = userloginRequestDTO.UserName;
+        var query = @"SELECT Password FROM Users WHERE UserName = @username";
 
+        using (var command = new SqlCommand(query, connection))
+        {
+            command.Parameters.AddWithValue("@username", username);
+            await connection.OpenAsync();
+
+            var password = await command.ExecuteScalarAsync();
+            if (password != null)
+            {
+            
+                return userloginRequestDTO.Password == password.ToString(); 
+              
+        }
+         return false; 
+    }
+}
+
+}
        public async  Task <List<User>> GetAllUsers()
         {
              var query=@"select * from Users";

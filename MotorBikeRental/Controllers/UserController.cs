@@ -30,6 +30,33 @@ namespace MotorBikeRental.Controllers
             } 
         } 
 
+ [HttpPost("Login")]
+ public async Task <IActionResult>Login(UserLoginRequestDTO userloginRequestDTO)
+ {
+    try{
+        var data=await _userService.Login(userloginRequestDTO);
+        return Ok(data);
+
+    }catch(Exception ex)
+    {
+        return BadRequest(ex.Message);
+    }
+
+ }
+
+     [HttpGet("GetByUserName")]
+        public async Task<IActionResult> GetByusername(string username)
+        {
+            try{
+
+                var getByusername=await _userService.GetByusername(username);
+                return Ok(getByusername);
+
+            }catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            } 
+        }
 
         [HttpGet("AllUsers")]
         public async Task <IActionResult> GetAllUsers()

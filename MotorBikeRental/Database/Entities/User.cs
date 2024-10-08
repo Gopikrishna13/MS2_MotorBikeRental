@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace MotorBikeRental.Database.Entities
 {
@@ -12,6 +13,7 @@ public class User
     public string NIC { get; set; }
     public string Email { get; set; }
     public string LicenseNumber { get; set; }
+    public List <RentalHistory> RentalHistories {get;set;}
 }
 
 }

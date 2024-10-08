@@ -15,7 +15,7 @@ async function login_validate(event) {
             document.getElementById("response").innerHTML = "Login Failed";
         }
     } else if (username.startsWith("UT")) {
-        const u_login = user_Login(username, password);
+        const u_login = await user_Login(username, password);
         if (u_login) {
             sessionStorage.setItem("Customer_Name", username);
             window.location.href = "User.html"; 
@@ -67,7 +67,44 @@ async function manager_Login(username, password) {
     }
 }
 
+async function user_Login(username,password)
+{
 
+    const E_mpasswd = encrypt_password(password); 
+
+    const loginData = {
+        UserName: username,
+        Password: E_mpasswd
+    };
+    try {
+        const response = await fetch('http://localhost:5156/api/User/Login', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(loginData),
+        });
+
+        if (response.ok) {
+            const data = await response.json();
+            //console.log("Server response:", data); 
+            
+           
+            if (typeof data === "boolean" && data) {
+                return true; 
+            } else {
+                return false; 
+            }
+        } else {
+            console.error("Response error:", response.status);
+            return false; 
+        }
+    } catch (error) {
+        console.error("Fetch error:", error);
+        return false;
+    }
+
+}
 // function user_Login(username, password) {
 //     //check user name exist
 //     const user_details = JSON.parse(localStorage.getItem("User_Details"));

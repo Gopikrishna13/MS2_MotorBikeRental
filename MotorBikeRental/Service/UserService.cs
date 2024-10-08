@@ -58,6 +58,40 @@ if(!isUnique)
 
 }
 
+
+public async Task <bool> Login(UserLoginRequestDTO userloginRequestDTO)
+{
+    var chkLogin=await _userRepository.Login(userloginRequestDTO);
+    if(chkLogin)
+    {
+        return true;
+    }else{
+        return false;
+    }
+}
+
+public async Task<UserResponseDTO> GetByusername(string username)
+{
+     var getByusername=await _userRepository.GetByusername(username);
+    if(getByusername==null)
+    {
+        return null;
+    }
+
+    var response=new UserResponseDTO{
+            UserId=getByusername.UserId,
+            FirstName = getByusername.FirstName,
+            LastName = getByusername.LastName,
+            UserName = getByusername.UserName,
+            Password=getByusername.Password,
+            NIC=getByusername.NIC,
+            Email = getByusername.Email,
+            LicenseNumber=getByusername.LicenseNumber
+
+    };
+    return response;
+}
+
 public async Task<List<UserResponseDTO>> GetAllUsers()
 {
     var getAll = await _userRepository.GetAllUsers(); 
@@ -106,13 +140,13 @@ public async Task<UserResponseDTO> GetUserById(int Id)
 
    public async Task<UserResponseDTO> UpdateUser(int Id,UserRequestDTO userRequestDTO)
    {
-var isUnique=await _userRepository.CheckUnique(userRequestDTO.UserName,userRequestDTO.Email,userRequestDTO.LicenseNumber
-);
+// var isUnique=await _userRepository.CheckUnique(userRequestDTO.UserName,userRequestDTO.Email,userRequestDTO.LicenseNumber
+// );
 
-if(!isUnique)
-{
-    throw new Exception("Data already Exists");
-}
+// if(!isUnique)
+// {
+//     throw new Exception("Data already Exists");
+// }
     var user=new User{
         FirstName =userRequestDTO.FirstName,
         LastName  =userRequestDTO.LastName,

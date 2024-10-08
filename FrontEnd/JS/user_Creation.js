@@ -43,22 +43,24 @@ async function validate(e) {
             document.getElementById("manager_username").textContent = "Invalid User Name (should start with 'M')";
         }
     } else if (role == "User") {
+        let User_FName=document.getElementById("U_Name").value.trim();
+        let User_LName=document.getElementById("U_lName").value.trim();
         let User_Name = document.getElementById("U_username").value.trim();
         let User_Pwd = document.getElementById("U_password").value.trim();
         let NIC = document.getElementById("U_NIC").value.trim();
         let License = document.getElementById("License").value.trim();
-        let User_mobile = document.getElementById("U_Mobile").value.trim();
+        //let User_mobile = document.getElementById("U_Mobile").value.trim();
         let User_email = document.getElementById("U_Email").value.trim();
 
-        if (checkUser(User_Name, NIC)) {
-            alert("Username or NIC already exists! Please choose another.");
-            location.reload();
-            return;
-        }
+        // if (checkUser(User_Name, NIC)) {
+        //     alert("Username or NIC already exists! Please choose another.");
+        //     location.reload();
+        //     return;
+        // }
 
         if (User_Name.startsWith("UT")) {
             if (User_Pwd.length >= 8) {
-                Store_User(User_Name, User_Pwd, NIC, License, User_mobile, User_email);
+                await Store_User(User_FName,User_LName,User_Name, User_Pwd, NIC, License,  User_email);
                 alert("User account created successfully!");
                 window.location.href = "Login.html";
             } else {
@@ -119,4 +121,43 @@ async function Store_Manager(Manager_Name,Manager_lName,Manager_username, Manage
 // Encrypt Password
 function encrypt_password(password) {
     return window.btoa(password); // Base64 encoding
+}
+
+async function Store_User(User_FName,User_LName,User_Name, User_Pwd, NIC, License,  User_email)
+{
+    const U_password = encrypt_password(User_Pwd); // Encrypt password
+    const User = {
+        FirstName:User_FName,
+        LastName:User_LName,
+        UserName: User_Name,
+        Password: U_password,
+        NIC: NIC,
+        Email: User_email,
+        LicenseNumber:License,
+        //Mobile: Manager_mobile,
+       
+    };
+
+    try {
+        const response = await fetch('http://localhost:5156/api/User/AddUser', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json', 
+            },
+            body: JSON.stringify(User), 
+        });
+
+        if (!response.ok) {
+            alert('Error in creating User! Status: ' + response.status);
+            return;
+        }
+
+        alert('User account created successfully!');
+        window.location.href = "Login.html";
+
+    } catch (error) {
+        console.error('Error:', error);
+        
+    }
+
 }

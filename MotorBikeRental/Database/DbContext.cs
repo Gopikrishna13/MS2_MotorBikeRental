@@ -18,10 +18,11 @@ namespace MotorBikeRental.Database
         {
             CreateUser();
             CreateAdmin();
-            CreateBike();
-            RentalRequest();
-            ReturnedBikes();
-            BikeImages();
+             CreateBike();
+          //  RentalRequest();
+          //  ReturnedBikes();
+           // BikeImages();
+            RentalHistory();
         }
 
         public void CreateUser()
@@ -44,6 +45,27 @@ namespace MotorBikeRental.Database
 
             ExecuteCommand(tableQuery);
         }
+
+    public void RentalHistory()
+{
+    var tablequery = @"
+        IF NOT EXISTS (SELECT * FROM sys.tables WHERE name = 'RentalHistory')
+        BEGIN 
+            CREATE TABLE RentalHistory (
+                RentalHistoryId INT PRIMARY KEY IDENTITY(1,1), 
+                CustomerId INT NOT NULL,                       
+                BikeId INT NOT NULL,                            
+                FromDate DATETIME NOT NULL,                    
+                ToDate DATETIME,                               
+                Status INT NOT NULL,                            
+                FOREIGN KEY (CustomerId) REFERENCES Users(UserId),
+                FOREIGN KEY (BikeId) REFERENCES Bikes(BikeId)
+            );
+            PRINT 'Table RentalHistory created successfully.';
+        END";
+
+    ExecuteCommand(tablequery);
+}
 
         public void CreateAdmin()
         {
@@ -71,11 +93,10 @@ namespace MotorBikeRental.Database
             IF NOT EXISTS (SELECT * FROM sys.tables WHERE name = 'Bikes')
             BEGIN
                 CREATE TABLE Bikes(
-                    BikeId INT PRIMARY KEY IDENTITY(1,1),
-                    BikeName NVARCHAR(50) NOT NULL,
-                    Rent INT NOT NULL,
-                    RegNo NVARCHAR(20) UNIQUE NOT NULL,
-                    Status INT DEFAULT 0
+                  BikeId INT PRIMARY KEY IDENTITY(1,1),
+                  Model NVARCHAR(100) NOT NULL,         
+                  Brand NVARCHAR(100) NOT NULL,         
+                  Rent DECIMAL(10, 2) NOT NULL 
                 );
                 PRINT 'Table Bikes created successfully.';
             END";
@@ -83,64 +104,64 @@ namespace MotorBikeRental.Database
             ExecuteCommand(tableQuery);
         }
 
-        public void RentalRequest()
-        {
-            var tableQuery = @"
-            IF NOT EXISTS (SELECT * FROM sys.tables WHERE name = 'RentalRequest')
-            BEGIN
-                CREATE TABLE RentalRequest(
-                    RequestId INT PRIMARY KEY IDENTITY(1,1),
-                    BikeId INT NOT NULL,
-                    UserId INT NOT NULL,
-                    RentedDate DATETIME NOT NULL,
-                    ReturnDate DATETIME NOT NULL,
-                    Due DATETIME,
-                    FOREIGN KEY (BikeId) REFERENCES Bikes(BikeId),
-                    FOREIGN KEY (UserId) REFERENCES Users(UserId)
-                );
-                PRINT 'Table RentalRequest created successfully.';
-            END";
+        // public void RentalRequest()
+        // {
+        //     var tableQuery = @"
+        //     IF NOT EXISTS (SELECT * FROM sys.tables WHERE name = 'RentalRequest')
+        //     BEGIN
+        //         CREATE TABLE RentalRequest(
+        //             RequestId INT PRIMARY KEY IDENTITY(1,1),
+        //             BikeId INT NOT NULL,
+        //             UserId INT NOT NULL,
+        //             RentedDate DATETIME NOT NULL,
+        //             ReturnDate DATETIME NOT NULL,
+        //             Due DATETIME,
+        //             FOREIGN KEY (BikeId) REFERENCES Bikes(BikeId),
+        //             FOREIGN KEY (UserId) REFERENCES Users(UserId)
+        //         );
+        //         PRINT 'Table RentalRequest created successfully.';
+        //     END";
 
-            ExecuteCommand(tableQuery);
-        }
+        //     ExecuteCommand(tableQuery);
+        // }
 
-        public void ReturnedBikes()
-        {
-            var tableQuery = @"
-            IF NOT EXISTS (SELECT * FROM sys.tables WHERE name = 'ReturnedBikes')
-            BEGIN
-                CREATE TABLE ReturnedBikes(
-                    ReturnId INT PRIMARY KEY IDENTITY(1,1),
-                    BikeId INT NOT NULL,
-                    UserId INT NOT NULL,
-                    RentedDate DATETIME NOT NULL,
-                    ReturnDate DATETIME NOT NULL,
-                    Due DATETIME,
-                    FOREIGN KEY (BikeId) REFERENCES Bikes(BikeId),
-                    FOREIGN KEY (UserId) REFERENCES Users(UserId)
-                );
-                PRINT 'Table ReturnedBikes created successfully.';
-            END";
+        // public void ReturnedBikes()
+        // {
+        //     var tableQuery = @"
+        //     IF NOT EXISTS (SELECT * FROM sys.tables WHERE name = 'ReturnedBikes')
+        //     BEGIN
+        //         CREATE TABLE ReturnedBikes(
+        //             ReturnId INT PRIMARY KEY IDENTITY(1,1),
+        //             BikeId INT NOT NULL,
+        //             UserId INT NOT NULL,
+        //             RentedDate DATETIME NOT NULL,
+        //             ReturnDate DATETIME NOT NULL,
+        //             Due DATETIME,
+        //             FOREIGN KEY (BikeId) REFERENCES Bikes(BikeId),
+        //             FOREIGN KEY (UserId) REFERENCES Users(UserId)
+        //         );
+        //         PRINT 'Table ReturnedBikes created successfully.';
+        //     END";
 
-            ExecuteCommand(tableQuery);
-        }
+        //     ExecuteCommand(tableQuery);
+        // }
 
-        public void BikeImages()
-        {
-            var tableQuery = @"
-            IF NOT EXISTS (SELECT * FROM sys.tables WHERE name = 'BikeImages')
-            BEGIN
-                CREATE TABLE BikeImages(
-                    ImageId INT PRIMARY KEY IDENTITY(1,1),
-                    BikeId INT NOT NULL,
-                    ImagePath NVARCHAR(255),
-                    FOREIGN KEY (BikeId) REFERENCES Bikes(BikeId)
-                );
-                PRINT 'Table BikeImages created successfully.';
-            END";
+        // public void BikeImages()
+        // {
+        //     var tableQuery = @"
+        //     IF NOT EXISTS (SELECT * FROM sys.tables WHERE name = 'BikeImages')
+        //     BEGIN
+        //         CREATE TABLE BikeImages(
+        //             ImageId INT PRIMARY KEY IDENTITY(1,1),
+        //             BikeId INT NOT NULL,
+        //             ImagePath NVARCHAR(255),
+        //             FOREIGN KEY (BikeId) REFERENCES Bikes(BikeId)
+        //         );
+        //         PRINT 'Table BikeImages created successfully.';
+        //     END";
 
-            ExecuteCommand(tableQuery);
-        }
+        //     ExecuteCommand(tableQuery);
+        // }
 
         private void ExecuteCommand(string command)
         {

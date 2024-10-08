@@ -41,8 +41,8 @@ namespace MotorBikeRental
             builder.Services.AddScoped<IAdminRepository>(provider => new AdminRepository(connectionString));
             builder.Services.AddScoped<IAdminService, AdminService>();
 
-            builder.Services.AddScoped<IBikeRepository>(provider => new BikeRepository(connectionString));
-            builder.Services.AddScoped<IBikeService, BikeService>();
+            // builder.Services.AddScoped<IBikeRepository>(provider => new BikeRepository(connectionString));
+            // builder.Services.AddScoped<IBikeService, BikeService>();
 
             var app = builder.Build();
 
