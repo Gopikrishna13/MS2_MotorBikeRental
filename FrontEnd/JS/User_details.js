@@ -25,7 +25,7 @@ fetch(apiUrl)
 
 
 //const user_details = JSON.parse(localStorage.getItem("User_Details")) || [];
-document.addEventListener("DOMContentLoaded",displayUsers(user_details));
+// document.addEventListener("DOMContentLoaded",displayForm(users));
 
 function displayForm(users)
 {
@@ -73,16 +73,33 @@ function displayForm(users)
 }
       
 
-// document.getElementById("search_btn").addEventListener('click', () => {
-//             const u_Id = Number(document.getElementById("ID_search").value);
-//             const u_Name = document.getElementById("UName_search").value.toLowerCase();
-
-          
-//             const find_user = user_details.filter(user => 
-//         ( u_Id === 0 || user.ID === u_Id) &&
-//         (u_Name === "" || user.UserName.toLowerCase().includes(u_Name))
-//     );
+document.getElementById("search_btn").addEventListener('click', () => {
+    const u_Name = document.getElementById("UName_search").value;  
             
-//                 displayUsers(find_user);
+    const GetapiUrl = `http://localhost:5156/api/User/GetByUserName?username=${u_Name}`;
+
+    fetch(GetapiUrl)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(user => {
+            let users = Array.isArray(user) ? user : [user];
+            if (user) {
+                
+                displayForm(users);
+                console.log(user);
+            } else {
+                console.error("user Not Found!");
+            }
+        })
+        .catch(error => {
+            console.error('Fetch error:', error); // Log fetch errors
+        });
            
-//         });
+        });
+
+
+      
