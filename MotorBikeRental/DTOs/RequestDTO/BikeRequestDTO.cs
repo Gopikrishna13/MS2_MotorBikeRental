@@ -1,15 +1,17 @@
 using System;
 using System.Collections.Generic;
+using MotorBikeRental.DTOs.RequestDTO;
 
 namespace MotorBikeRental.DTOs.RequestDTO
 {
     public class BikeRequestDTO
 {
      
-                 public string BikeName {get;set;}
-                 public int Rent {get;set;}
-                 public List <string>  RegNo {get;set;}
-                 public  int Status {get;set;}=0;
+   // public int BikeId { get; set; }  
+    public string Model { get; set; }  
+    public string Brand { get; set; }  
+    public decimal Rent { get; set; }  
+    public List<BikeUnitRequestDTO> Units { get; set; }
 
 }
 

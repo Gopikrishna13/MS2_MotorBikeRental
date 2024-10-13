@@ -6,8 +6,8 @@ namespace MotorBikeRental.Database.Entities
 public class BikeImages
 {
     public int ImageId{get;set;}
-    public int BikeId{get;set;}
-    public List <string> ImagePath;
+    public int UnitId{get;set;}
+    public string ImagePath{get;set;}
 
 }
 }

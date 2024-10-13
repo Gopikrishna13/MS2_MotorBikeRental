@@ -6,10 +6,11 @@ namespace MotorBikeRental.DTOs.RequestDTO
 
     public class BikeImageRequestDTO
 {
-    public int BikeId{get;set;}
-    public List <string> ImagePath{get;set;}
+   // public int BikeId{get;set;}
+    public string ImagePath{get;set;}
 
-}
+       
+    }
 
 
 }

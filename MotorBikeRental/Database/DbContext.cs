@@ -21,7 +21,8 @@ namespace MotorBikeRental.Database
              CreateBike();
           //  RentalRequest();
           //  ReturnedBikes();
-           // BikeImages();
+            BikeUnits();
+            BikeImages();
             RentalHistory();
         }
 
@@ -146,22 +147,44 @@ namespace MotorBikeRental.Database
         //     ExecuteCommand(tableQuery);
         // }
 
-        // public void BikeImages()
-        // {
-        //     var tableQuery = @"
-        //     IF NOT EXISTS (SELECT * FROM sys.tables WHERE name = 'BikeImages')
-        //     BEGIN
-        //         CREATE TABLE BikeImages(
-        //             ImageId INT PRIMARY KEY IDENTITY(1,1),
-        //             BikeId INT NOT NULL,
-        //             ImagePath NVARCHAR(255),
-        //             FOREIGN KEY (BikeId) REFERENCES Bikes(BikeId)
-        //         );
-        //         PRINT 'Table BikeImages created successfully.';
-        //     END";
+      public void BikeUnits()
+{
+    var tableQuery = @"
+    IF NOT EXISTS (SELECT * FROM sys.tables WHERE name = 'BikeUnits')
+    BEGIN
+        CREATE TABLE BikeUnits(
+            UnitId INT PRIMARY KEY IDENTITY(1,1),
+            BikeId INT NOT NULL,
+            RegistrationNumber NVARCHAR(255),
+            Year INT NOT NULL,
+            Status INT NOT NULL,
+            FOREIGN KEY (BikeId) REFERENCES Bikes(BikeId)
+        );
+        PRINT 'Table BikeUnits created successfully.';
+    END";
+    
+    ExecuteCommand(tableQuery);
+}
 
-        //     ExecuteCommand(tableQuery);
-        // }
+
+public void BikeImages()
+{
+    var tableQuery = @"
+    IF NOT EXISTS (SELECT * FROM sys.tables WHERE name = 'BikeImages')
+    BEGIN
+        CREATE TABLE BikeImages(
+            ImageId INT PRIMARY KEY IDENTITY(1,1),
+            BikeId INT NOT NULL,
+            UnitId INT NOT NULL,
+            ImagePath NVARCHAR(255),
+            FOREIGN KEY (BikeId) REFERENCES Bikes(BikeId),
+            FOREIGN KEY (UnitId) REFERENCES BikeUnits(UnitId)
+        );
+        PRINT 'Table BikeImages created successfully.';
+    END";
+    
+    ExecuteCommand(tableQuery);
+}
 
         private void ExecuteCommand(string command)
         {
