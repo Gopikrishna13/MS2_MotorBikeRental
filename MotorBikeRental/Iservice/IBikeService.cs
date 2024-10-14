@@ -9,7 +9,7 @@ namespace MotorBikeRental.Iservice
     public interface IBikeService
 {
     Task<bool> AddBike(BikeRequestDTO bikeRequestDTO);
-  //  Task <List<BikeResponseDTO>> GetAllBikes();
+    Task <List<BikeResponseDTO>> GetAllBikes();
    // Task <bool> DeleteBike(int Id);
    // Task <List<BikeImageResponseDTO>> AddImages(BikeImageRequestDTO imageRequestDTO);
    // Task <bool> UpdateImages(int ImageId,BikeImageRequestDTO imageRequestDTO);

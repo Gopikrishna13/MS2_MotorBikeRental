@@ -11,9 +11,9 @@ namespace MotorBikeRental.IRepository
     public interface IBikeRepository
 {
     Task<bool> AddBike(Bike bike);
-   // Task <Bike> AddBike (Bike bike);
+   
     Task <bool> CheckUnique(string RegNo);
-    //Task <List<AllBikes>> GetAllBikes();
+     Task <List<BikeResponseDTO>> GetAllBikes();
    // Task <bool> DeleteBike(int Id);
   //  Task <BikeImages> AddImages(BikeImages imageRequest);
    // Task <bool> checkBike(int BikeId);

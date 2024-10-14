@@ -3,7 +3,7 @@ using Microsoft.Data.SqlClient;
 using MotorBikeRental.Database.Entities;
 using MotorBikeRental.IRepository;
 using Dapper;
-
+using MotorBikeRental.DTOs.ResponseDTO;
 namespace MotorBikeRental.Repository
 {
     public class BikeRepository:IBikeRepository
@@ -107,16 +107,59 @@ namespace MotorBikeRental.Repository
 }
 
 
-//   public async  Task <List<AllBikes>> GetAllBikes()
-//   {
-//     var query=@"select * from Bikes";
+public async Task<List<BikeResponseDTO>> GetAllBikes()
+{
+    var query = @"
+        SELECT 
+            Bikes.BikeId, 
+            Bikes.Model, 
+            Bikes.Brand, 
+            Bikes.Rent, 
+            BikeUnits.RegistrationNumber, 
+            STRING_AGG(BikeImages.ImagePath, ',') AS ImagePaths
+        FROM Bikes
+        JOIN BikeUnits ON Bikes.BikeId = BikeUnits.BikeId
+        LEFT JOIN BikeImages ON BikeUnits.UnitId = BikeImages.UnitId
+        GROUP BY 
+            Bikes.BikeId, 
+            Bikes.Model, 
+            Bikes.Brand, 
+            Bikes.Rent, 
+            BikeUnits.RegistrationNumber";
 
-//     using(var connection=new SqlConnection(_connectionString))
-//     {
-//         var result=await connection.QueryAsync<AllBikes>(query);
-//         return result.ToList();
-//     }
-//   }
+    using (var connection = new SqlConnection(_connectionString))
+    {
+        // Query the database and manually map the results
+        var result = await connection.QueryAsync(query);
+
+        var bikes = new List<BikeResponseDTO>();
+
+        foreach (var row in result)
+        {
+            var bike = new BikeResponseDTO
+            {
+                BikeId = row.BikeId,
+                Model = row.Model,
+                Brand = row.Brand,
+                Rent = row.Rent,
+                RegistrationNumber = row.RegistrationNumber,
+                Images = row.ImagePaths != null
+                    ? ((string)row.ImagePaths).Split(',').Select(path => new BikeImageResponseDTO
+                    {
+                        ImagePath = path
+                    }).ToList()
+                    : new List<BikeImageResponseDTO>()
+            };
+
+            bikes.Add(bike);
+        }
+
+        return bikes;
+    }
+}
+
+
+
 
 //   public async Task<bool> DeleteBike(int id)
 // {
