@@ -16,6 +16,7 @@ namespace MotorBikeRental.Iservice
    // Task <bool> DeleteImage(int ImageId);
    // Task <List<AllBikeImages>> AllBikeImages();
   Task <List<BikeResponseDTO>> SearchBikes(decimal Rent,string Brand,string Model);
+  Task <BikeResponseDTO> GetByRegistration(string RegNo);
     
 
 }

@@ -146,7 +146,7 @@ public async Task<List<BikeResponseDTO>> GetAllBikes()
                         Brand = reader.GetString(2), 
                         Rent = reader.GetDecimal(3), 
                         RegistrationNumber = reader.GetString(4), 
-                        Images = reader.IsDBNull(5) 
+                        Images = reader.IsDBNull(5) //check empty value
                             ? new List<BikeImageResponseDTO>() 
                             : reader.GetString(5).Split(',')
                                 .Select(path => new BikeImageResponseDTO
@@ -357,6 +357,64 @@ public async Task<List<BikeResponseDTO>> SearchBikes(decimal rent, string brand,
     return bikes;
 }
 
+public async Task<BikeResponseDTO> GetByRegistartion(string regNo)
+{
+    var query = @"
+        SELECT 
+            Bikes.BikeId, 
+            Bikes.Model, 
+            Bikes.Brand, 
+            Bikes.Rent, 
+            BikeUnits.RegistrationNumber, 
+            STRING_AGG(BikeImages.ImagePath, ',') AS ImagePaths
+        FROM Bikes
+        JOIN BikeUnits ON Bikes.BikeId = BikeUnits.BikeId
+        LEFT JOIN BikeImages ON BikeUnits.UnitId = BikeImages.UnitId
+        WHERE BikeUnits.RegistrationNumber=@regNo
+        GROUP BY 
+            Bikes.BikeId, 
+            Bikes.Model, 
+            Bikes.Brand, 
+            Bikes.Rent, 
+            BikeUnits.RegistrationNumber";
+
+            using(var connection=new SqlConnection(_connectionString))
+            {
+                using(var command=new SqlCommand(query,connection))
+                {
+                    await connection.OpenAsync();
+                    command.Parameters.AddWithValue("@regNo",regNo);
+                   
+                   using(var reader=await command.ExecuteReaderAsync())
+                   {
+                    if(await reader.ReadAsync())
+                    {
+                            return new BikeResponseDTO
+                            {
+                        BikeId = reader.GetInt32(0),
+                        Model = reader.GetString(1),
+                        Brand = reader.GetString(2),
+                        Rent = reader.GetDecimal(3),
+                        RegistrationNumber = reader.GetString(4),
+                        Images = reader.IsDBNull(5) 
+                            ? new List<BikeImageResponseDTO>() 
+                            : reader.GetString(5).Split(',')
+                                .Select(path => new BikeImageResponseDTO
+                                {
+                                    ImagePath = path
+                                }).ToList()
+
+                            };
+                    }
+                    return null;
+                   }
+                   
+                        
+                }
+            }
+        
+}
 
 }
 }
+//string_AGG gets a list of values as comma seperated

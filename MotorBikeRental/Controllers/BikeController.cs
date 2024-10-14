@@ -45,6 +45,19 @@ namespace MotorBikeRental.Controllers
             }
         }
 
+        [HttpGet("GetByRegistratioNumber")]
+        public async Task <IActionResult> GetByRegistration(string RegNo)
+        {
+            try{
+                var getbike=await _bikeService.GetByRegistration(RegNo);
+                return Ok(getbike);
+
+            }catch(Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
         // [HttpDelete("DeleteBike")]
         // public async Task <IActionResult> DeleteBike(int Id)
         // {
