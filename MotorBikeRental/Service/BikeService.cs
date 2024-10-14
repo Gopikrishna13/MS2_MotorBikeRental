@@ -20,51 +20,50 @@ namespace MotorBikeRental.Service
     }
 
 
-   public async Task<bool> AddBike(BikeRequestDTO bikeRequestDTO)
+ public async Task<bool> AddBike(BikeRequestDTO bikeRequestDTO)
 {
-   // var responseList = new List<BikeResponseDTO>();
+    // List to hold images for each unit
+    var bikeUnits = new List<BikeUnit>();
 
     foreach (var unit in bikeRequestDTO.Units)
     {
+        // Check if the registration number is unique
         var isUnique = await _bikeRepository.CheckUnique(unit.RegistrationNumber);
         if (!isUnique)
         {
             throw new Exception("Registration number already exists");
         }
 
-var bikeImages=unit.Images.Select(image=>new BikeImages{
-ImagePath=image.ImagePath
-}).ToList();
-
-
-        var data = new Bike
+        // Map images to BikeImages 
+        var bikeImages = unit.Images.Select(image => new BikeImages
         {
-            Model = bikeRequestDTO.Model,
-            Brand=bikeRequestDTO.Brand,
-            Rent = bikeRequestDTO.Rent,
-            Units = new List<BikeUnit> { new BikeUnit {
-           
-            RegistrationNumber=unit.RegistrationNumber,
-            Year=unit.Year,
-            Images=bikeImages,
-            Status=unit.Status
-           } }
-           
-        };
+            ImagePath = image.ImagePath
+        }).ToList();
 
-        var addBike = await _bikeRepository.AddBike(data);
-
-        if(addBike)
+        // Create a new BikeUnit and add it to the list
+        bikeUnits.Add(new BikeUnit
         {
-            return true;
-        }
-
-      
+            RegistrationNumber = unit.RegistrationNumber,
+            Year = unit.Year,
+            Images = bikeImages,
+            Status = unit.Status
+        });
     }
-    return false;
 
+    // Create a single Bike object with all the units
+    var bike = new Bike
+    {
+        Model = bikeRequestDTO.Model,
+        Brand = bikeRequestDTO.Brand,
+        Rent = bikeRequestDTO.Rent,
+        Units = bikeUnits // Add all units to the bike
+    };
+
+    // Call AddBike once with the complete bike data
+    var addBikeSuccess = await _bikeRepository.AddBike(bike);
+
+    return addBikeSuccess; // Return the result of the add operation
 }
-
 
 public async Task <List<BikeResponseDTO>> GetAllBikes()
 {

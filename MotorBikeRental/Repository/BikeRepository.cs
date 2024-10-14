@@ -39,72 +39,81 @@ namespace MotorBikeRental.Repository
 
 
 
- public async Task<bool> AddBike(Bike bike)
+public async Task<bool> AddBike(Bike bike)
 {
-    try
+    var bikeInsertQuery = @"INSERT INTO Bikes (Model, Brand, Rent) 
+                            OUTPUT INSERTED.BikeId  
+                            VALUES (@model, @brand, @rent)";
+
+    var bikeUnitInsertQuery = @"
+        INSERT INTO BikeUnits (BikeId, RegistrationNumber, Year, Status)
+        OUTPUT INSERTED.UnitId
+        VALUES (@BikeId, @RegistrationNumber, @Year, @Status)";
+
+    var bikeImageInsertQuery = @"
+        INSERT INTO BikeImages (BikeId, UnitId, ImagePath) 
+        VALUES (@BikeId, @UnitId, @Path)";
+
+    using (var connection = new SqlConnection(_connectionString))
     {
-        var query = @"INSERT INTO Bikes (Model, Brand, Rent) 
-                      OUTPUT INSERTED.BikeId  
-                      VALUES (@model, @brand, @rent)";
+        await connection.OpenAsync();
 
-        using (var connection = new SqlConnection(_connectionString))
+        try
         {
-            await connection.OpenAsync();
-
-            // Insert the bike
-            using (var command = new SqlCommand(query, connection))
+            
+            using (var command = new SqlCommand(bikeInsertQuery, connection))
             {
                 command.Parameters.AddWithValue("@model", bike.Model);
                 command.Parameters.AddWithValue("@brand", bike.Brand);
                 command.Parameters.AddWithValue("@rent", bike.Rent);
 
+              
                 bike.BikeId = (int)await command.ExecuteScalarAsync();
+                Console.WriteLine($"Inserted Bike ID: {bike.BikeId}"); 
+            }
 
-                // Loop through each unit
-                foreach (var units in bike.Units)
-                {
-                    var bikeUnitQuery = @"
-                        INSERT INTO BikeUnits (BikeId, RegistrationNumber, Year, Status)
-                        OUTPUT INSERTED.UnitId
-                        VALUES (@BikeId, @RegistrationNumber, @Year, @Status)";
-                    
-                    int bikeUnitId;
-                    using (var command_1 = new SqlCommand(bikeUnitQuery, connection))
-                    {
-                        command_1.Parameters.AddWithValue("@BikeId", bike.BikeId);
-                        command_1.Parameters.AddWithValue("@RegistrationNumber", units.RegistrationNumber);
-                        command_1.Parameters.AddWithValue("@Year", units.Year);
-                        command_1.Parameters.AddWithValue("@Status", units.Status);
-
-                        bikeUnitId = (int)await command_1.ExecuteScalarAsync();
-                    }
-
+            foreach (var unit in bike.Units)
+            {
                 
-                    foreach (var image in units.Images)
+                Console.WriteLine($"Inserting Unit: RegistrationNumber={unit.RegistrationNumber}, Year={unit.Year}, Status={unit.Status}");
+                
+                int bikeUnitId;
+                using (var unitCommand = new SqlCommand(bikeUnitInsertQuery, connection))
+                {
+                    unitCommand.Parameters.AddWithValue("@BikeId", bike.BikeId);
+                    unitCommand.Parameters.AddWithValue("@RegistrationNumber", unit.RegistrationNumber);
+                    unitCommand.Parameters.AddWithValue("@Year", unit.Year);
+                    unitCommand.Parameters.AddWithValue("@Status", unit.Status);
+
+                    bikeUnitId = (int)await unitCommand.ExecuteScalarAsync();
+                    Console.WriteLine($"Inserted Unit ID: {bikeUnitId}"); 
+                }
+
+                foreach (var image in unit.Images)
+                {
+                    
+                    Console.WriteLine($"Inserting Image: Path={image.ImagePath}");
+
+                    using (var imgCommand = new SqlCommand(bikeImageInsertQuery, connection))
                     {
-                        var bikeImageQuery = @"
-                            INSERT INTO BikeImages (BikeId, UnitId, ImagePath) 
-                            VALUES (@BikeId, @UnitId, @Path)";
-                        
-                        using (var img_command = new SqlCommand(bikeImageQuery, connection))
-                        {
-                            img_command.Parameters.AddWithValue("@BikeId", bike.BikeId);
-                            img_command.Parameters.AddWithValue("@UnitId", bikeUnitId); 
-                            img_command.Parameters.AddWithValue("@Path", image.ImagePath);
-                            
-                         
-                            await img_command.ExecuteNonQueryAsync();
-                        }
+                        imgCommand.Parameters.AddWithValue("@BikeId", bike.BikeId);
+                        imgCommand.Parameters.AddWithValue("@UnitId", bikeUnitId);
+                        imgCommand.Parameters.AddWithValue("@Path", image.ImagePath);
+
+                        await imgCommand.ExecuteNonQueryAsync();
+                        Console.WriteLine($"Inserted Image Path: {image.ImagePath}"); 
                     }
                 }
             }
-        }
 
-        return true;
-    }
-    catch (Exception ex)
-    {
-        throw new Exception(ex.Message);
+            return true;  
+        }
+        catch (Exception ex)
+        {
+            
+            Console.WriteLine($"Error while adding bike: {ex.Message}");
+            throw; 
+        }
     }
 }
 
