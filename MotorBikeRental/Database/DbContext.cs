@@ -24,8 +24,21 @@ namespace MotorBikeRental.Database
             BikeUnits();
             BikeImages();
             RentalHistory();
+            RentalSample();
         }
 
+public void RentalSample()
+{
+    var tablequery=@"IF NOT EXISTS(SELECT * FROM sys.tables WHERE name='RentalSample')
+    BEGIN 
+         CREATE TABLE RentalSample(
+         SampleId int primary key identity(1,1),
+         BikeId int,
+         Foreign Key(BikeId ) references Bikes (BikeId)
+         );
+         END";
+         ExecuteCommand(tablequery);
+}
         public void CreateUser()
         {
             var tableQuery = @"

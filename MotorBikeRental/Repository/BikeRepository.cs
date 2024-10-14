@@ -167,29 +167,35 @@ public async Task<List<BikeResponseDTO>> GetAllBikes()
 
 
 
-//   public async Task<bool> DeleteBike(int id)
-// {
-//     var chkBikeQuery = @"SELECT COUNT(1) FROM RentalRequest WHERE BikeId = @Id";
-//     var deleteQuery = @"DELETE FROM Bikes WHERE BikeId = @Id";
+  public async Task<bool> DeleteBike(int id)
+{
+    var chkBikeQuery = @"SELECT COUNT(1) FROM RentalSample WHERE BikeId = @Id";
+    var deleteBikeQuery = @"DELETE FROM Bikes WHERE BikeId = @Id";
+    var deleteBikeUnitQuery=@"Delete from BikeUnits where BikeId=@Id";
+    var deleteBikeImageQuery=@"Delete from BikeImages where BikeId=@Id";
 
-//     using (var connection = new SqlConnection(_connectionString))
-//     {
+    using (var connection = new SqlConnection(_connectionString))
+    {
        
-//         var rentalCount = await connection.ExecuteScalarAsync<int>(chkBikeQuery, new { Id=id });
+        var rentalCount = await connection.ExecuteScalarAsync<int>(chkBikeQuery, new { Id=id });
         
-//         if (rentalCount > 0)
-//         {
+        if (rentalCount > 0)
+        {
          
-//             return false;
-//         }
+            return false;
+        }
 
       
-//         var deletedRows = await connection.ExecuteAsync(deleteQuery, new { Id=id  });
+
+         await connection.ExecuteAsync(deleteBikeImageQuery,new{Id=id});
+         await connection.ExecuteAsync(deleteBikeUnitQuery,new{Id=id});
+        var deletedRows=await connection.ExecuteAsync(deleteBikeQuery, new { Id=id  });
+    
         
       
-//         return deletedRows > 0;
-//     }
-// }
+        return deletedRows > 0;
+    }
+}
 
 
 // public async Task <BikeImages> AddImages(BikeImages imageRequest)

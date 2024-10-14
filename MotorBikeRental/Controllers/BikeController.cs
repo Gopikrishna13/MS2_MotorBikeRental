@@ -58,19 +58,19 @@ namespace MotorBikeRental.Controllers
             }
         }
 
-        // [HttpDelete("DeleteBike")]
-        // public async Task <IActionResult> DeleteBike(int Id)
-        // {
-        //     try{
+        [HttpDelete("DeleteBike")]
+        public async Task <IActionResult> DeleteBike(int Id)
+        {
+            try{
 
-        //         var data=await _bikeService.DeleteBike(Id);
-        //         return Ok("Bike Deleted Successfully");
+                var data=await _bikeService.DeleteBike(Id);
+                return Ok("Bike Deleted Successfully");
 
-        //     }catch(Exception ex)
-        //     {
-        //         return BadRequest(ex.Message);
-        //     }
-        // }
+            }catch(Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
 
         // [HttpPost("AddImages")]
         // public async Task <IActionResult> AddImages(BikeImageRequestDTO imageRequestDTO)
