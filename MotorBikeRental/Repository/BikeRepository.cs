@@ -127,35 +127,41 @@ public async Task<List<BikeResponseDTO>> GetAllBikes()
             Bikes.Rent, 
             BikeUnits.RegistrationNumber";
 
+    var bikes = new List<BikeResponseDTO>();
+
     using (var connection = new SqlConnection(_connectionString))
     {
-        // Query the database and manually map the results
-        var result = await connection.QueryAsync(query);
+        await connection.OpenAsync();
 
-        var bikes = new List<BikeResponseDTO>();
-
-        foreach (var row in result)
+        using (var command = new SqlCommand(query, connection))
         {
-            var bike = new BikeResponseDTO
+            using (var reader = await command.ExecuteReaderAsync())
             {
-                BikeId = row.BikeId,
-                Model = row.Model,
-                Brand = row.Brand,
-                Rent = row.Rent,
-                RegistrationNumber = row.RegistrationNumber,
-                Images = row.ImagePaths != null
-                    ? ((string)row.ImagePaths).Split(',').Select(path => new BikeImageResponseDTO
+                while (await reader.ReadAsync())
+                {
+                    var bike = new BikeResponseDTO
                     {
-                        ImagePath = path
-                    }).ToList()
-                    : new List<BikeImageResponseDTO>()
-            };
+                        BikeId = reader.GetInt32(0), 
+                        Model = reader.GetString(1), 
+                        Brand = reader.GetString(2), 
+                        Rent = reader.GetDecimal(3), 
+                        RegistrationNumber = reader.GetString(4), 
+                        Images = reader.IsDBNull(5) 
+                            ? new List<BikeImageResponseDTO>() 
+                            : reader.GetString(5).Split(',')
+                                .Select(path => new BikeImageResponseDTO
+                                {
+                                    ImagePath = path
+                                }).ToList() 
+                    };
 
-            bikes.Add(bike);
+                    bikes.Add(bike);
+                }
+            }
         }
-
-        return bikes;
     }
+
+    return bikes;
 }
 
 
@@ -287,18 +293,70 @@ public async Task<List<BikeResponseDTO>> GetAllBikes()
 
 
 
-// public async Task <List<AllBikeImages>> SearchBikes(string BikeName,int Rent)
-// {
-//     var query=@"select Bikes.BikeId,Bikes.BikeName,Bikes.Rent,Bikes.RegNo,BikeImages.ImagePath
-//     from Bikes
-//     join BikeImages on Bikes.BikeId=BikeImages.BikeId where Bikes.BikeName=BikeName OR Bikes.Rent<=Rent";
+public async Task<List<BikeResponseDTO>> SearchBikes(decimal rent, string brand, string model)
+{
+    var query = @"
+        SELECT 
+            Bikes.BikeId, 
+            Bikes.Model, 
+            Bikes.Brand, 
+            Bikes.Rent, 
+            BikeUnits.RegistrationNumber, 
+            STRING_AGG(BikeImages.ImagePath, ',') AS ImagePaths
+        FROM Bikes
+        JOIN BikeUnits ON Bikes.BikeId = BikeUnits.BikeId
+        LEFT JOIN BikeImages ON BikeUnits.UnitId = BikeImages.UnitId 
+        WHERE (Bikes.Rent <= @Rent )
+        OR (Bikes.Model = @Model )
+        OR (Bikes.Brand = @Brand)
+        GROUP BY 
+            Bikes.BikeId, 
+            Bikes.Model, 
+            Bikes.Brand, 
+            Bikes.Rent, 
+            BikeUnits.RegistrationNumber";
 
-//     using(var connection=new SqlConnection(_connectionString))
-//     {
-//         var result=await connection.QueryAsync<AllBikeImages>(query);
-//         return result.ToList();
-//     }
-// }
+    var bikes = new List<BikeResponseDTO>();
+    
+    using (var connection = new SqlConnection(_connectionString))
+    {
+        await connection.OpenAsync();
+
+        using (var command = new SqlCommand(query, connection))
+        {
+           
+            command.Parameters.AddWithValue("@Rent", rent);
+            command.Parameters.AddWithValue("@Model",model); 
+            command.Parameters.AddWithValue("@Brand",brand);
+            using (var reader = await command.ExecuteReaderAsync())
+            {
+                while (await reader.ReadAsync())
+                {
+                    var bike = new BikeResponseDTO
+                    {
+                        BikeId = reader.GetInt32(0),
+                        Model = reader.GetString(1),
+                        Brand = reader.GetString(2),
+                        Rent = reader.GetDecimal(3),
+                        RegistrationNumber = reader.GetString(4),
+                        Images = reader.IsDBNull(5) 
+                            ? new List<BikeImageResponseDTO>() 
+                            : reader.GetString(5).Split(',')
+                                .Select(path => new BikeImageResponseDTO
+                                {
+                                    ImagePath = path
+                                }).ToList()
+                    };
+
+                    bikes.Add(bike);
+                }
+            }
+        }
+    }
+
+    return bikes;
+}
+
 
 }
 }

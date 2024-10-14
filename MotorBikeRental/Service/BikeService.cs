@@ -196,28 +196,20 @@ public async Task <List<BikeResponseDTO>> GetAllBikes()
 //    return response;
 // }
 
-// public async  Task <List<AllBikeImages>> SearchBikes(string BikeName,int Rent)
-// {
-//     var data=await _bikeRepository.SearchBikes(BikeName,Rent);
+public async    Task <List<BikeResponseDTO>> SearchBikes(decimal Rent,string Brand,string Model)
+{
+    var data=await _bikeRepository.SearchBikes(Rent,Brand,Model);
 
-//     if(data == null)
-//     {
-//         throw new Exception ("Data could not be Found!");
-//     }
+    if(data == null)
+    {
+        throw new Exception ("Data could not be Found!");
+    }
 
-//     var response=data.Select(x=>new AllBikeImages{
 
-//         BikeId=x.BikeId,
-//         BikeName=x.BikeName,
-//         Rent=x.Rent,
-//         RegNo=x.RegNo,
-//         ImagePath=x.ImagePath
 
-//     }).ToList();
+    return data.ToList();
 
-//     return response;
-
-// }
+}
 
 }
 

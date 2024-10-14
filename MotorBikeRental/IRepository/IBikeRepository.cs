@@ -21,7 +21,7 @@ namespace MotorBikeRental.IRepository
     //Task <bool> checkImgId(int ImageId);
    // Task <bool> DeleteImage(int ImageId);
     //Task <List<AllBikeImages>> AllBikeImages();
-   // Task <List<AllBikeImages>> SearchBikes(string BikeName,int Rent);
+    Task <List<BikeResponseDTO>> SearchBikes(decimal Rent,string Brand,string Model);
 
 
 }

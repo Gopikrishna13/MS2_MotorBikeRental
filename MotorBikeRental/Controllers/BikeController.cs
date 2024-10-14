@@ -117,18 +117,18 @@ namespace MotorBikeRental.Controllers
         //     }
         // }
 
-        // [HttpGet("SearchBikes")]
-        // public async Task <IActionResult> SearchBikes(string BikeName,int Rent)
-        // {
-        //     try{
+        [HttpGet("SearchBikes")]
+        public async Task <IActionResult> SearchBikes(decimal Rent,string Brand,string Model)
+        {
+            try{
 
-        //         var data=await _bikeService.SearchBikes(BikeName,Rent);
-        //         return Ok(data);
+                var data=await _bikeService.SearchBikes(Rent,Brand,Model);
+                return Ok(data);
 
-        //     }catch(Exception ex)
-        //     {
-        //         return BadRequest(ex.Message);
-        //     }
-        // }
+            }catch(Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
     }
 }
