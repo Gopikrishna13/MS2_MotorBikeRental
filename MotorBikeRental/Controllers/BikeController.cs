@@ -72,6 +72,36 @@ namespace MotorBikeRental.Controllers
             }
         }
 
+
+          [HttpGet("SearchBikes")]
+        public async Task <IActionResult> SearchBikes(decimal Rent,string Brand,string Model)
+        {
+            try{
+
+                var data=await _bikeService.SearchBikes(Rent,Brand,Model);
+                return Ok(data);
+
+            }catch(Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+
+[HttpPut("UpdateBike")]
+public async Task <IActionResult> UpdateBike(int BikeId,BikeRequestDTO bikeRequest)
+{
+    try{
+
+        var data=await _bikeService.UpdateBike(BikeId,bikeRequest);
+        return Ok(data);
+
+    }catch(Exception ex)
+    {
+        return BadRequest(ex.Message);
+    }
+}
+
         // [HttpPost("AddImages")]
         // public async Task <IActionResult> AddImages(BikeImageRequestDTO imageRequestDTO)
         // {
@@ -130,18 +160,6 @@ namespace MotorBikeRental.Controllers
         //     }
         // }
 
-        [HttpGet("SearchBikes")]
-        public async Task <IActionResult> SearchBikes(decimal Rent,string Brand,string Model)
-        {
-            try{
-
-                var data=await _bikeService.SearchBikes(Rent,Brand,Model);
-                return Ok(data);
-
-            }catch(Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-        }
+      
     }
 }

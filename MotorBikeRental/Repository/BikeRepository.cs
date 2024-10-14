@@ -4,6 +4,7 @@ using MotorBikeRental.Database.Entities;
 using MotorBikeRental.IRepository;
 using Dapper;
 using MotorBikeRental.DTOs.ResponseDTO;
+using MotorBikeRental.DTOs.RequestDTO;
 namespace MotorBikeRental.Repository
 {
     public class BikeRepository:IBikeRepository
@@ -35,6 +36,7 @@ namespace MotorBikeRental.Repository
         }
     
     }
+
 
 
  public async Task<bool> AddBike(Bike bike)
@@ -164,7 +166,76 @@ public async Task<List<BikeResponseDTO>> GetAllBikes()
     return bikes;
 }
 
+public async  Task <bool> UpdateBike(int BikeId,BikeRequestDTO bikeRequest)
+{
+    try{
+           var query=@"Update Bikes SET Brand=@brand,Model=@model,Rent=@rent 
+    where BikeId=@Id ";
 
+    using(var connection=new SqlConnection(_connectionString))
+    {
+        await connection.OpenAsync();
+        using(var command=new SqlCommand(query,connection))
+        {
+            command.Parameters.AddWithValue("@brand",bikeRequest.Brand);
+            command.Parameters.AddWithValue("@model",bikeRequest.Model);
+            command.Parameters.AddWithValue("@rent",bikeRequest.Rent);
+            command.Parameters.AddWithValue("@Id",BikeId);
+
+            await command.ExecuteNonQueryAsync();
+
+
+           foreach (var unit in bikeRequest.Units)
+           {
+               var unit_query=@"Update BikeUnits 
+               set  
+               RegistrationNumber=  @RegistrationNumber,
+               Year= @Year,
+               Status=@Status
+                        
+           
+             where BikeId=@Id";
+
+               using(var command_unit=new SqlCommand(unit_query,connection))
+               {
+                command_unit.Parameters.AddWithValue("@RegistrationNumber",unit.RegistrationNumber);
+                command_unit.Parameters.AddWithValue("@Year",unit.Year);
+                command_unit.Parameters.AddWithValue("@Status",unit.Status);
+                command_unit.Parameters.AddWithValue("@Id",BikeId);
+
+                await command_unit.ExecuteNonQueryAsync();
+               }
+
+               foreach(var img in unit.Images)
+               {
+                  var img_query=@"Update BikeImages
+                  SET ImagePath=@path where BikeId=@Id";
+
+                  using(var img_command=new SqlCommand(img_query,connection))
+                  {
+                    img_command.Parameters.AddWithValue("@path",img.ImagePath);
+                    img_command.Parameters.AddWithValue("@Id",BikeId);
+
+                    await img_command.ExecuteNonQueryAsync();
+
+                    
+                  }
+               }
+            
+           }
+
+        }
+
+        
+    }
+   return true;
+
+    }catch(Exception ex)
+    {
+        throw new Exception(ex.Message);
+    }
+ 
+}
 
 
   public async Task<bool> DeleteBike(int id)

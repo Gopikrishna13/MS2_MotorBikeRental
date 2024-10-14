@@ -93,7 +93,46 @@ public async Task <bool> DeleteBike(int Id)
 
     return true;
 }
+  public async Task <bool> UpdateBike(int BikeId,BikeRequestDTO bikeRequest)
+  {
+    var data=await _bikeRepository.UpdateBike(BikeId,bikeRequest);
 
+    if(data)
+    {
+        return true;
+    }
+    return false;
+
+  }
+
+
+public async  Task <List<BikeResponseDTO>> SearchBikes(decimal Rent,string Brand,string Model)
+{
+    var data=await _bikeRepository.SearchBikes(Rent,Brand,Model);
+
+    if(data == null)
+    {
+        throw new Exception ("Data could not be Found!");
+    }
+
+
+
+    return data.ToList();
+
+}
+
+public async Task <BikeResponseDTO> GetByRegistration(string RegNo)
+{
+   
+
+   var data=await _bikeRepository.GetByRegistartion(RegNo);
+   if(data==null)
+   {
+    throw new Exception("Data could not be Found!");
+   }
+
+   return data;
+}
 
 // public async Task <List<BikeImageResponseDTO>> AddImages(BikeImageRequestDTO imageRequestDTO)
 // {
@@ -196,33 +235,7 @@ public async Task <bool> DeleteBike(int Id)
 //    return response;
 // }
 
-public async  Task <List<BikeResponseDTO>> SearchBikes(decimal Rent,string Brand,string Model)
-{
-    var data=await _bikeRepository.SearchBikes(Rent,Brand,Model);
 
-    if(data == null)
-    {
-        throw new Exception ("Data could not be Found!");
-    }
-
-
-
-    return data.ToList();
-
-}
-
-public async Task <BikeResponseDTO> GetByRegistration(string RegNo)
-{
-   
-
-   var data=await _bikeRepository.GetByRegistartion(RegNo);
-   if(data==null)
-   {
-    throw new Exception("Data could not be Found!");
-   }
-
-   return data;
-}
 
 }
 

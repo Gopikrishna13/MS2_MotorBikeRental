@@ -4,6 +4,7 @@ using MotorBikeRental.IRepository;
 using MotorBikeRental.Iservice;
 using MotorBikeRental.Database.Entities;
 using System.Collections.Generic;
+using MotorBikeRental.DTOs.RequestDTO;
 
 
 namespace MotorBikeRental.IRepository
@@ -23,6 +24,7 @@ namespace MotorBikeRental.IRepository
     //Task <List<AllBikeImages>> AllBikeImages();
     Task <List<BikeResponseDTO>> SearchBikes(decimal Rent,string Brand,string Model);
     Task<BikeResponseDTO> GetByRegistartion(string regNo);
+     Task <bool> UpdateBike(int BikeId,BikeRequestDTO bikeRequest);
     }
 
 }
