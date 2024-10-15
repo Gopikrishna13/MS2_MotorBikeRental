@@ -171,6 +171,7 @@ async function createBike() {
         }
 
         alert('Bike added successfully');
+        location.reload();
         document.getElementById("bike_form").reset();
 
     } catch (error) {
@@ -208,10 +209,30 @@ function handleImageUpload(event) {
 
 
 function deleteData(id) {
-    let existingBikes = JSON.parse(localStorage.getItem("Bike_Details")) || [];
-    existingBikes = existingBikes.filter(bike => bike.ID !== id);
-    localStorage.setItem("Bike_Details", JSON.stringify(existingBikes));
-    displayBikes();
+    // let existingBikes = JSON.parse(localStorage.getItem("Bike_Details")) || [];
+    // existingBikes = existingBikes.filter(bike => bike.ID !== id);
+    // localStorage.setItem("Bike_Details", JSON.stringify(existingBikes));
+    const apiDeleteUrl = `http://localhost:5156/api/Bike/DeleteBike?Id=${parseInt(id)}`;
+
+fetch(apiDeleteUrl,{
+    method:'DELETE',
+    headers:{'Content-Type':'application/json'}
+}).then (response=>{
+    if(!response.ok)
+    {
+        throw new Error('response not ok');
+    }
+    return response.text();
+}).then(data=>{
+    alert("Bike deleted successfully!");
+    console.log(data);
+    location.reload();
+    //displayBikes();
+}).catch(error=>{
+    console.error(error);
+})
+
+    
 }
 
 function updateData(id) {
@@ -229,7 +250,7 @@ fetch(apiUrl)
         return response.json();
     })
     .then(bike => {
-        console.log('Fetched bikes:', bike); 
+      
         let bikes = Array.isArray(bike) ? bike : [bike]; 
         if (bikes.length > 0) {
             displayBikes(bikes);

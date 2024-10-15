@@ -6,7 +6,7 @@ const apiUrl = `http://localhost:5156/api/User/AllUsers`;
 fetch(apiUrl)
     .then(response => {
         if (!response.ok) {
-            throw new Error('Network response was not ok');
+            throw new Error(' response was not ok');
         }
         return response.json();
     })
@@ -81,7 +81,7 @@ document.getElementById("search_btn").addEventListener('click', () => {
     fetch(GetapiUrl)
         .then(response => {
             if (!response.ok) {
-                throw new Error('Network response was not ok');
+                throw new Error(' response was not ok');
             }
             return response.json();
         })

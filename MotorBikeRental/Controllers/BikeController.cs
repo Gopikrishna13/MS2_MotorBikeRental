@@ -45,11 +45,11 @@ namespace MotorBikeRental.Controllers
             }
         }
 
-        [HttpGet("GetByRegistratioNumber")]
-        public async Task <IActionResult> GetByRegistration(string RegNo)
+        [HttpGet("GetById")]
+        public async Task <IActionResult> GetById(int id)
         {
             try{
-                var getbike=await _bikeService.GetByRegistration(RegNo);
+                var getbike=await _bikeService.GetById(id);
                 return Ok(getbike);
 
             }catch(Exception ex)

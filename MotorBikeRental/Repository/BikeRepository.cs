@@ -443,7 +443,7 @@ public async Task<List<BikeResponseDTO>> SearchBikes(decimal rent, string brand,
     return bikes;
 }
 
-public async Task<BikeResponseDTO> GetByRegistartion(string regNo)
+public async Task<BikeResponseDTO> GetById(int id)
 {
     var query = @"
         SELECT 
@@ -456,7 +456,7 @@ public async Task<BikeResponseDTO> GetByRegistartion(string regNo)
         FROM Bikes
         JOIN BikeUnits ON Bikes.BikeId = BikeUnits.BikeId
         LEFT JOIN BikeImages ON BikeUnits.UnitId = BikeImages.UnitId
-        WHERE BikeUnits.RegistrationNumber=@regNo
+        WHERE BikeUnits.BikeId=@id
         GROUP BY 
             Bikes.BikeId, 
             Bikes.Model, 
@@ -469,7 +469,7 @@ public async Task<BikeResponseDTO> GetByRegistartion(string regNo)
                 using(var command=new SqlCommand(query,connection))
                 {
                     await connection.OpenAsync();
-                    command.Parameters.AddWithValue("@regNo",regNo);
+                    command.Parameters.AddWithValue("@id",id);
                    
                    using(var reader=await command.ExecuteReaderAsync())
                    {

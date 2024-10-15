@@ -120,11 +120,11 @@ public async  Task <List<BikeResponseDTO>> SearchBikes(decimal Rent,string Brand
 
 }
 
-public async Task <BikeResponseDTO> GetByRegistration(string RegNo)
+public async Task <BikeResponseDTO> GetById(int id)
 {
    
 
-   var data=await _bikeRepository.GetByRegistartion(RegNo);
+   var data=await _bikeRepository.GetById(id);
    if(data==null)
    {
     throw new Exception("Data could not be Found!");
