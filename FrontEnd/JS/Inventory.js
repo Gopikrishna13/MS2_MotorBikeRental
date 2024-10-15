@@ -219,64 +219,70 @@ function updateData(id) {
     sessionStorage.setItem("ID", id);
     window.location.href = "update_bike.html";
 }
+const apiUrl = `http://localhost:5156/api/Bike/AllBikes`;
 
+fetch(apiUrl)
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Response was not ok');
+        }
+        return response.json();
+    })
+    .then(bike => {
+        console.log('Fetched bikes:', bike); 
+        let bikes = Array.isArray(bike) ? bike : [bike]; 
+        if (bikes.length > 0) {
+            displayBikes(bikes);
+            console.log(bikes);
+        } else {
+            console.error("Bike Not Found!");
+        }
+    })
+    .catch(error => {
+        console.error('Fetch error:', error); 
+    });
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-function displayBikes() {
-    let bike = JSON.parse(localStorage.getItem("Bike_Details")) || [];
-
-    let table = `
-        <table>  
-            <tr>
-                <th>ID</th>
-                <th>Image</th>
-                <th>Type</th>
-                <th>Brand</th>
-                <th>Year</th>
-                <th>Registration No</th>
-                <th>Rent</th>
-                
-                <th>Action</th>
-            </tr>`;
-
-    for (const data of bike) {
-        table += `
-            <tr>
-                <td>${data.ID}</td>
-                <td><img src="${data.Image}" width="50"></td>
-                <td>${data.Type}</td>
-                <td>${data.Brand}</td>
-                <td>${data.Year}</td>
-                <td>${data.Registration_Number}</td>
-                <td>${data.Rent}</td>
+    function displayBikes(bikes) {
+       
+        let table = `
+            <table>
+                <tr>
+                    <th>ID</th>
+                    <th>Image</th>
+                    <th>Brand</th>
+                    <th>Model</th>
+               
+                    <th>Registration No</th>
+                    <th>Rent</th>
+                    <th>Action</th>
+                </tr>`;
+    
+                if (Array.isArray(bikes) && bikes.length > 0) {
+            for (const data of bikes) {
               
-                <td>
-                    <button id="upd_btn" onclick="updateData(${data.ID})">Update</button>
-                    <button id="dlt_btn" onclick="deleteData(${data.ID})">Delete</button>
-                </td>
-            </tr>`;
+                const imagePaths = data.images.map(img => img.imagePath); 
+    
+                table += `
+                    <tr>
+                        <td>${data.bikeId}</td>
+                        <td>${imagePaths.length > 0 ? `<img src="data:image/jpg;base64,${imagePaths[1]}" width="50">` : 'No Image'}</td>
+                        <td>${data.brand}</td>
+                        <td>${data.model}</td>
+                       
+                        <td>${data.registrationNumber}</td>
+                        <td>${data.rent}</td>
+                        <td> 
+                            <button id="upd_btn" onclick="updateData(${data.bikeId})">Update</button>
+                            <button id="dlt_btn" onclick="deleteData(${data.bikeId})">Delete</button>
+                        </td>
+                    </tr>`;
+            }
+        }
+    
+        table += `</table>`;
+        document.getElementById("Bike_table").innerHTML = table;
     }
-
-    table += `</table>`;
-    document.getElementById("Bike_table").innerHTML = table;
-}
-
+    
 
 
 
