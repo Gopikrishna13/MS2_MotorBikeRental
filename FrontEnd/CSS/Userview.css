@@ -1,0 +1,51 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+#display {
+    background: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 300px;
+    text-align: center;
+}
+
+#display div {
+    margin: 10px 0;
+}
+
+#display img {
+    border-radius: 5px;
+}
+
+#display #type,
+#display #brand,
+#display #year,
+#display #Reg,
+#display #Rent {
+    font-size: 18px;
+    color: #333;
+}
+
+#display button {
+    padding: 10px 20px;
+    font-size: 16px;
+    color: #fff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#display button:hover {
+    background-color: #0056b3;
+}

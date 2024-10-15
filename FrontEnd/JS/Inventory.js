@@ -25,7 +25,7 @@ document.addEventListener("DOMContentLoaded", function() {
 function generateRegNumberFields() {
     const quantity = Number(document.getElementById("bike_quantity").value);
     const container = document.getElementById("reg_numbers_container");
-    container.innerHTML = ""; // Clear previous inputs
+    container.innerHTML = "";
 
     for (let i = 0; i < quantity; i++) {
         const label = document.createElement("label");
@@ -87,11 +87,7 @@ function searchBike() {
     fetch(searchUrl)
         .then(response => {
             if (!response.ok) {
-                return response.text().then(text => {
-                    console.error(`Error ${response.status}: ${response.statusText}`);
-                    console.error('Response body:', text);
-                    throw new Error(`Request failed with status ${response.status}`);
-                });
+                return response.text();
             }
             return response.json();
         })
@@ -110,12 +106,6 @@ function searchBike() {
 }
 
 
-
-    
-
-
-// table += `</table>`;
-// document.getElementById("Bike_table").innerHTML = table;
 
 
 async function createBike() {
@@ -146,7 +136,7 @@ async function createBike() {
                     ImagePath: imageData 
                 });
             } catch (error) {
-                console.error(`Failed to read file ${file.name}:`, error);
+                console.error( error);
             }
         }
 
@@ -177,8 +167,8 @@ async function createBike() {
         });
 
         if (!response.ok) {
-            const errorText = await response.text(); // Read the response text for error details
-            throw new Error(`Failed to add bike: ${errorText}`);
+            const errorText = await response.text(); 
+            throw new Error(errorText);
         }
 
         alert('Bike added successfully');
@@ -198,25 +188,6 @@ function getBase64(file) {
         reader.onerror = error => reject(error);
     });
 }
-
-
-
-
-// function handleImageUpload(event) {
-//     const file = event.target.files;
-//     if (file) {
-//         const reader = new FileReader();
-//         reader.onloadend = function() {
-            
-//         };
-//         reader.readAsDataURL(file);
-//     }
-// }
-
-
-
-
-
 
 
 function deleteData(id) {
