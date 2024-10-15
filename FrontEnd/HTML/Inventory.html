@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../CSS/Inventorystyle.css">
+</head>
+<body>
+
+    <button id="add_btn">Add</button>
+    <input type="search" id="idsearch" placeholder="ID">
+    <input type="search" id="type_search" placeholder="Type">
+    <input type="search" id="brand_search" placeholder="Brand">
+    <input type="search" id="year_search" placeholder="Year">
+    <button id="search_btn">Search</button>
+    <br>
+    <div id="Bike_table"></div>
+    <br>
+    <div id="update_bike"></div>
+
+    <form id="bike_form" style="display: none;">
+        <label for="bike_model">Model</label>
+        <input type="text" id="bike_model" required>
+        <br><br>
+
+        <label for="bike_brand">Brand</label>
+        <input type="text" id="bike_brand" required>
+        <br><br>
+
+       <!-- <label for="bike_year">Year</label>
+        <input type="text" id="bike_year" required>
+        <br><br> !-->
+
+        <label for="bike_price">Rent</label>
+        <input type="number" id="bike_price" required>
+        <br><br>
+
+        <label for="bike_quantity">Quantity</label>
+        <input type="number" id="bike_quantity" required>
+        <br><br>
+
+        <!-- <label for="image_input">Image</label>
+        <input type="file" id="image_input" accept="image/*" required>
+        <br><br> -->
+
+        <div id="reg_numbers_container"></div>
+
+        <input type="submit" id="bike_detail" value="Submit">
+        <input type="button" id="bike_detail_cancel" value="Cancel">
+    </form>
+
+    <script src="../Js/Inventory.js"></script>
+</body>
+</html>

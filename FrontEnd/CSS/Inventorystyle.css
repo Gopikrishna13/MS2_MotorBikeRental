@@ -1,0 +1,125 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+}
+
+form {
+    display: none;
+    border: 1px solid #ccc;
+    padding: 20px;
+    border-radius: 5px;
+    width: 300px;
+    background-color: #f9f9f9;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+input[type="text"], input[type="number"], input[type="file"] {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+}
+
+button, input[type="submit"] {
+    padding: 10px 15px;
+    background-color: green;
+    color: #fff;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+button:hover, input[type="submit"]:hover {
+    background-color: #0056b3;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+table, th, td {
+    border: 1px solid #ccc;
+}
+
+th, td {
+    padding: 10px;
+    text-align: left;
+}
+
+th {
+    background-color: black;
+    color: white;
+}
+
+tr:hover {
+    background-color: #ddd;
+}
+
+#dlt_btn {
+    background-color: red;
+}
+
+#upd_btn {
+    background-color: orange;
+}
+
+#add_btn {
+    background-color: blue;
+}
+
+#search_btn {
+    background-color: green;
+}
+
+/* Media Queries for Responsiveness */
+@media (max-width: 768px) {
+    body {
+        margin: 10px;
+    }
+
+    form {
+        width: 100%;
+        padding: 15px;
+    }
+
+    input[type="text"], input[type="number"], input[type="file"] {
+        padding: 6px;
+    }
+
+    button, input[type="submit"] {
+        padding: 8px 10px;
+    }
+
+    table, th, td {
+        padding: 8px;
+    }
+
+    th, td {
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 480px) {
+    th, td {
+        font-size: 12px;
+    }
+
+    button, input[type="submit"] {
+        padding: 6px 8px;
+    }
+
+    input[type="text"], input[type="number"], input[type="file"] {
+        padding: 4px;
+    }
+
+    form {
+        padding: 10px;
+    }
+}

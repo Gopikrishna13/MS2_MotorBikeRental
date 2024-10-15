@@ -189,7 +189,7 @@ public void BikeImages()
             ImageId INT PRIMARY KEY IDENTITY(1,1),
             BikeId INT NOT NULL,
             UnitId INT NOT NULL,
-            ImagePath NVARCHAR(255),
+            ImagePath NVARCHAR(MAX),
             FOREIGN KEY (BikeId) REFERENCES Bikes(BikeId),
             FOREIGN KEY (UnitId) REFERENCES BikeUnits(UnitId)
         );
