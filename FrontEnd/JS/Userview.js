@@ -1,27 +1,61 @@
 document.addEventListener("DOMContentLoaded", () => {
     const Id = Number(sessionStorage.getItem("BikeID"));
     const userName = sessionStorage.getItem("Customer_Name");
-    const bike_details = JSON.parse(localStorage.getItem("Bike_Details")) || [];
+   // const bike_details = JSON.parse(localStorage.getItem("Bike_Details")) || [];
 
-    const display = bike_details.find(bike => bike.ID == Id);
-    if (display) {
-        document.getElementById("image").innerHTML = `<img src="${display.Image}" width="100">`;
-        document.getElementById("type").innerHTML = `Type: ${display.Type}`;
-        document.getElementById("brand").innerHTML = `Brand: ${display.Brand}`;
-        document.getElementById("year").innerHTML = `Year: ${display.Year}`;
-        document.getElementById("Reg").innerHTML = `Reg No: ${display.Registration_Number}`;
-        document.getElementById("Rent").innerHTML = `Rent: ${display.Rent}`;
+   const apiurl=`http://localhost:5156/api/Bike/GetById?id=${Id}`;
+
+   fetch(apiurl)
+   fetch(apiurl)
+   .then(response => {
+       if (!response.ok) {
+           throw new Error('Response was not ok');
+       }
+       return response.json();
+   })
+   .then(bike => {
+       if (bike) {
+           console.log(bike);
+           displayBikes(bike,userName); 
+       } else {
+           console.error("Bike Not Found!");
+       }
+   })
+   .catch(error => {
+       console.error('Fetch error:', error);
+   });
+
+
+   // const display = bike_details.find(bike => bike.ID == Id);
+ 
+});
+
+
+function displayBikes(bike,userName)
+{
+    if (bike) {
+
+        const firstImage = bike.images[1].imagePath;
+         
+        imageSrc = `data:image/jpeg;base64,${firstImage}`;
+
+        document.getElementById("image").innerHTML = `<img src="${imageSrc}" width="100">`;
+        document.getElementById("type").innerHTML = `Type: ${bike.model}`;
+        document.getElementById("brand").innerHTML = `Brand: ${bike.brand}`;
+        //document.getElementById("year").innerHTML = `Year: ${display.Year}`;
+        document.getElementById("Reg").innerHTML = `Reg No: ${bike.registrationNumber}`;
+        document.getElementById("Rent").innerHTML = `Rent: ${bike.rent}`;
         document.getElementById("From").innerHTML = `<label>From:</label><input type="date" id="date">`;
         document.getElementById("Time").innerHTML = `<label>Time:</label><input type="time" id="time">`;
-        document.getElementById("return").innerHTML = `<button onclick="Request(${Id}, '${userName}')">Request</button>`;
+        document.getElementById("return").innerHTML = `<button onclick="Request(${bike.BikeID}, '${userName}')">Request</button>`;
         document.getElementById("To").innerHTML = `<label>Return:</label><p id="return"></p>`;
     } else {
         window.location.href = "User.html";
     }
-});
 
+}
 function Request(id, uName) {
-    const return_info = returnDate(); // Assuming this function returns the return date
+    const return_info = returnDate();
     const request_details = JSON.parse(localStorage.getItem("Request_Info")) || [];
     const dateInput = document.getElementById("date").value;
     const timeInput = document.getElementById("time").value;
@@ -34,7 +68,7 @@ function Request(id, uName) {
     // Validate if requestedDate is in the past
     if (requestedDate < today) {
         alert("The selected date cannot be in the past.");
-        return;
+        location.reload();
     }
 
     console.log("Requested Date:", requestedDate);

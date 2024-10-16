@@ -110,7 +110,7 @@ async function Store_Manager(Manager_Name,Manager_lName,Manager_username, Manage
             return;
         }
 
-        alert('Manager account created successfully!');
+     //   alert('Manager account created successfully!');
         window.location.href = "Login.html";
 
     } catch (error) {
@@ -152,7 +152,7 @@ async function Store_User(User_FName,User_LName,User_Name, User_Pwd, NIC, Licens
             return;
         }
 
-        alert('User account created successfully!');
+       // alert('User account created successfully!');
         window.location.href = "Login.html";
 
     } catch (error) {
