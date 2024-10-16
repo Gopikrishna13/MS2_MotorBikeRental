@@ -69,6 +69,7 @@ function Request(id, uName) {
             Return: return_info,
             Status: 0
         };
+    
 
         request_details.push(newRequest);
         localStorage.setItem("Request_Info", JSON.stringify(request_details));

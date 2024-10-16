@@ -1,0 +1,97 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+.myBody {
+    background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.3)), url(../Images/Bike\ main1.webp);
+    height: 100vh;
+    background-size: cover;
+    width: 100%;
+
+}
+
+.signup {
+    width: 400px;
+    height: 690px;
+    margin: auto;
+    background-color: rgba(255, 255, 255, 0.3);
+    margin-top: 50px;
+    border-radius: 6px;
+    box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.3);
+    border: 1px solid white;
+}
+
+
+.signup h1,
+h4 {
+    text-align: center;
+    padding-top: 15px;
+}
+
+form {
+    width: 340px;
+    margin-left: 25px;
+    /* align-items: center; */
+}
+
+form label {
+    display: flex;
+    margin-top: 10px;
+    font-size: 18px;
+    width: 100%;
+    /* text-align: center; */
+    color: rgb(43, 41, 41);
+}
+
+form input,
+select,
+option {
+    width: 100%;
+    padding: 8px;
+    border: none;
+    border: 1px solid gray;
+    border-radius: 4px;
+    outline: none;
+}
+
+.userCreateBtn {
+    width: 300px;
+    height: 35px;
+    margin-top: 20px;
+    border: none;
+    background-color: rgba(14, 12, 12, 0.767);
+    color: white;
+    font-size: 19px;
+    /* align-items: center; */
+    margin-left: 20px;
+    font-family: 'Times New Roman', Times, serif;
+}
+
+.userCreateBtn:hover {
+    background-color: black;
+    box-shadow: 15px 10px 10px rgba(0, 0, 0, 0.3);
+    transition: 0.2s;
+}
+
+.signup p {
+    text-align: center;
+    margin-top: 10px;
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 17px;
+}
+
+.formPara {
+    /* width: 25%; */
+    font-size: 17px;
+    color: white;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.notify:hover{
+    color: rgb(189, 2, 2);
+    font-size: 1.3rem;
+    transition: 0.5s;
+}
