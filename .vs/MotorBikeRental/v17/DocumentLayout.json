@@ -1,0 +1,69 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\ut01185\\Desktop\\New folder (2)\\MS2_MotorBikeRental\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{04D0B683-D121-4C85-AE69-03A31B4D9616}|MotorBikeRental\\MotorBikeRental.csproj|c:\\users\\ut01185\\desktop\\new folder (2)\\ms2_motorbikerental\\motorbikerental\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{04D0B683-D121-4C85-AE69-03A31B4D9616}|MotorBikeRental\\MotorBikeRental.csproj|solutionrelative:motorbikerental\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{04D0B683-D121-4C85-AE69-03A31B4D9616}|MotorBikeRental\\MotorBikeRental.csproj|c:\\users\\ut01185\\desktop\\new folder (2)\\ms2_motorbikerental\\motorbikerental\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{04D0B683-D121-4C85-AE69-03A31B4D9616}|MotorBikeRental\\MotorBikeRental.csproj|solutionrelative:motorbikerental\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{04D0B683-D121-4C85-AE69-03A31B4D9616}|MotorBikeRental\\MotorBikeRental.csproj|c:\\users\\ut01185\\desktop\\new folder (2)\\ms2_motorbikerental\\motorbikerental\\database\\dbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{04D0B683-D121-4C85-AE69-03A31B4D9616}|MotorBikeRental\\MotorBikeRental.csproj|solutionrelative:motorbikerental\\database\\dbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "C:\\Users\\ut01185\\Desktop\\New folder (2)\\MS2_MotorBikeRental\\MotorBikeRental\\appsettings.json",
+              "RelativeDocumentMoniker": "MotorBikeRental\\appsettings.json",
+              "ToolTip": "C:\\Users\\ut01185\\Desktop\\New folder (2)\\MS2_MotorBikeRental\\MotorBikeRental\\appsettings.json",
+              "RelativeToolTip": "MotorBikeRental\\appsettings.json",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAoAAAAeAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2024-10-16T03:25:55.433Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "DbContext.cs",
+              "DocumentMoniker": "C:\\Users\\ut01185\\Desktop\\New folder (2)\\MS2_MotorBikeRental\\MotorBikeRental\\Database\\DbContext.cs",
+              "RelativeDocumentMoniker": "MotorBikeRental\\Database\\DbContext.cs",
+              "ToolTip": "C:\\Users\\ut01185\\Desktop\\New folder (2)\\MS2_MotorBikeRental\\MotorBikeRental\\Database\\DbContext.cs",
+              "RelativeToolTip": "MotorBikeRental\\Database\\DbContext.cs",
+              "ViewState": "AQIAAMYAAAAAAAAAAAAUwNgAAAAQAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-16T03:25:01.383Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\ut01185\\Desktop\\New folder (2)\\MS2_MotorBikeRental\\MotorBikeRental\\Program.cs",
+              "RelativeDocumentMoniker": "MotorBikeRental\\Program.cs",
+              "ToolTip": "C:\\Users\\ut01185\\Desktop\\New folder (2)\\MS2_MotorBikeRental\\MotorBikeRental\\Program.cs",
+              "RelativeToolTip": "MotorBikeRental\\Program.cs",
+              "ViewState": "AQIAAAYAAAAAAAAAAAAAACIAAABkAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-16T03:24:39.267Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

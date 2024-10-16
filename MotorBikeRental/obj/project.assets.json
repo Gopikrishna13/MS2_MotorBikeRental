@@ -4480,24 +4480,27 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\acer\\.nuget\\packages\\": {}
+    "C:\\Users\\ut01185\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "c:\\Users\\acer\\Desktop\\MS2_MotorBikeRental\\MotorBikeRental\\MotorBikeRental.csproj",
+      "projectUniqueName": "C:\\Users\\ut01185\\Desktop\\New folder (2)\\MS2_MotorBikeRental\\MotorBikeRental\\MotorBikeRental.csproj",
       "projectName": "MotorBikeRental",
-      "projectPath": "c:\\Users\\acer\\Desktop\\MS2_MotorBikeRental\\MotorBikeRental\\MotorBikeRental.csproj",
-      "packagesPath": "C:\\Users\\acer\\.nuget\\packages\\",
-      "outputPath": "c:\\Users\\acer\\Desktop\\MS2_MotorBikeRental\\MotorBikeRental\\obj\\",
+      "projectPath": "C:\\Users\\ut01185\\Desktop\\New folder (2)\\MS2_MotorBikeRental\\MotorBikeRental\\MotorBikeRental.csproj",
+      "packagesPath": "C:\\Users\\ut01185\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\ut01185\\Desktop\\New folder (2)\\MS2_MotorBikeRental\\MotorBikeRental\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\acer\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "C:\\Users\\ut01185\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
         "net8.0"
       ],
       "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "C:\\Program Files\\dotnet\\library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -4571,7 +4574,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.401/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.302/PortableRuntimeIdentifierGraph.json"
       }
     }
   }
