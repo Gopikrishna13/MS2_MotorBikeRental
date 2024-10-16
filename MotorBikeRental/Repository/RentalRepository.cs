@@ -319,6 +319,7 @@ public async Task<bool> CheckAvailability(string registrationNumber, DateTime re
         ReturnedBikes.RegistrationNumber = @registrationNumber
         AND (
             (ReturnedBikes.RentedDate <= @retdate AND ReturnedBikes.[To] >= @reqdate)
+          AND  ReturnedBikes.Status='Pending'
         )";
 
     using (var connection = new SqlConnection(_connectionString))
