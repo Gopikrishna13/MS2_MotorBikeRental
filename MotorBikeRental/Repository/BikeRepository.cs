@@ -249,7 +249,7 @@ public async  Task <bool> UpdateBike(int BikeId,BikeRequestDTO bikeRequest)
 
   public async Task<bool> DeleteBike(int id)
 {
-    var chkBikeQuery = @"SELECT COUNT(1) FROM RentalSample WHERE BikeId = @Id";
+    var chkBikeQuery = @"SELECT COUNT(1) FROM ReturnedBikes WHERE BikeId = @Id AND Status=@status" ;
     var deleteBikeQuery = @"DELETE FROM Bikes WHERE BikeId = @Id";
     var deleteBikeUnitQuery=@"Delete from BikeUnits where BikeId=@Id";
     var deleteBikeImageQuery=@"Delete from BikeImages where BikeId=@Id";
@@ -257,7 +257,7 @@ public async  Task <bool> UpdateBike(int BikeId,BikeRequestDTO bikeRequest)
     using (var connection = new SqlConnection(_connectionString))
     {
        
-        var rentalCount = await connection.ExecuteScalarAsync<int>(chkBikeQuery, new { Id=id });
+        var rentalCount = await connection.ExecuteScalarAsync<int>(chkBikeQuery, new { Id=id,status="Pending" });
         
         if (rentalCount > 0)
         {
@@ -278,104 +278,39 @@ public async  Task <bool> UpdateBike(int BikeId,BikeRequestDTO bikeRequest)
 }
 
 
-// public async Task <BikeImages> AddImages(BikeImages imageRequest)
-// {
+public async  Task <int> BikesCount()
+{
+    var query=@"Select count(BikeUnits.RegistrationNumber) from BikeUnits";
 
-//     var query=@"insert into BikeImages (BikeId,ImagePath) 
-//     output inserted.ImageId
-//     values(@BikeId,@ImagePath)";
-
-//     using(var connection=new SqlConnection(_connectionString))
-//     {
-//         var result=await connection.ExecuteScalarAsync<int>(query,new{
-//            BikeId= imageRequest.BikeId,
-//            ImagePath=imageRequest.ImagePath
-
-//         });
-
-//         imageRequest.ImageId=result;
-//         Console.WriteLine("Image Path in Response: " + imageRequest.ImagePath);
-
-//     }
-//     return imageRequest;
-
-// }
+    using(var connection=new SqlConnection(_connectionString))
+    {
+        using(var command=new SqlCommand(query,connection))
+        {
+            await connection.OpenAsync();
+            var count = await command.ExecuteScalarAsync();
+            return (int)count;
 
 
-// public async Task <bool> checkBike(int BikeId)
-// {
-//     var query=@"select count(1) from Bikes where BikeId=@BikeId";
+        }
+    }
+}
 
-//     using(var connection=new SqlConnection(_connectionString))
-//     {
-//         var result=await connection.ExecuteScalarAsync<int>(query,new{BikeId});
-//         if(result == 0)
-//         {
-//             return false;
-//         }else{
-//             return true;
-//         }
-//     }
-// }
-
-// public async Task <bool> checkImgId(int ImageId)
-// {
-//     var query=@"select count(1) from BikeImages where ImageId=@ImageId";
-
-//     using(var connection=new SqlConnection(_connectionString))
-//     {
-//         var result=await connection.ExecuteScalarAsync<int>(query,new{ImageId});
-
-//         if(result ==0)
-//         {
-//             return false;
-//         }else{
-//             return true;
-//         }
-//     }
-// }
-
-// public async   Task <bool> UpdateImages(int ImageId,BikeImages imageRequest)
-// {
-//     var query=@"update BikeImages set ImagePath=@ImagePath where ImageId=@ImageId AND BikeId=@BikeId";
-
-//     using(var connection = new SqlConnection(_connectionString))
-//     {
-//         var result=await connection.ExecuteAsync(query,new{
-//             ImagePath=imageRequest.ImagePath,
-//             ImageId=ImageId,
-//             BikeId=imageRequest.BikeId
-
-//         });
-//     }
-//     return true;
-// }
+public async Task <int> PendingCount()
+{
+    var query = @"Select count(ReturnedBikes.RegistrationNumber)
+     from ReturnedBikes where ReturnedBikes.Status='Pending'";
+  using(var connection=new SqlConnection(_connectionString))
+    {
+        using(var command=new SqlCommand(query,connection))
+        {
+            await connection.OpenAsync();
+            var count = await command.ExecuteScalarAsync();
+            return (int)count;
 
 
-// public async Task <bool> DeleteImage(int ImageId)
-// {
-//     var query=@"delete from BikeImages where ImageId=@ImageId";
-
-//     using(var connection=new SqlConnection(_connectionString))
-//     {
-//         var result=await connection.ExecuteAsync(query,new{ImageId});
-
-//     }
-//     return true;
-// }
-
-// public async Task <List<AllBikeImages>> AllBikeImages()
-// {
-//     var query=@"select Bikes.BikeId,Bikes.BikeName , Bikes.Rent ,BikeImages.ImagePath,Bikes.RegNo
-//     From Bikes join BikeImages on Bikes.BikeId=BikeImages.BikeId";
-
-//     using(var connection=new SqlConnection(_connectionString))
-//     {
-//         var result=await connection.QueryAsync<AllBikeImages>(query);
-//         return result.ToList();
-//     }
-               
-// }
+        }
+    }
+}
 
 
 

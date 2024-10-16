@@ -24,7 +24,9 @@ namespace MotorBikeRental.IRepository
     //Task <List<AllBikeImages>> AllBikeImages();
     Task <List<BikeResponseDTO>> SearchBikes(decimal Rent,string Brand,string Model);
     Task<BikeResponseDTO> GetById(int id);
-     Task <bool> UpdateBike(int BikeId,BikeRequestDTO bikeRequest);
+    Task <bool> UpdateBike(int BikeId,BikeRequestDTO bikeRequest);
+    Task <int> BikesCount();
+    Task <int> PendingCount();
     }
 
 }

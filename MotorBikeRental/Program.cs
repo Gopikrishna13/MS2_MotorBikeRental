@@ -45,7 +45,11 @@ namespace MotorBikeRental
             builder.Services.AddScoped<IBikeService, BikeService>();
 
               builder.Services.AddScoped<IRentalRepository>(provider => new RentalRepository(connectionString));
-            builder.Services.AddScoped<IRentalService, RentalService>();
+              builder.Services.AddScoped<IRentalService, RentalService>();
+
+
+              builder.Services.AddScoped<IReportRepository>(provider => new ReportRepository(connectionString));
+              builder.Services.AddScoped<IReportService, ReportService>();
 
             var app = builder.Build();
 

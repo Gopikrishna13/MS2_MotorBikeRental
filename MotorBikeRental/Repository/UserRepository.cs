@@ -223,6 +223,22 @@ catch (Exception ex)
       
 }
 
+public async Task <int> UserCount()
+{
+    var query=@"Select count(Users.UserId) from Users";
+
+    using(var connection=new SqlConnection(_connectionString))
+    {
+        using(var command=new SqlCommand(query,connection))
+        {
+            await connection.OpenAsync();
+            var result=await command.ExecuteScalarAsync();
+            return (int)result;
+
+        }
+    }
+}
+
     }
 }
 

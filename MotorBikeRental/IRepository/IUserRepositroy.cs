@@ -17,6 +17,7 @@ public interface IUserRepository
    Task<bool> DeleteUser(int Id);
    Task <bool> Login(UserLoginRequestDTO userloginRequestDTO);
    Task<User> GetByusername(string username);
+       Task <int> UserCount();
 
 }
 }

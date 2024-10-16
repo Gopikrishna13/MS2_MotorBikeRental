@@ -190,7 +190,11 @@ public async Task<UserResponseDTO> GetUserById(int Id)
     return true;
   }
 
-
+ public async Task <int> UserCount()
+ {
+    var data=await _userRepository.UserCount();
+    return data;
+ }
 }
 
 }

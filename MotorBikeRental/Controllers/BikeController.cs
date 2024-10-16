@@ -102,63 +102,31 @@ public async Task <IActionResult> UpdateBike(int BikeId,BikeRequestDTO bikeReque
     }
 }
 
-        // [HttpPost("AddImages")]
-        // public async Task <IActionResult> AddImages(BikeImageRequestDTO imageRequestDTO)
-        // {
+      [HttpGet("BikesCount")]
+      public async Task <IActionResult> BikesCount()
+      {
+        try{
+             var data=await _bikeService.BikesCount();
+        return Ok(data);
 
-        //     try{
+        }catch(Exception ex)
+        {
+              return BadRequest(ex.Message);
+        }
+      }
 
-        //         var data=await _bikeService.AddImages(imageRequestDTO);
-        //         return Ok(data);
+      [HttpGet("PendingCount")]
+      public async Task <IActionResult> PendingCount()
+      {
+        try{
+              var data=await _bikeService.PendingCount();
+        return Ok(data);
 
-        //     }catch(Exception ex)
-        //     {
-        //         return BadRequest(ex.Message);
-        //     }
-
-        // }
-
-        // [HttpPut("UpdateImages")]
-        // public async Task <IActionResult> UpdateImages(int ImageId,BikeImageRequestDTO imageRequestDTO)
-        // {
-        //     try{
-        //         var data=await _bikeService.UpdateImages(ImageId,imageRequestDTO);
-        //         return Ok(data);
-
-        //     }catch(Exception ex)
-        //     {
-        //         return BadRequest(ex.Message);
-        //     }
-        // }
-
-
-        // [HttpDelete("DeleteImage")]
-        // public async Task <IActionResult> DeleteImage(int ImageId)
-        // {
-        //     try{
-
-        //         var data=await _bikeService.DeleteImage(ImageId);
-        //         return Ok(data);
-
-        //     }catch(Exception ex)
-        //     {
-        //         return BadRequest(ex.Message);
-        //     }
-        // }
-
-        // [HttpGet("AllBikeImages")]
-        // public async Task <IActionResult> AllBikeImages()
-        // {
-        //     try{
-
-        //         var data=await _bikeService.AllBikeImages();
-        //         return Ok(data);
-
-        //     }catch(Exception ex)
-        //     {
-        //         return BadRequest(ex.Message);
-        //     }
-        // }
+        }catch(Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }
+      }
 
       
     }

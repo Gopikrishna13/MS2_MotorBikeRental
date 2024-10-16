@@ -13,6 +13,7 @@ public interface IUserService
     Task<bool> DeleteUser(int Id);
     Task <bool> Login(UserLoginRequestDTO userloginRequestDTO);
     Task<UserResponseDTO> GetByusername(string username);
+    Task <int> UserCount();
 }
 
 }

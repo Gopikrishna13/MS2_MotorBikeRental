@@ -56,5 +56,90 @@ namespace MotorBikeRental.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        [HttpGet("AllReturnBike")]
+        public async Task <IActionResult> AllReturnBike()
+        {
+            try{
+
+                var data=await _rentalservice.AllReturnBike();
+                return Ok(data);
+
+            }catch(Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPut("UpdateReturn")]
+        public async Task<IActionResult> UpdateReturn(int Id)
+        {
+                try{
+
+                    var data=await _rentalservice.UpdateReturn(Id);
+                    return Ok(data);
+
+                }catch(Exception ex)
+                {
+                    return BadRequest(ex.Message);
+                }
+        }
+
+        [HttpGet("PendingByUser")]
+        public async Task <IActionResult> PendingByUser(int Id)
+        {
+            try{
+
+                var data=await _rentalservice.PendingByUser(Id);
+                return Ok(data);
+
+            }catch(Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+         [HttpGet("ReturnByUser")]
+        public async Task <IActionResult> ReturnByUser(int Id)
+        {
+            try{
+
+                var data=await _rentalservice.ReturnByUser(Id);
+                return Ok(data);
+
+            }catch(Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+          [HttpGet("Revenue")]
+        public async Task <IActionResult> Revenue()
+        {
+            try{
+
+                var data=await _rentalservice.Revenue();
+                return Ok(data);
+
+            }catch(Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("CheckAvailability")]
+        public async Task <IActionResult> CheckAvailability(string registrationNumber,DateTime reqdate,DateTime retdate)
+        {
+            try{
+                var data=await _rentalservice.CheckAvailability(registrationNumber,reqdate,retdate);
+                return Ok(data);
+
+            }catch(Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        
     }
 }

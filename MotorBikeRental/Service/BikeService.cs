@@ -22,25 +22,24 @@ namespace MotorBikeRental.Service
 
  public async Task<bool> AddBike(BikeRequestDTO bikeRequestDTO)
 {
-    // List to hold images for each unit
+   
     var bikeUnits = new List<BikeUnit>();
 
     foreach (var unit in bikeRequestDTO.Units)
     {
-        // Check if the registration number is unique
+    
         var isUnique = await _bikeRepository.CheckUnique(unit.RegistrationNumber);
         if (!isUnique)
         {
             throw new Exception("Registration number already exists");
         }
 
-        // Map images to BikeImages 
+    
         var bikeImages = unit.Images.Select(image => new BikeImages
         {
             ImagePath = image.ImagePath
         }).ToList();
 
-        // Create a new BikeUnit and add it to the list
         bikeUnits.Add(new BikeUnit
         {
             RegistrationNumber = unit.RegistrationNumber,
@@ -50,19 +49,19 @@ namespace MotorBikeRental.Service
         });
     }
 
-    // Create a single Bike object with all the units
+
     var bike = new Bike
     {
         Model = bikeRequestDTO.Model,
         Brand = bikeRequestDTO.Brand,
         Rent = bikeRequestDTO.Rent,
-        Units = bikeUnits // Add all units to the bike
+        Units = bikeUnits
     };
 
-    // Call AddBike once with the complete bike data
+ 
     var addBikeSuccess = await _bikeRepository.AddBike(bike);
 
-    return addBikeSuccess; // Return the result of the add operation
+    return addBikeSuccess; 
 }
 
 public async Task <List<BikeResponseDTO>> GetAllBikes()
@@ -131,6 +130,20 @@ public async Task <BikeResponseDTO> GetById(int id)
    }
 
    return data;
+}
+
+public async  Task <int> BikesCount()
+{
+      var data=await _bikeRepository.BikesCount();
+      return data;
+}
+
+public async Task <int> PendingCount()
+{
+     var data=await _bikeRepository.PendingCount();
+      return data;
+}
+
 }
 
 // public async Task <List<BikeImageResponseDTO>> AddImages(BikeImageRequestDTO imageRequestDTO)
@@ -238,6 +251,6 @@ public async Task <BikeResponseDTO> GetById(int id)
 
 }
 
-}
+
 
 

@@ -113,5 +113,18 @@ namespace MotorBikeRental.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        [HttpGet("UserCount")]
+        public async Task <IActionResult> UserCount()
+        {
+            try{
+                var data=await _userService.UserCount();
+                return Ok(data);
+
+            }catch(Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
     } 
 }

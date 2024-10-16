@@ -5,10 +5,10 @@ namespace MotorBikeRental.Database.Entities
     public class AllBikes
 {
                 public  int  BikeId {get;set;}
-                public   string BikeName {get;set;}
-                public  int Rent {get;set;}
-                public string RegNo {get;set;}
-                public int Status {get;set;}
+                public   string Model {get;set;}
+                public  string Brand {get;set;}
+                public string RegistrationNumber {get;set;}
+                
 
 }
 

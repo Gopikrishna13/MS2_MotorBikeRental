@@ -4,11 +4,13 @@ namespace MotorBikeRental.Database.Entities
 {
     public class RentalHistory
 {
-    public int RentalHistoryId { get; set; }  
-    public int RentalId { get; set; }  
-    public DateTime RentalDate { get; set; }  
-    public DateTime? ReturnDate { get; set; }  
-    public decimal RentalAmount { get; set; } 
+    
+    public int BikeId{get;set;}
+    public string RegistrationNumber{get;set;}
+    public DateTime RentedDate { get; set; }  
+    public DateTime? To { get; set; } 
+    public DateTime Due {get;set;} 
+   // public decimal RentalAmount { get; set; } 
 }
 
 
