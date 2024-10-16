@@ -44,6 +44,9 @@ namespace MotorBikeRental
             builder.Services.AddScoped<IBikeRepository>(provider => new BikeRepository(connectionString));
             builder.Services.AddScoped<IBikeService, BikeService>();
 
+              builder.Services.AddScoped<IRentalRepository>(provider => new RentalRepository(connectionString));
+            builder.Services.AddScoped<IRentalService, RentalService>();
+
             var app = builder.Build();
 
             // Apply the CORS policy

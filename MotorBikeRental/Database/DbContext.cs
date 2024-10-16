@@ -19,8 +19,8 @@ namespace MotorBikeRental.Database
             CreateUser();
             CreateAdmin();
              CreateBike();
-          //  RentalRequest();
-          //  ReturnedBikes();
+           RentalRequest();
+           ReturnedBikes();
             BikeUnits();
             BikeImages();
             RentalHistory();
@@ -118,47 +118,50 @@ public void RentalSample()
             ExecuteCommand(tableQuery);
         }
 
-        // public void RentalRequest()
-        // {
-        //     var tableQuery = @"
-        //     IF NOT EXISTS (SELECT * FROM sys.tables WHERE name = 'RentalRequest')
-        //     BEGIN
-        //         CREATE TABLE RentalRequest(
-        //             RequestId INT PRIMARY KEY IDENTITY(1,1),
-        //             BikeId INT NOT NULL,
-        //             UserId INT NOT NULL,
-        //             RentedDate DATETIME NOT NULL,
-        //             ReturnDate DATETIME NOT NULL,
-        //             Due DATETIME,
-        //             FOREIGN KEY (BikeId) REFERENCES Bikes(BikeId),
-        //             FOREIGN KEY (UserId) REFERENCES Users(UserId)
-        //         );
-        //         PRINT 'Table RentalRequest created successfully.';
-        //     END";
+        public void RentalRequest()
+        {
+            var tableQuery = @"
+            IF NOT EXISTS (SELECT * FROM sys.tables WHERE name = 'RentalRequest')
+            BEGIN
+                CREATE TABLE RentalRequest(
+                    RequestId INT PRIMARY KEY IDENTITY(1,1),
+                    BikeId INT NOT NULL,
+                    UserId INT NOT NULL,
+                    RentedDate DATETIME NOT NULL,
+                    ReturnDate DATETIME NOT NULL,
+                    Status nvarchar(50),
+                    FOREIGN KEY (BikeId) REFERENCES Bikes(BikeId),
+                    FOREIGN KEY (UserId) REFERENCES Users(UserId)
+                );
+                PRINT 'Table RentalRequest created successfully.';
+            END";
 
-        //     ExecuteCommand(tableQuery);
-        // }
+            ExecuteCommand(tableQuery);
+        }
 
-        // public void ReturnedBikes()
-        // {
-        //     var tableQuery = @"
-        //     IF NOT EXISTS (SELECT * FROM sys.tables WHERE name = 'ReturnedBikes')
-        //     BEGIN
-        //         CREATE TABLE ReturnedBikes(
-        //             ReturnId INT PRIMARY KEY IDENTITY(1,1),
-        //             BikeId INT NOT NULL,
-        //             UserId INT NOT NULL,
-        //             RentedDate DATETIME NOT NULL,
-        //             ReturnDate DATETIME NOT NULL,
-        //             Due DATETIME,
-        //             FOREIGN KEY (BikeId) REFERENCES Bikes(BikeId),
-        //             FOREIGN KEY (UserId) REFERENCES Users(UserId)
-        //         );
-        //         PRINT 'Table ReturnedBikes created successfully.';
-        //     END";
+        public void ReturnedBikes()
+        {
+            var tableQuery = @"
+            IF NOT EXISTS (SELECT * FROM sys.tables WHERE name = 'ReturnedBikes')
+            BEGIN
+                CREATE TABLE ReturnedBikes(
+                    ReturnId INT PRIMARY KEY IDENTITY(1,1),
+                    BikeId INT NOT NULL,
+                    UserId INT NOT NULL,
+                    RentedDate DATETIME NOT NULL,
+                    [To] DATETIME ,
+                    Due DATETIME ,
+                    Status nvarchar(50),
 
-        //     ExecuteCommand(tableQuery);
-        // }
+                 
+                    FOREIGN KEY (BikeId) REFERENCES Bikes(BikeId),
+                    FOREIGN KEY (UserId) REFERENCES Users(UserId)
+                );
+                PRINT 'Table ReturnedBikes created successfully.';
+            END";
+
+            ExecuteCommand(tableQuery);
+        }
 
       public void BikeUnits()
 {
