@@ -1,35 +1,30 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>User Creation Form</title>
-    <!-- <link rel="stylesheet" href="../CSS/style.css"> -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Creation</title>
+    <link rel="stylesheet" href="../CSS/login.css">
 </head>
-<body>
-    <form id="user_login" >
+<body class="myBody">
 
-        
+    <img class="logoImg" src="../Images/pngtree-vector-illustration-of-motorcycle-logo-available-for-rent-on-a-white-background-vector-png-image_28066920.png" alt="">
+    <div class="login">
 
-        <div id="Login" >
-            <label for="Username">User Name</label>
-            <input type="text" id="Username" name="Username" placeholder="User Name" required> <br>
-            
-            <br><br>
-        
-            <label for="Password">Password</label>
-            <input type="password" id="password" name="password" placeholder="Password" required><br>
-          
-            <br><br>
-
-          
-        </div>
-
-        
+        <form id="user_login">
+            <h1>Log In</h1>  
+            <div id="Login loginFrom">
+                <label for="Username">User Name</label>
+                <input type="text" id="Username" name="Username" placeholder="User Name" required> <br>
+              
+                <label for="Password">Password</label>
+                <input type="password" id="password" name="password" placeholder="Password" required><br>          
+            </div>   
+            <button type="submit" id="login_btn" class="userCreateBtn">Login</button>        
+            <p id="response"></p>
     
-        <button type="submit" id="login_btn">Login</button>
-        <br>
-        <p id="response"></p>
-        
-    </form>
+        </form>
+    </div>
 
     <script src="../Js/Login.js"></script>
 </body>

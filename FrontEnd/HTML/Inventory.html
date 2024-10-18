@@ -1,12 +1,43 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="../CSS/Inventorystyle.css">
+    <title>Bike Inventory</title>
+    <link rel="stylesheet" href="../CSS/inventory.css">
+    <link rel="icon" href="../Images/logo.png">
 </head>
+
 <body>
+
+    <div class="myNavv">
+        <div class="logo">
+            GG BIKE RENTING
+        </div>
+        <div class="myNav">
+            <a href="../HTML/Manager_Dashboard.html">Dashboard</a>
+            <a href="../HTML/Inventory.html" style="text-decoration: underline; color: orangered;">Inventory</a>
+            <a href="../HTML/RentalRequest.html">Rental Request</a>
+            <a href="../HTML/User_details.html">User Details</a>
+            <div class="dropdown">
+                <a class="dropbtn" href="#">More</a>
+                <div class="dropdown-content">
+                    <a href="../HTML/update_bike.html">Update Bike</a>
+                    <a href="../HTML/CustomerReport.html"> Customer Report</a>
+                    <a href="../HTML/InventoryReport.html"> Inventory Report</a>
+                    <a href="../HTML/PendingRental.html"> Pending Rental</a>
+                    <a href="../HTML/update_Manager.html">Update Manager</a>
+                    <a href="../HTML/PendingRental.html">Pending Rental</a>
+
+                </div>
+            </div>
+            <a href="../HTML/home.html">Log Out</a>
+        </div>
+    </div>
+
+
+    <!-- Bike Add start -->
 
     <button id="add_btn">Add</button>
     <input type="search" id="idsearch" placeholder="Rent">
@@ -14,42 +45,80 @@
     <input type="search" id="brand_search" placeholder="Brand">
     <!-- <input type="search" id="year_search" placeholder="Year"> -->
     <button id="search_btn">Search</button>
-    <br>
-    <div id="Bike_table"></div>
+    <br> <br> <br>
+    <!-- 
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Image</th>
+            <th>Brand</th>
+            <th>Model</th>
+            <th>Registration No</th>
+            <th>Rent</th>
+            <th>Action</th>
+        </tr>
+        <tr>
+            <td>${data.bikeId}</td>
+            <td>${imagePaths.length > 0 ? `<img src="data:image/jpg;base64,${imagePaths[1]}" width="50">` : 'No Image'}</td>
+            <td>${data.brand}</td>
+            <td>${data.model}</td>
+           
+            <td>${data.registrationNumber}</td>
+            <td>${data.rent}</td>
+            <td> 
+                <button id="upd_btn" onclick="updateData(${data.bikeId})">Update</button>
+                <button id="dlt_btn" onclick="deleteData(${data.bikeId})">Delete</button>
+            </td>
+        </tr>
+        
+        
+    </table> -->
+
+
+    <div class="signup" style="margin-bottom: 3%;">
+        <form id="bike_form" style="display: none;">
+            <label for="bike_model">Model</label>
+            <input type="text" id="bike_model" required>
+            <br><br>
+
+            <label for="bike_brand">Brand</label>
+            <input type="text" id="bike_brand" required>
+            <br><br>
+
+            <!-- <label for="bike_year">Year</label>
+            <input type="text" id="bike_year" required>
+            <br><br> !-->
+
+            <label for="bike_price">Rent</label>
+            <input type="number" id="bike_price" required>
+            <br><br>
+
+            <label for="bike_quantity">Quantity</label>
+            <input type="number" id="bike_quantity" required>
+            <br><br>
+
+            <!-- <label for="image_input">Image</label>
+            <input type="file" id="image_input" accept="image/*" required>
+            <br><br> -->
+
+            <div id="reg_numbers_container"></div>
+
+            <input type="submit" id="bike_detail" value="Submit" class="userCreateBtn">
+            <input type="button" id="bike_detail_cancel" value="Cancel" class="userCreateBtn">
+        </form>
+
+    </div>
+
+
+    <table id="Bike_table"></table>
     <br>
     <div id="update_bike"></div>
 
-    <form id="bike_form" style="display: none;">
-        <label for="bike_model">Model</label>
-        <input type="text" id="bike_model" required>
-        <br><br>
-
-        <label for="bike_brand">Brand</label>
-        <input type="text" id="bike_brand" required>
-        <br><br>
-
-       <!-- <label for="bike_year">Year</label>
-        <input type="text" id="bike_year" required>
-        <br><br> !-->
-
-        <label for="bike_price">Rent</label>
-        <input type="number" id="bike_price" required>
-        <br><br>
-
-        <label for="bike_quantity">Quantity</label>
-        <input type="number" id="bike_quantity" required>
-        <br><br>
-
-        <!-- <label for="image_input">Image</label>
-        <input type="file" id="image_input" accept="image/*" required>
-        <br><br> -->
-
-        <div id="reg_numbers_container"></div>
-
-        <input type="submit" id="bike_detail" value="Submit">
-        <input type="button" id="bike_detail_cancel" value="Cancel">
-    </form>
+    <footer>
+        <p>All Rights Reserved.Copyrights &copy; GG_Store 2024.</p>
+    </footer>
 
     <script src="../Js/Inventory.js"></script>
 </body>
+
 </html>

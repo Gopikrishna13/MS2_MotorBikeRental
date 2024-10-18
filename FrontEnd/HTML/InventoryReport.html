@@ -1,0 +1,76 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inventory Report</title>
+    <link rel="stylesheet" href="../CSS/Inventorystyle.css">
+</head>
+<body>
+    <h1>Inventory Report</h1>
+    <div id="inventory_report"></div>
+    <script src="../Js/InventoryReport.js"></script>
+</body>
+</html> -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bike Inventory Report</title>
+    <link rel="stylesheet" href="../CSS/inventoryReport.css">
+    <link rel="icon" href="../Images/logo.png">
+
+</head>
+<body>
+
+    <div class="myNavv">
+        <div class="logo">
+            GG BIKE RENTING
+        </div>
+        <div class="myNav">
+            <a href="../HTML/Manager_Dashboard.html">Dashboard</a>
+            <a href="../HTML/Inventory.html" >Inventory</a>
+            <a href="../HTML/RentalRequest.html">Rental Request</a>
+            <a href="../HTML/User_details.html">User Details</a>
+            <div class="dropdown">
+                <a class="dropbtn" href="#">More</a>
+                <div class="dropdown-content">
+                    <a href="../HTML/update_bike.html">Update Bike</a>
+                    <a href="../HTML/CustomerReport.html" > Customer Report</a>
+                    <a href="../HTML/InventoryReport.html" style="text-decoration: underline; color: orangered;"> Inventory Report</a>
+                    <a href="../HTML/PendingRental.html"> Pending Rental</a>
+                    <a href="../HTML/update_Manager.html">Update Manager</a>
+                    <a href="../HTML/PendingRental.html">Pending Rental</a>
+
+                </div>
+            </div>
+            <a href="../HTML/home.html">Log Out</a>
+        </div>
+    </div>
+
+
+    <h1 style="color: white; text-align: center; margin-top: 5%;">Bike Inventory Report</h1>
+    <table id="bikeInventoryTable" >
+        <thead>
+            <tr>
+                <th>Bike ID</th>
+                <th>Brand</th>
+                <th>Model</th>
+                <th>Registration Number</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Data will be populated here -->
+        </tbody>
+    </table>
+
+    <footer>
+        <p>All Rights Reserved.Copyrights &copy; GG_Store 2024.</p>
+    </footer>
+
+    <script src="../JS/InventoryReport.js"></script>
+</body>
+</html>
