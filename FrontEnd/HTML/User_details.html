@@ -1,26 +1,93 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>User Details</title>
     <link rel="stylesheet" href="../CSS/User_details.css">
-    <link rel="stylesheet" href="../CSS/Admin.css">
+    <!-- <link rel="stylesheet" href="../CSS/Admin.css"> -->
+     <link rel="icon" href="../Images/logo.png">
 </head>
+
 <body>
-    <ul>
-        <li><a class="active" href="Manager_Dashboard.html">Home</a></li>
-        <li><a href="Inventory.html">Inventory Management</a></li>
-        <li><a href="Rental_History.html">Rental History</a></li>
-        <li><a href="User_details.html">User Details</a></li>
-        <li><a href="update_Manager.html">Settings</a></li>
-    </ul>
+  
+    <div class="myNavv">
+        <div class="logo">
+            GG BIKE RENTING
+        </div>
+        <div class="myNav">
+            <a href="../HTML/Manager_Dashboard.html" >Dashboard</a>
+            <a href="../HTML/Inventory.html" >Inventory</a>
+            <a href="../HTML/RentalRequest.html" >Rental Request</a>
+            <a href="../HTML/User_details.html" style="text-decoration: underline; color: orangered;">User Details</a>
+            <div class="dropdown">
+                <a class="dropbtn" href="#">More</a>
+                <div class="dropdown-content">
+                    <a href="../HTML/update_bike.html" >Update Bike</a>
+                    <a href="../HTML/CustomerReport.html" > Customer Report</a>
+                    <a href="../HTML/InventoryReport.html" > Inventory Report</a>
+                    <a href="../HTML/PendingRental.html" > Pending Rental</a>
+                    <a href="../HTML/update_Manager.html" >Update Manager</a>
+                    <a href="../HTML/PendingRental.html">Pending Rental</a>
+  
+                </div>
+            </div>
+            <a href="../HTML/home.html">Log Out</a>
+        </div>
+    </div>
+
     <input type="search" id="ID_search" placeholder="ID">
     <input type="search" id="UName_search" placeholder="User Name">
     <button id="search_btn">Search</button>
+
+    <!-- <table>
+        <tr>
+            <th>ID</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>User Name</th>
+            <th>NIC</th>
+            <th>License Number</th>
+            <th>Email</th>
+        </tr>
+    </table>
+
+
+        <tr>
+            <td>Eg : User 01</td>
+            <td>Eg : James</td>
+            <td>Eg : Potter</td>
+            <td>Eg : UT01123</td>
+            <td>Eg : 982345657v</td>
+            <td>Eg : 334533647777</td>
+            <td>Eg : user1@gmail.com</td>
+        </tr>
+  
+    <tr>
+        <td>${user.userId}</td>
+        <td>${user.firstName}</td>
+        <td>${user.lastName}</td>
+        <td>${user.userName}</td>
+        <td>${user.nic}</td>
+        <td>${user.licenseNumber}</td>
+        <td>${user.email} </td>
+    </tr> -->
+
+    <!-- Table rows go here -->
+
+
+
+
     <div id="user_details">
         <table id="user_table"></table>
     </div>
+
+    <footer>
+        <p>All Rights Reserved.Copyrights &copy; GG_Store 2024.</p>
+    </footer>
+
     <script src="../Js/User_details.js"></script>
 </body>
+
 </html>
