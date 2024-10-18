@@ -1,23 +1,84 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Update Manager</title>
     <link rel="stylesheet" href="../CSS/update_Manager.css">
+    <link rel="icon" href="../Images/logo.png">
 </head>
+
 <body>
-    <ul>
+
+    <div class="myNavv">
+        <div class="logo">
+            GG BIKE RENTING
+        </div>
+        <div class="myNav">
+            <a href="../HTML/Manager_Dashboard.html" >Dashboard</a>
+            <a href="../HTML/Inventory.html" >Inventory</a>
+            <a href="../HTML/RentalRequest.html" >Rental Request</a>
+            <a href="../HTML/User_details.html">User Details</a>
+            <div class="dropdown">
+                <a class="dropbtn" href="#">More</a>
+                <div class="dropdown-content">
+                    <a href="../HTML/update_bike.html" >Update Bike</a>
+                    <a href="../HTML/CustomerReport.html" > Customer Report</a>
+                    <a href="../HTML/InventoryReport.html" > Inventory Report</a>
+                    <a href="../HTML/PendingRental.html" > Pending Rental</a>
+                    <a href="../HTML/update_Manager.html" style="text-decoration: underline; color: orangered;">Update Manager</a>
+                    <a href="../HTML/PendingRental.html">Pending Rental</a>
+  
+                </div>
+            </div>
+            <a href="../HTML/home.html">Log Out</a>
+        </div>
+    </div>
+
+    <!-- <ul>
         <li><a class="active" href="Manager_Dashboard.html">Home</a></li>
         <li><a href="Inventory.html">Inventory Management</a></li>
         <li><a href="Rental_History.html">Rental History</a></li>
         <li><a href="User_details.html">User Details</a></li>
         <li><a href="update_Manager.html">Settings</a></li>
-    </ul>
+    </ul> -->
+
+    <!-- <div class="signup">
+        <form id="update_form" class="updateManager">
+            <label>Manager First Name:</label>
+            <label>${manager.firstName}</label>
+
+            <label>Manager Last Name:</label>
+            <label>${manager.lastName}</label>
+
+            <label>Username:</label>
+            <label>${manager.userName}</label>
+
+            <label for="email">Email:</label>
+            <label>${manager.email}</label>
+
+            <label for="nic">NIC:</label>
+            <label>${manager.nic}</label>
+
+            <label class="container">Change Password
+                <input type="checkbox" id="option" onclick="clicked()">
+                <span class="checkmark"></span>
+            </label>
+
+            <div id="password"></div>
+            <input type="submit" class="userCreateBtn" id="update_detail" value="Update">
+        </form>
+    </div> -->
+
     <div id="content"></div>
+
+    <footer>
+        <p>All Rights Reserved.Copyrights &copy; GG_Store 2024.</p>
+    </footer>
+
+    <script src="../Js/update_manager.js"></script>
+
 </body>
+
 </html>
-
-<script src="../Js/update_manager.js"></script>
-   
-

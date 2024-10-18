@@ -4,12 +4,39 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Manager Dashboard</title>
-    <link rel="stylesheet" href="../CSS/Admin.css">
+    <!-- <link rel="stylesheet" href="../CSS/Admin.css"> -->
     <link rel="stylesheet" href="../CSS/Manager_Dashboard.css">
+    <link rel="icon" href="../Images/logo.png">
     
 </head>
 <body>
-    <ul>
+
+    <div class="myNavv">
+        <div class="logo">
+            GG BIKE RENTING
+        </div>
+        <div class="myNav">
+            <a href="../HTML/Manager_Dashboard.html" style="text-decoration: underline; color: orangered;">Dashboard</a>
+            <a href="../HTML/Inventory.html" >Inventory</a>
+            <a href="../HTML/RentalRequest.html">Rental Request</a>
+            <a href="../HTML/User_details.html">User Details</a>
+            <div class="dropdown">
+                <a class="dropbtn" href="#">More</a>
+                <div class="dropdown-content">
+                    <a href="../HTML/update_bike.html">Update Bike</a>
+                    <a href="../HTML/CustomerReport.html" > Customer Report</a>
+                    <a href="../HTML/InventoryReport.html" > Inventory Report</a>
+                    <a href="../HTML/PendingRental.html"> Pending Rental</a>
+                    <a href="../HTML/update_Manager.html">Update Manager</a>
+                    <a href="../HTML/PendingRental.html">Pending Rental</a>
+
+                </div>
+            </div>
+            <a href="../HTML/home.html">Log Out</a>
+        </div>
+    </div>
+
+    <!-- <ul>
         <li><a class="active" href="#home">Home</a></li>
         <li><a href="Inventory.html">Inventory Management</a></li>
         <li><a href="Rental_History.html">Rental History</a></li>
@@ -24,37 +51,54 @@
         </li>
         <li><a href="update_Manager.html">Settings</a></li>
         <li><a href="Login.html">Logout</a></li>
-    </ul>
+    </ul> -->
 
     <div class="dashboard">
         <!-- Card Section -->
         <div class="cards">
             <div class="card">
                 <h3>Total Users</h3>
-                <p id="totalUsers">0</p>
+                <p id="totalUsers"> 0</p>
             </div>
             <div class="card">
                 <h3>Total Bikes</h3>
                 <p id="totalBikes">0</p>
             </div>
             <div class="card">
-                <h3>Booked Bikes</h3>
+                <h3>Pending Bikess</h3>
                 <p id="BookedBikes">0</p>
             </div>
             <div class="card">
-                <h3>Bikes in Hand</h3>
+                <h3>Revenue (Rs.)</h3>
                 <p id="BikesInHand">0</p>
             </div>
-        </div>
+        </div> <br> <br>
         
         <!-- Placeholder for Graphs -->
-        <div class="graphs">
-            <canvas id="pieChart"></canvas>
-            <canvas id="barChart"></canvas>
-        </div>
+        <h1 style="color: white;"><mark>Frequent Rental Bikes</mark>   </h1>
+        <table id="frequentRentTable" >
+            <thead>
+                <tr>
+                    <th>Bike ID</th>
+                    <th>Brand</th>
+                    <th>Model</th>
+                    <th>Registration Number</th>
+                    <!-- <th>Rent Count</th> -->
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Data will be populated here -->
+            </tbody>
+        </table>
+
     </div>
 
+    
+    <footer >
+        <p>All Rights Reserved.Copyrights &copy; GG_Store 2024.</p>
+    </footer>
+
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="../Js/dashboard.js"></script>
+    <script src="../Js/managerDashboard.js"></script>
 </body>
 </html>

@@ -1,12 +1,12 @@
-*{
+* {
     margin: 0;
     padding: 0;
 }
 
 body{
-    background: url(../Images/bikeMain.jpg);
+    /* background-color: #ddd; */
+    background: url(../Images/ss.jpg);
     background-size: cover;
-    
 }
 
 .myNavv {
@@ -136,87 +136,106 @@ body{
     display: block;
   }
 
-  .signup {
-    width: 400px;
-    height: auto;
-    margin: auto;
-    background-color: rgba(255, 255, 255, 0.3);
-    margin-top: 50px;
-    border-radius: 6px;
-    box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.3);
-    border: 1px solid white;
-}
-
-
-.signup h1,
-h4 {
-    text-align: center;
-    padding-top: 15px;
-}
-  
-form {
-    width: 340px;
-    margin-left: 25px;
-    /* align-items: center; */
-}
-
-form label {
-    display: flex;
-    margin-top: 10px;
-    font-size: 18px;
-    width: 100%;
-    /* text-align: center; */
-    color: rgb(0, 0, 0);
-}
-
-form input,
-select,
-option {
-    width: 100%;
-    padding: 8px;
-    border: none;
-    border: 1px solid gray;
-    border-radius: 4px;
-    outline: none;
-}
-
-.userCreateBtn {
-    width: 300px;
-    height: 35px;
-    margin-top: 20px;
-    border: none;
-    background-color: rgba(14, 12, 12, 0.767);
-    color: rgb(255, 255, 255);
-    font-size: 19px;
-    /* align-items: center; */
-    margin-left: 20px;
-    font-family: 'Times New Roman', Times, serif;
-    border: 1px solid black;
-
-}
-
-.userCreateBtn:hover {
-    /* background-color: black; */
-    box-shadow: 15px 10px 10px rgba(0, 0, 0, 0.3);
-    transition: 0.2s;
-    border: 1px solid orangered;
-    background-color: orangered;
-    color: white;
-}
-
-footer{
+  footer{
     position: fixed;
     bottom: 0;
-    background-color: rgba(0, 0, 0, 0.933);
+    background-color: rgba(0, 0, 0, 0.733);
     width: 100%;
     height: 50PX;
     margin-top: 10%;
-    /* position: fixed; */
 }
 
 footer p{
     text-align: center;
     align-items: center;
     color: white;
-    font-size: 20px;
+}
+
+
+
+.dashboard {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin-top: 10%;
+}
+
+.cards {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.card {
+    background-color: #0e0d0d; /* Card background */
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    flex: 1 1 calc(25% - 20px); /* Responsive cards */
+    text-align: center;
+    transition: transform 0.3s;
+    color: white;
+}
+
+.card:hover {
+    transform: scale(1.05); /* Slightly scale on hover */
+    color: #ff6600; /* Orange color for headings */
+
+}
+
+h3 {
+    color: #ffffff; /* Orange color for headings */
+    margin-bottom: 10px;
+    font-size: 1.4rem;
+}
+
+p {
+    font-size: 24px; /* Larger text for numbers */
+    margin: 0;
+}
+
+ 
+table {
+    width: 80%;
+    border-collapse: collapse;
+    font-family: Arial, sans-serif;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 2%;
+}
+
+th, td {
+    padding: 12px;
+    text-align: left;
+    border: 1px solid #333;
+}
+
+th {
+    background-color: #FF6A00; /* Orange */
+    color: white;
+    font-weight: bold;
+}
+
+tr:nth-child(even) {
+    background-color: #f2f2f2; /* Light gray for even rows */
+}
+
+tr:hover {
+    background-color: #FF6A00; /* Orange on hover */
+    color: white;
+}
+
+td {
+    background-color: white;
+    color: #333; /* Dark text */
+}
+
+@media (max-width: 600px) {
+    table, th, td {
+        display: block;
+        width: 100%;
+    }
 }

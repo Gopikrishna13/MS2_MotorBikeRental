@@ -1,12 +1,12 @@
-*{
+* {
     margin: 0;
     padding: 0;
 }
 
 body{
-    background: url(../Images/bikeMain.jpg);
+    /* background-color: #ddd; */
+    background: url(../Images/sampleBike\ \(3\).jpg);
     background-size: cover;
-    
 }
 
 .myNavv {
@@ -136,8 +136,28 @@ body{
     display: block;
   }
 
-  .signup {
+
+
+  footer{
+    position: fixed;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.733);
+    width: 100%;
+    height: 50PX;
+    margin-top: 10%;
+}
+
+footer p{
+    text-align: center;
+    align-items: center;
+    color: white;
+    margin-top: 10px;
+}   
+
+
+.signup {
     width: 400px;
+    /* height: 750px; */
     height: auto;
     margin: auto;
     background-color: rgba(255, 255, 255, 0.3);
@@ -153,7 +173,7 @@ h4 {
     text-align: center;
     padding-top: 15px;
 }
-  
+
 form {
     width: 340px;
     margin-left: 25px;
@@ -167,6 +187,8 @@ form label {
     width: 100%;
     /* text-align: center; */
     color: rgb(0, 0, 0);
+    font-weight: bold;
+    font-family: 'Times New Roman', Times, serif;
 }
 
 form input,
@@ -180,43 +202,104 @@ option {
     outline: none;
 }
 
+.checkBtn{
+    margin-left: 10px;
+    /* float: left; */
+    display: inline-block;
+}
+
+.psw{
+    /* float: right; */
+    display: inline-block;
+}
+
 .userCreateBtn {
     width: 300px;
     height: 35px;
     margin-top: 20px;
     border: none;
     background-color: rgba(14, 12, 12, 0.767);
-    color: rgb(255, 255, 255);
+    color: white;
     font-size: 19px;
     /* align-items: center; */
     margin-left: 20px;
     font-family: 'Times New Roman', Times, serif;
-    border: 1px solid black;
-
+    
 }
 
 .userCreateBtn:hover {
-    /* background-color: black; */
+    background-color:orangered;
     box-shadow: 15px 10px 10px rgba(0, 0, 0, 0.3);
     transition: 0.2s;
-    border: 1px solid orangered;
-    background-color: orangered;
     color: white;
 }
 
-footer{
-    position: fixed;
-    bottom: 0;
-    background-color: rgba(0, 0, 0, 0.933);
-    width: 100%;
-    height: 50PX;
-    margin-top: 10%;
-    /* position: fixed; */
-}
+/* Customize the label (the container) */
+.container {
+    display: block;
+    position: relative;
+    padding-left: 35px;
+    margin-bottom: 12px;
+    cursor: pointer;
+    font-size: 18px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    font-family: 'Times New Roman', Times, serif;
+  }
+  
+  /* Hide the browser's default checkbox */
+  .container input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+  }
+  
+  /* Create a custom checkbox */
+  .checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 25px;
+    width: 25px;
+    background-color: #eee;
+  }
+  
+  /* On mouse-over, add a grey background color */
+  .container:hover input ~ .checkmark {
+    background-color: #ccc;
+  }
+  
+  /* When the checkbox is checked, add a blue background */
+  .container input:checked ~ .checkmark {
+    background-color: #2196F3;
+  }
+  
+  /* Create the checkmark/indicator (hidden when not checked) */
+  .checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+  }
+  
+  /* Show the checkmark when checked */
+  .container input:checked ~ .checkmark:after {
+    display: block;
+  }
+  
+  /* Style the checkmark/indicator */
+  .container .checkmark:after {
+    left: 9px;
+    top: 5px;
+    width: 5px;
+    height: 10px;
+    border: solid white;
+    border-width: 0 3px 3px 0;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+  }
 
-footer p{
-    text-align: center;
-    align-items: center;
-    color: white;
-    font-size: 20px;
-}
