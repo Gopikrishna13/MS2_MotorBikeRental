@@ -22,30 +22,34 @@ document.addEventListener("DOMContentLoaded", () => {
         });
 });
 
+
+
 function displayBikes(bike) {
     let firstImagePath = bike.images && bike.images.length > 0 ? bike.images[1].imagePath : ''; 
 
     let formHTML = `
-    <form id="update_form">
-        <label for="bike_model_update">Model</label>
-        <input type="text" id="bike_model_update" value="${bike.model}" required><br><br>
+    <div class="signup">
+        <form id="update_form" class="updateBike">
+            <label for="bike_model_update">Model</label>
+            <input type="text" id="bike_model_update" value="${bike.model}" required><br><br>
+    
+            <label for="bike_brand_update">Brand</label>
+            <input type="text" id="bike_brand_update" value="${bike.brand}" required><br><br>
+    
+            <label for="bike_rent_update">Rent</label>
+            <input type="number" id="bike_rent_update" value="${bike.rent}" required><br><br>
+    
+            <label for="bike_reg_update">Registration Number</label>
+            <input type="text" id="bike_reg_update" value="${bike.registrationNumber}" required><br><br>
+           
+            <label for="bike_img_update">Upload New Image</label>
+            <input type="file" id="bike_img_update"><br><br>
+    
+            <input type="submit" id="update_detail" class="userCreateBtn" value="Update">
+            <input type="button" id="update_detail_cancel" class="userCreateBtn" value="Cancel">
+        </form>
 
-        <label for="bike_brand_update">Brand</label>
-        <input type="text" id="bike_brand_update" value="${bike.brand}" required><br><br>
-
-        <label for="bike_rent_update">Rent</label>
-        <input type="number" id="bike_rent_update" value="${bike.rent}" required><br><br>
-
-        <label for="bike_reg_update">Registration Number</label>
-        <input type="text" id="bike_reg_update" value="${bike.registrationNumber}" required><br><br>
-
-       
-        <label for="bike_img_update">Upload New Image</label>
-        <input type="file" id="bike_img_update"><br><br>
-
-        <input type="submit" id="update_detail" value="Update">
-        <input type="button" id="update_detail_cancel" value="Cancel">
-    </form>
+    </div>
     `;
 
     document.getElementById("update_bike").innerHTML = formHTML;

@@ -247,47 +247,73 @@ fetch(apiUrl)
 
     function displayBikes(bikes) {
        
-        let table = `
-            <table>
-                <tr>
-                    <th>ID</th>
+        // let table = `
+        //     <table>
+        //         <tr>
+        //             <th>ID</th>
+        //             <th>Image</th>
+        //             <th>Brand</th>
+        //             <th>Model</th>
+               
+        //             <th>Registration No</th>
+        //             <th>Rent</th>
+        //             <th>Action</th>
+        //         </tr>`;
+
+                let table = `
+                 <tr>
+                     <th>ID</th>
                     <th>Image</th>
                     <th>Brand</th>
                     <th>Model</th>
-               
                     <th>Registration No</th>
                     <th>Rent</th>
                     <th>Action</th>
-                </tr>`;
+                </tr>
+                
+               `;
     
                 if (Array.isArray(bikes) && bikes.length > 0) {
             for (const data of bikes) {
               
                 const imagePaths = data.images.map(img => img.imagePath); 
     
-                table += `
-                    <tr>
-                        <td>${data.bikeId}</td>
-                        <td>${imagePaths.length > 0 ? `<img src="data:image/jpg;base64,${imagePaths[1]}" width="50">` : 'No Image'}</td>
-                        <td>${data.brand}</td>
-                        <td>${data.model}</td>
+                // table += `
+                //     <tr>
+                //         <td>${data.bikeId}</td>
+                //         <td>${imagePaths.length > 0 ? `<img src="data:image/jpg;base64,${imagePaths[1]}" width="50">` : 'No Image'}</td>
+                //         <td>${data.brand}</td>
+                //         <td>${data.model}</td>
                        
-                        <td>${data.registrationNumber}</td>
-                        <td>${data.rent}</td>
-                        <td> 
-                            <button id="upd_btn" onclick="updateData(${data.bikeId})">Update</button>
-                            <button id="dlt_btn" onclick="deleteData(${data.bikeId})">Delete</button>
-                        </td>
-                    </tr>`;
+                //         <td>${data.registrationNumber}</td>
+                //         <td>${data.rent}</td>
+                //         <td> 
+                //             <button id="upd_btn" onclick="updateData(${data.bikeId})">Update</button>
+                //             <button id="dlt_btn" onclick="deleteData(${data.bikeId})">Delete</button>
+                //         </td>
+                //     </tr>`;
+
+                table += `
+                <tr>
+                    <td>${data.bikeId}</td>
+                    <td>${imagePaths.length > 0 ? `<img src="data:image/jpg;base64,${imagePaths[1]}" width="50">` : 'No Image'}</td>
+                    <td>${data.brand}</td>
+                    <td>${data.model}</td>
+                   
+                    <td>${data.registrationNumber}</td>
+                    <td>${data.rent}</td>
+                    <td> 
+                        <button id="upd_btn" onclick="updateData(${data.bikeId})">Update</button>
+                        <button id="dlt_btn" onclick="deleteData(${data.bikeId})">Delete</button>
+                    </td>
+                </tr>`;
             }
         }
     
         table += `</table>`;
         document.getElementById("Bike_table").innerHTML = table;
     }
-    
-
-
+ 
 
 
 

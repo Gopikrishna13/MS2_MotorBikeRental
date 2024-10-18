@@ -72,18 +72,7 @@ async function validate(e) {
     }
 }
 
-// Check if Manager username or NIC already exists
-// function checkManager(Manager_username, Manager_nic) {
-//     const Manager_details = JSON.parse(localStorage.getItem("Manager_Details")) || [];
-//     for (const manager of Manager_details) {
-//         if (manager.UserName === Manager_username || manager.NIC === Manager_nic) {
-//             return true; // Username or NIC already exists
-//         }
-//     }
-//     return false; // Username and NIC are unique
-// }
 
-// Store Manager Details
 async function Store_Manager(Manager_Name,Manager_lName,Manager_username, Manager_passwd, Manager_nic, Manager_Email) {
     const M_password = encrypt_password(Manager_passwd); // Encrypt password
     const Manager = {

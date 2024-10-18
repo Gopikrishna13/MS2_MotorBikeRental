@@ -20,31 +20,37 @@ fetch(apiUrl)
         console.error('Fetch error:', error); // Log fetch errors
     });
 
+
+
 function displayForm(manager) {
-    const formHTML = `
-        <form id="update_form">
+    const formHTML = ` 
+    <div class="signup">
+        <form id="update_form" class="updateManager">
             <label>Manager First Name:</label>
             <label>${manager.firstName}</label>
-            <br><br>
+
             <label>Manager Last Name:</label>
             <label>${manager.lastName}</label>
-            <br><br>
+
             <label>Username:</label>
             <label>${manager.userName}</label>
-            <br><br>
+
             <label for="email">Email:</label>
-             <label>${manager.email}</label>
-            <br><br>
+            <label>${manager.email}</label>
 
             <label for="nic">NIC:</label>
-           <label>${manager.nic}</label>
-            <br><br>
-            <input type="checkbox" id="option" onclick="clicked()">
-            <label for="option">Change Password</label>
-            <br><br>
+            <label>${manager.nic}</label>
+
+            <label class="container">Change Password
+                <input type="checkbox" id="option" onclick="clicked()">
+                <span class="checkmark"></span>
+            </label>
+
             <div id="password"></div>
-            <input type="submit" id="update_detail" value="Update">
-        </form>`;
+            <input type="submit" class="userCreateBtn" id="update_detail" value="Update">
+        </form>
+    </div>       
+    `;
 
     document.getElementById("content").innerHTML = formHTML;
 
