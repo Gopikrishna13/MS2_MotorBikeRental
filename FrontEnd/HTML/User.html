@@ -1,97 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bike Details</title>
     <link rel="stylesheet" href="../CSS/User.css">
-    <style>
-       #bike_details {
-            margin: 20px;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px; /* Reduced gap between cards */
-            justify-content: center;
-        }
+    <link rel="icon" href="../Images/logo.png">
 
-        .bike_card {
-            background-color: white;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            padding: 15px; /* Reduced padding */
-            width: 200px; /* Reduced card width */
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            text-align: center;
-        }
-
-        .bike_card img {
-            max-width: 100%;
-            height: auto;
-            border-radius: 8px;
-            margin-bottom: 5px; /* Reduced margin */
-        }
-
-        .bike_card strong {
-            font-size: 16px; /* Reduced font size */
-            display: block;
-            margin-bottom: 5px; /* Reduced margin */
-        }
-
-        .bike_card em {
-            color: #555;
-            display: block;
-            margin-bottom: 5px; /* Reduced margin */
-        }
-
-        .bike_card button {
-            background-color: #333;
-            color: white;
-            border: none;
-            padding: 8px 16px; /* Reduced padding */
-            border-radius: 5px;
-            cursor: pointer;
-            margin-top: 10px;
-        }
-
-        .bike_card button:hover {
-            background-color: #555;
-        }
-
-        /* Dropdown styling */
-        .dropdown {
-            position: relative;
-            display: inline-block;
-        }
-
-        .dropdown-content {
-            display: none; /* Hidden by default */
-            position: absolute;
-            background-color: #333;
-            min-width: 160px;
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-            z-index: 1;
-            left: 0; /* Align dropdown with button */
-        }
-
-        .dropdown-content a {
-            color: white;
-            padding: 12px 16px;
-            text-decoration: none;
-            display: block;
-            text-align: left;
-        }
-
-        .dropdown-content a:hover {
-            background-color: #555;
-        }
-
-        .dropdown:hover .dropdown-content {
-            display: block; /* Show dropdown on hover */
-        }
-    </style>
 </head>
+
 <body>
-    <ul>
+    <!-- <ul>
         <li><a class="active" href="#home">Home</a></li>
         <li class="dropdown">
             <a href="UserRental.html" class="dropbtn">Rental History</a>
@@ -102,11 +22,31 @@
         </li>
         <li><a href="update_User.html">Settings</a></li>
         <li><a href="Login.html">Logout</a></li>
-    </ul>
+    </ul> -->
 
-    <br>
-    <div id="search">
-        <input type="search" placeholder="Type" id="search_model">
+
+     
+    <div class="myNavv">
+        <div class="logo">
+            GG BIKE RENTING
+        </div>
+        <div class="myNav">
+            <!-- <a href="../HTML/home.html">Home</a> -->
+            <a href="../HTML/update_User.html">Update User</a>
+            <a href="../HTML/User.html" style="text-decoration: underline; color: orangered;">User</a>
+            <a href="../HTML/User_Pending.html">User Pending</a>
+            <a href="../HTML/User_Returned.html">User Returned</a>
+            <a href="../HTML/Userview.html">User View</a>
+            <a href="../HTML/home.html">Log Out</a>
+        
+        </div>
+    </div>
+
+    
+
+
+    <div id="search" class="searchBike">
+        <input type="search" placeholder="Model" id="search_model">
         <input type="search" placeholder="Brand" id="search_brand">
         <label>Rent</label>
 
@@ -114,8 +54,44 @@
         <div id="Range"></div>
         <button id="search_btn" onclick="searchBike()">Search</button>
     </div>
-    <div id="bike_details"></div>
+
+   <div id="bike_details">
+        <!-- <div class="bikes">
+            <div class="gallery">
+                <img src="${imageSrc}" alt="Bike 1" loading="lazy" >
+            </div>
+            <div class="details">
+                <h1>${bike.model}</h1>
+                <h2>${bike.brand}</h2>
+
+                <p style="color: black;">Bike Reg No : <span> ${bike.registrationNumber}</span></p>
+                <p style="color: black;">Bike Rent Price : <span> ${bike.rent}</span></p>
+                <p style="text-align: center; color: gray;">Renting a motorbike offers several advantages for travelers
+                    and locals alike. It provides a cost-effective way to explore destinations at your own pace,
+                    allowing for flexibility in itinerary and spontaneity. Motorbikes are often more fuel-efficient than
+                    cars, making them an eco-friendly option. They also enable easier navigation through traffic and
+                    access to narrow roads or off-the-beaten-path locations that larger vehicles can’t reach.
+                    Additionally, renting a motorbike can enhance the overall experience, allowing riders to fully
+                    immerse themselves in the sights, sounds, and culture of their surroundings..</p>
+
+                <div class="hourRent">
+                    <button class="rentBtn" onclick="viewBike(${bike.bikeId})">View</button>
+                </div>
+
+            </div>
+
+        </div> -->
+
+    </div>
+
+
+
+    <footer>
+        <p>All Rights Reserved.Copyrights &copy; GG_Store 2024.</p>
+    </footer>
+
 
     <script src="../Js/User.js"></script>
 </body>
+
 </html>
