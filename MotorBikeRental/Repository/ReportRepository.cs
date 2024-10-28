@@ -77,7 +77,7 @@ public async  Task <List<BikeInventory>> GetInventoryReport()
 {
     var report=new List<BikeInventory>();
     var query=@"Select Bikes.BikeId,Bikes.Model,Bikes.Brand,
-    BikeUnits.RegistrationNumber,ReturnedBikes.Status
+    BikeUnits.RegistrationNumber,ReturnedBikes.Status,ReturnedBikes.RentedDate,ReturnedBikes.[To]
     from Bikes 
     join BikeUnits on Bikes.BikeId=BikeUnits.BikeId
     join ReturnedBikes on  BikeUnits.RegistrationNumber=ReturnedBikes.RegistrationNumber";
@@ -97,6 +97,8 @@ public async  Task <List<BikeInventory>> GetInventoryReport()
                         string Model=reader.GetString(reader.GetOrdinal("Model"));
                         string RegistrationNumber=reader.GetString(reader.GetOrdinal("RegistrationNumber"));
                         string Status=reader.GetString(reader.GetOrdinal("Status"));
+                       DateTime RentedDate=reader.GetDateTime(reader.GetOrdinal("RentedDate"));
+                       DateTime ReturnDate=reader.GetDateTime(reader.GetOrdinal("To"));
 
                     var data=new BikeInventory
                     {
@@ -104,6 +106,8 @@ public async  Task <List<BikeInventory>> GetInventoryReport()
                         Brand=Brand,
                         Model=Model,
                         RegistrationNumber=RegistrationNumber,
+                        RentedDate=RentedDate,
+                        ReturnDate=ReturnDate,
                         Status=Status
 
                     };

@@ -59,11 +59,11 @@ namespace MotorBikeRental.Controllers
         }
 
         [HttpDelete("DeleteBike")]
-        public async Task <IActionResult> DeleteBike(int Id)
+        public async Task <IActionResult> DeleteBike(string regNo)
         {
             try{
 
-                var data=await _bikeService.DeleteBike(Id);
+                var data=await _bikeService.DeleteBike(regNo);
                 return Ok("Bike Deleted Successfully");
 
             }catch(Exception ex)

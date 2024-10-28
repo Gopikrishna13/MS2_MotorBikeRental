@@ -15,7 +15,7 @@ namespace MotorBikeRental.IRepository
    
     Task <bool> CheckUnique(string RegNo);
      Task <List<BikeResponseDTO>> GetAllBikes();
-     Task <bool> DeleteBike(int Id);
+     Task <bool> DeleteBike(string regNo);
   //  Task <BikeImages> AddImages(BikeImages imageRequest);
    // Task <bool> checkBike(int BikeId);
    // Task <bool> UpdateImages(int ImageId,BikeImages imageRequest);

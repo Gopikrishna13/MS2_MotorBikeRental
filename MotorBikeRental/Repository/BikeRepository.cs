@@ -247,17 +247,21 @@ public async  Task <bool> UpdateBike(int BikeId,BikeRequestDTO bikeRequest)
 }
 
 
-  public async Task<bool> DeleteBike(int id)
+  public async Task<bool> DeleteBike(string regNo)
 {
-    var chkBikeQuery = @"SELECT COUNT(1) FROM ReturnedBikes WHERE BikeId = @Id AND Status=@status" ;
+    var chkBikeQuery = @"SELECT COUNT(1) FROM ReturnedBikes WHERE RegistrationNumber = @No AND Status=@status" ;
     var deleteBikeQuery = @"DELETE FROM Bikes WHERE BikeId = @Id";
-    var deleteBikeUnitQuery=@"Delete from BikeUnits where BikeId=@Id";
-    var deleteBikeImageQuery=@"Delete from BikeImages where BikeId=@Id";
+    var deleteBikeUnitQuery=@"Delete from BikeUnits where RegistrationNumber=@regNo ";
+    var deleteBikeImageQuery=@"Delete from BikeImages where UnitId=@UId";
+    var findunitId=@"SELECT UnitId from BikeUnits where RegistrationNumber=@regNo";
+    var verifyBikeId=@"SELECT BikeId from BikeUnits where RgistrationNumber=@regNo";
+   var chkBike=@"Select count(1) from BikeUnits where BikeId=@bikeid";
 
     using (var connection = new SqlConnection(_connectionString))
     {
        
-        var rentalCount = await connection.ExecuteScalarAsync<int>(chkBikeQuery, new { Id=id,status="Pending" });
+        var rentalCount = await connection.ExecuteScalarAsync<int>(chkBikeQuery, new {No=regNo,status="Pending" });
+        var unitId=await connection.ExecuteScalarAsync<int>(findunitId,new{regNo=regNo});
         
         if (rentalCount > 0)
         {
@@ -266,14 +270,24 @@ public async  Task <bool> UpdateBike(int BikeId,BikeRequestDTO bikeRequest)
         }
 
       
-
-         await connection.ExecuteAsync(deleteBikeImageQuery,new{Id=id});
-         await connection.ExecuteAsync(deleteBikeUnitQuery,new{Id=id});
-        var deletedRows=await connection.ExecuteAsync(deleteBikeQuery, new { Id=id  });
+      var remainingBikeId=await connection.ExecuteScalarAsync<int>(verifyBikeId,new{regNo=regNo});
+         await connection.ExecuteAsync(deleteBikeImageQuery,new{UId=unitId});
+         await connection.ExecuteAsync(deleteBikeUnitQuery,new{regNo=regNo});
+        var delbike=await connection.ExecuteScalarAsync<int>(chkBike,new{bikeid=remainingBikeId});
+         if(delbike==0)
+         {
+                 var deletedRows=await connection.ExecuteAsync(deleteBikeQuery, new { Id=remainingBikeId  });
+                 return deletedRows >0 ;
+         }else{
+    
+               return true;
+         }
+ 
     
         
       
-        return deletedRows > 0;
+       // return deletedRows > 0;
+       return true;
     }
 }
 

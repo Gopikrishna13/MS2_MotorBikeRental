@@ -80,9 +80,9 @@ public async Task <List<BikeResponseDTO>> GetAllBikes()
 
 }
 
-public async Task <bool> DeleteBike(int Id)
+public async Task <bool> DeleteBike(string regNo)
 {
-    var data=await _bikeRepository.DeleteBike(Id);
+    var data=await _bikeRepository.DeleteBike(regNo);
 
     if(data==null)
     {
